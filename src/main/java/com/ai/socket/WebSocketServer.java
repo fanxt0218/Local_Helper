@@ -4,7 +4,7 @@ import com.ai.controller.AiController;
 import com.ai.model.po.GetRequest;
 import com.ai.service.AIService;
 import com.ai.utils.FilterResponse;
-import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.websocket.OnClose;
 import jakarta.websocket.OnMessage;
 import jakarta.websocket.OnOpen;
@@ -41,6 +41,9 @@ public class WebSocketServer {
     private AiController aiController;
 
     @Autowired
+    private ObjectMapper objectMapper;
+
+    @Autowired
     public void setApplicationContext(ApplicationContext context) {
         WebSocketServer.context = context;
     }
@@ -55,6 +58,7 @@ public class WebSocketServer {
         System.out.println("客户端：" + sid + "建立连接");
         sessionMap.put(sid, session);
         aiController = context.getBean(AiController.class);
+        objectMapper = context.getBean(ObjectMapper.class);
     }
 
     /**
@@ -75,18 +79,20 @@ public class WebSocketServer {
         responseFlux
                 .onBackpressureBuffer(50) // 缓存50个元素
                 .buffer(Duration.ofMillis(200)) // 每200ms批量发送
+                .doOnNext(chunk -> System.out.println("Processing chunk: " + chunk))
                 .map(chunks -> String.join("", chunks)).subscribe(
                 chunk -> {
                     try {
                         Map<String, String> map = new HashMap<>();
                         map.put("chat", FilterResponse.filterLeadingTag(chunk));
-                        session.getBasicRemote().sendText(JSON.toJSONString(map));
+                        session.getBasicRemote().sendText(objectMapper.writeValueAsString(map));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                 },
                 error -> {
                     try {
+                        error.printStackTrace();
                         session.getBasicRemote().sendText("{\"chat\":\"服务繁忙,请稍后再试\"}");
                         session.getBasicRemote().sendText("<end>");
                     } catch (IOException e) {
@@ -104,14 +110,6 @@ public class WebSocketServer {
 
     }
 
-    // 流式响应示例
-//    for (String chunk : getStreamResponse(message)) {
-//        Map<String, String> map = new HashMap<>();
-//        map.put("chat", chunk);
-//        session.getBasicRemote().sendText(JSON.toJSONString(map));
-//    }
-//    // 发送结束标志
-//    session.getBasicRemote().sendText("<end>");
 
     /**
      * 连接关闭调用的方法
