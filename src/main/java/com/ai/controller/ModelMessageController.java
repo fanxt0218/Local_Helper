@@ -6,11 +6,16 @@ import com.ai.utils.ModelList;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.core.env.Environment;
+import org.springframework.core.env.StandardEnvironment;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -19,6 +24,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Controller
@@ -27,6 +33,9 @@ public class ModelMessageController {
 
     @Value("${spring.ai.ollama.chat.model}")
     private String modelName;
+
+    @Autowired
+    private Environment env;
 
     @Autowired
     private ObjectMapper mapper;
@@ -39,14 +48,17 @@ public class ModelMessageController {
     @ResponseBody
     public String getModelName() {
         Map<String, String> map = new HashMap<>();
-        map.put("modelName", modelName);
-        String modelName = null;
+        String modelName = env.getProperty("spring.ai.ollama.chat.model");
+        map.put("modelName",modelName);
+        System.out.println("模型名称："+modelName);
+        String model = null;
         try {
-            modelName = mapper.writeValueAsString(map);
+            model = mapper.writeValueAsString(map);
+            System.out.println("当前模型名称:"+modelName);
         }catch (Exception e){
             throw new RuntimeException("获取模型名称失败");
         }
-        return modelName;
+        return model;
     }
 
     //获取模型列表
@@ -71,9 +83,12 @@ public class ModelMessageController {
     @PostMapping("/switchmodel")
     @ResponseBody
     public ResponseEntity<String> updateModel(@RequestBody Model model) throws IOException {
-        if (model == null || model.getModelName().equals(modelName)){
-            return ResponseEntity.ok("");
-        }
+        System.out.println("执行到修改模型方法");
+//        if (model == null || model.getModelName().equals(modelName)){
+//            System.out.println("模型相同");
+//            return ResponseEntity.ok("");
+//
+//        }
         // 修改配置文件
         // 获取项目根目录路径
         Path configPath = Paths.get(
@@ -90,6 +105,7 @@ public class ModelMessageController {
             }
         }
 
+        //读取配置文件
         List<String> lines = Files.readAllLines(configPath);
 
         lines = lines.stream()
@@ -97,12 +113,15 @@ public class ModelMessageController {
                         "spring.ai.ollama.chat.model=" + model.getModelName() : line)
                 .collect(Collectors.toList());
 
-        Files.write(configPath, lines);
+        //写入配置文件
+        try (BufferedWriter writer = Files.newBufferedWriter(configPath)) {
+            writer.write(String.join("\n", lines));
+        }
 
         List<String> writtenLines = Files.readAllLines(configPath);
-        System.out.println("写入后的文件内容：" + writtenLines);
+        System.out.println("新的配置信息:" + writtenLines);
         //执行刷新
-        modelMessageService.asyncRefreshConfig();
+        modelMessageService.asyncRefreshConfig1();
         return ResponseEntity.ok("切换成功");
     }
 

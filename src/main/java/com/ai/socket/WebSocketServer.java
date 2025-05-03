@@ -34,7 +34,7 @@ public class WebSocketServer {
     private static ApplicationContext context;
 
 
-//    //注入ChatClient构造器后需要手动指定无参构造
+    //注入ChatClient构造器后需要手动指定无参构造
 //    public WebSocketServer() {}
 
     @Autowired
@@ -79,7 +79,7 @@ public class WebSocketServer {
         responseFlux
                 .onBackpressureBuffer(50) // 缓存50个元素
                 .buffer(Duration.ofMillis(200)) // 每200ms批量发送
-                .doOnNext(chunk -> System.out.println("Processing chunk: " + chunk))
+//                .doOnNext(chunk -> System.out.println("Processing chunk: " + chunk))
                 .map(chunks -> String.join("", chunks)).subscribe(
                 chunk -> {
                     try {

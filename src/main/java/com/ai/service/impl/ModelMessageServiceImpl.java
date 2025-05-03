@@ -3,6 +3,11 @@ package com.ai.service.impl;
 import com.ai.config.ActuatorConfig;
 import com.ai.service.ModelMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.Status;
+import org.springframework.cloud.context.refresh.ContextRefresher;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -10,6 +15,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executors;
 
 @Service
 public class ModelMessageServiceImpl implements ModelMessageService {
@@ -19,6 +28,11 @@ public class ModelMessageServiceImpl implements ModelMessageService {
 
     @Autowired
     private ActuatorConfig actuatorConfig;
+
+    @Autowired
+    @Qualifier("ollamaHealthIndicator") // 匹配自定义组件的名称
+    private HealthIndicator ollamaHealthIndicator;
+
 
     @Override
     @Async
@@ -33,8 +47,26 @@ public class ModelMessageServiceImpl implements ModelMessageService {
             ResponseEntity<String> response = actuatorRestTemplate.postForEntity(
                     actuatorConfig.getRefreshUrl(), request, String.class);
             System.out.println("异步刷新结果：" + response.getBody());
+            // 添加健康检查
+            Health health = ollamaHealthIndicator.health();
+            if (health.getStatus() != Status.UP) {
+                System.err.println("配置刷新后模型不可用: " + health.getDetails());
+            }
+            asyncRefreshConfig1();
         } catch (Exception e) {
             System.err.println("刷新配置失败：" + e.getMessage());
         }
     }
+
+    // 在ModelMessageService中实现：
+    @Autowired
+    private ContextRefresher contextRefresher;
+
+    public void asyncRefreshConfig1() {
+        CompletableFuture.runAsync(() -> {
+            contextRefresher.refresh();
+        }, Executors.newCachedThreadPool()); // 使用独立线程池
+
+    }
+
 }

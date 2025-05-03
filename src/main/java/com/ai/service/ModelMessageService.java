@@ -4,4 +4,6 @@ public interface ModelMessageService {
 
     //异步刷新
     public void asyncRefreshConfig();
+
+    public void asyncRefreshConfig1();
 }

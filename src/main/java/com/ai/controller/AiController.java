@@ -5,6 +5,9 @@ import com.ai.service.AIService;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.ollama.api.OllamaApi;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Component;
@@ -15,8 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
 @Component
+@RefreshScope // 添加此注解
 public class AiController {
 
+    @Value("${spring.ai.ollama.chat.model}")
+    private String modelName;
 
     ChatClient chatClient;
 
@@ -43,6 +49,7 @@ public class AiController {
         //构建提示词，用户提示词，调用模型，取出响应
 
         //流式响应
+        System.out.println("调用"+modelName+"模型进行响应");
         Flux<String> response = chatClient.prompt()
                 .system(System_Prompt) // 设置系统提示词
                 .user(message)   // 设置用户提示词
