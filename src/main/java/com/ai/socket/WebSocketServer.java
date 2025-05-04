@@ -71,6 +71,7 @@ public class WebSocketServer {
         Session session = sessionMap.get(sid);
         GetRequest getRequest = new GetRequest();
         getRequest.setMessage(message);
+        getRequest.setSid(sid);
 
         // 获取流式响应
         Flux<String> responseFlux = aiController.chat(getRequest);
@@ -81,32 +82,32 @@ public class WebSocketServer {
                 .buffer(Duration.ofMillis(200)) // 每200ms批量发送
 //                .doOnNext(chunk -> System.out.println("Processing chunk: " + chunk))
                 .map(chunks -> String.join("", chunks)).subscribe(
-                chunk -> {
-                    try {
-                        Map<String, String> map = new HashMap<>();
-                        map.put("chat", FilterResponse.filterLeadingTag(chunk));
-                        session.getBasicRemote().sendText(objectMapper.writeValueAsString(map));
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                },
-                error -> {
-                    try {
-                        error.printStackTrace();
-                        session.getBasicRemote().sendText("{\"chat\":\"服务繁忙,请稍后再试\"}");
-                        session.getBasicRemote().sendText("<end>");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                },
-                () -> {
-                    try {
-                        session.getBasicRemote().sendText("<end>");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-        );
+                        chunk -> {
+                            try {
+                                Map<String, String> map = new HashMap<>();
+                                map.put("chat", FilterResponse.filterLeadingTag(chunk));
+                                session.getBasicRemote().sendText(objectMapper.writeValueAsString(map));
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        },
+                        error -> {
+                            try {
+                                error.printStackTrace();
+                                session.getBasicRemote().sendText("{\"chat\":\"服务繁忙,请稍后再试\"}");
+                                session.getBasicRemote().sendText("<end>");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        },
+                        () -> {
+                            try {
+                                session.getBasicRemote().sendText("<end>");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                );
 
     }
 

@@ -2,7 +2,16 @@ package com.ai.controller;
 
 import com.ai.model.po.GetRequest;
 import com.ai.service.AIService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor;
+import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
+import org.springframework.ai.chat.client.advisor.api.AdvisedRequest;
+import org.springframework.ai.chat.client.advisor.api.AdvisedResponse;
+import org.springframework.ai.chat.client.advisor.api.CallAroundAdvisorChain;
+import org.springframework.ai.chat.client.advisor.api.StreamAroundAdvisorChain;
+import org.springframework.ai.chat.memory.ChatMemory;
+import org.springframework.ai.chat.memory.InMemoryChatMemory;
 import org.springframework.ai.ollama.api.OllamaApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,24 +26,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
+import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY;
+
 @Component
 @RefreshScope // 添加此注解，表示热更新
+//@RequiredArgsConstructor
 public class AiController {
 
     @Value("${spring.ai.ollama.chat.model}")
     private String modelName;
 
     ChatClient chatClient;
+    ChatMemory chatMemory = new InMemoryChatMemory();
 
-    //需要构造器注入
+//    需要构造器注入
     public AiController(ChatClient.Builder chatClient) {
-        this.chatClient = chatClient.build();
+        this.chatClient = chatClient
+                .defaultAdvisors(new MessageChatMemoryAdvisor(chatMemory))
+                .build();
     }
 
     String System_Prompt =
             "你是一个AI助手，善于帮助用户回答问题，你需要按照以下要求进行响应" +
             "【响应格式】" +
-            "1. 根据回答的内容，在合适的位置进行换行，也就是输出换行符\\n" +
+            "1. 根据回答的内容，在合适的位置进行换行，保证格式的美观" +
             "2. 以简体中文进行回答" +
             "3. 在不得输出无意义的标签或符号" +
             "4. 避免Markdown格式" +
@@ -53,6 +68,7 @@ public class AiController {
         Flux<String> response = chatClient.prompt()
                 .system(System_Prompt) // 设置系统提示词
                 .user(message)   // 设置用户提示词
+                .advisors(a -> a.param(CHAT_MEMORY_CONVERSATION_ID_KEY,request.getSid()))  //  设置会话ID
                 .stream()        //流式响应
                 .content();  //获取响应内容
         return response;

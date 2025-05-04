@@ -35,13 +35,13 @@ public class ModelMessageController {
     private String modelName;
 
     @Autowired
-    private Environment env;
+    private Environment env;  // 获取实时配置文件
 
     @Autowired
-    private ObjectMapper mapper;
+    private ObjectMapper mapper;   // json转换
 
     @Autowired
-    private ModelMessageService modelMessageService;
+    private ModelMessageService modelMessageService;  // 模型服务层
 
     //获取模型名称
     @GetMapping("/getmodelname")
