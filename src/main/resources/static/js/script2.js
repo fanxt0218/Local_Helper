@@ -11,7 +11,7 @@ let currentStreamingMessage = null;
 
 // 建立 WebSocket 连接
 function connectWebSocket(sid) {
-    const wsUrl = `ws://localhost:8080/ai/response/${sid}`;
+    const wsUrl = `ws://localhost:1618/ai/response/${sid}`;
     websocket = new WebSocket(wsUrl);
 
     websocket.onopen = function(event) {
@@ -22,7 +22,7 @@ function connectWebSocket(sid) {
 
     websocket.onmessage = function(event) {
         const data = event.data;
-        
+
         if (data === '<end>') {
             clearLoading();
             currentStreamingMessage = null; // 清空引用
@@ -49,7 +49,7 @@ function connectWebSocket(sid) {
             console.error('消息处理失败:', error);
         }
     };
-    
+
     websocket.onerror = function(error) {
         console.error('WebSocket 错误:', error);
         connectionStatus.textContent = '连接状态：错误';
@@ -70,7 +70,7 @@ function connectWebSocket(sid) {
 let isSending = false;
 async function sendMessage() {
     if (isSending) return;
-    
+
     currentStreamingMessage = null; // 重置引用
     createLoadingMessage(); // 创建加载动画
 
@@ -114,10 +114,10 @@ function clearLoading() {
 function addMessage(text, className) {
     const messageElement = document.createElement('div');
     messageElement.classList.add('message', className);
-    
+
     // 替换换行符为<br>标签（根据后端返回格式二选一）
     messageElement.innerHTML = text.replace(/\n/g, '<br>');
-    
+
     chatMessages.appendChild(messageElement);
 }
 
@@ -143,20 +143,20 @@ document.addEventListener('DOMContentLoaded', () => {
 function createLoadingMessage() {
     // 防御性检查：如果已有加载动画则不再创建
     if (document.querySelector('.loading-message')) return;
-    
+
     const container = document.createElement('div');
     container.classList.add('loading-message');
-    
+
     const spinner = document.createElement('div');
     spinner.classList.add('loading-spinner');
-    
+
     const text = document.createElement('span');
     text.textContent = 'AI正在思考...';
-    
+
     container.appendChild(spinner);
     container.appendChild(text);
     chatMessages.appendChild(container);
-    
+
     return container;
 }
 
@@ -164,7 +164,7 @@ function createLoadingMessage() {
 
 document.addEventListener('DOMContentLoaded', function() {
     const modeButtons = document.querySelectorAll('.mode-btn');
-    
+
     modeButtons.forEach(button => {
         button.addEventListener('click', function() {
             // 切换按钮的选中状态
@@ -196,15 +196,15 @@ async function fetchModelName() {
     try {
         // 添加调试信息
         console.log('正在尝试获取模型名称...');
-        const response = await fetch('http://localhost:8080/ai/getmodelname');
+        const response = await fetch('http://localhost:1618/ai/getmodelname');
         console.log('请求已发送，等待响应...');
-        
+
         if (!response.ok) {
             console.error('请求失败，状态码:', response.status);
             modelName.textContent = '未知模型';
             return;
         }
-        
+
         const data = await response.json();
         modelName.textContent = data.modelName || '未知模型';
         console.log('成功获取模型名称:', data.modelName);
@@ -218,17 +218,17 @@ async function fetchModelName() {
 async function fetchModelList() {
     try {
         console.log('正在尝试获取模型列表...');
-        const response = await fetch('http://localhost:8080/ai/getmodellist');
+        const response = await fetch('http://localhost:1618/ai/getmodellist');
         console.log('请求已发送，等待响应...');
-        
+
         if (!response.ok) {
             console.error('请求失败，状态码:', response.status);
             return;
         }
-        
+
         const data = await response.json();
         console.log('后端返回的数据:', data);
-        
+
         if (Array.isArray(data)) {
             // 填充下拉框
             modelDropdown.innerHTML = '';
@@ -240,7 +240,7 @@ async function fetchModelList() {
                     // 更新模型名称
                     modelName.textContent = model;
                     modelDropdown.classList.remove('active');
-                    
+
                     // 向后端发送更改模型的请求
                     await changeModel(model);
                 });
@@ -270,27 +270,27 @@ document.addEventListener('click', (event) => {
 // 向后端发送更改模型的请求
 async function changeModel(modelName) {
     try {
-        const response = await fetch('http://localhost:8080/ai/switchmodel', {
+        const response = await fetch('http://localhost:1618/ai/switchmodel', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ modelName: modelName }),
         });
-        
+
         const responseText = await response.text(); // 先获取文本
         console.log('原始响应:', responseText);
-        
+
         if (!response.ok) {
             console.error('更改模型失败，状态码:', response.status);
             return;
         }
-        
+
         // 尝试解析JSON
         try {
             const data = JSON.parse(responseText);
             console.log('模型更改成功:', data);
-            fetchModelName()
+            await fetchModelName()
         } catch (e) {
             console.log('非JSON响应:', responseText);
         }
