@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Helper - 你的本地AI助手</title>
+    <link rel="icon" type="image/x-icon" href="imgs/favicon.ico">
+    <link rel="stylesheet" href="./css/styles_all.css">
+</head>
+<body>
+<div class="chat-container">
+    <div class="chat-header">
+        <h1>AI助手</h1>
+        <div class="model-selector">
+            <div class="model-name" id="modelName">无模型</div>
+            <div class="model-dropdown" id="modelDropdown">
+                <!-- 模型选项将通过JavaScript动态添加 -->
+            </div>
+        </div>
+    </div>
+    <div class="status disconnected" id="connectionStatus">连接状态：已断开</div>
+    <div class="chat-messages" id="chatMessages">
+        <!-- 消息将在这里动态添加 -->
+    </div>
+    <div class="chat-input">
+        <div class="input-controls">
+            <div class="mode-buttons">
+                <button class="mode-btn" data-mode="deep">♨ 深度思考</button>
+                <button class="mode-btn" data-mode="web">🌐 联网搜索</button>
+                <button class="mode-btn" data-mode="mcp">🔗 MCP</button>
+            </div>
+            <textarea id="messageInput" placeholder="输入消息后可按Enter发送，Shift+Enter换行..."></textarea>
+        </div>
+        <button id="sendButton">发送</button>
+    </div>
+</div>
+<script src="./js/script2.js"></script>
+</body>
+</html>

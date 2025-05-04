@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
 @Component
-@RefreshScope // 添加此注解
+@RefreshScope // 添加此注解，表示热更新
 public class AiController {
 
     @Value("${spring.ai.ollama.chat.model}")

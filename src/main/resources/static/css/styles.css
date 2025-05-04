@@ -1,0 +1,215 @@
+/* 大气美观简约的CSS样式 */
+
+/* 基础样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* 聊天容器 */
+.chat-container {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    width: 98%;
+    max-width: none;
+    height: 95vh;
+    margin: 20px;
+    padding: 20px;
+    border: 2px solid #575555;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 聊天头部 */
+.chat-header {
+    border-bottom: 2px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.chat-header h1 {
+    font-size: 24px;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* 连接状态 */
+.status {
+    text-align: center;
+    color: #666;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+/* 消息区域 */
+.chat-messages {
+    height: calc(70vh - 100px);
+    overflow-y: auto;
+    margin-bottom: 15px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 10px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* 聊天输入区域 */
+.chat-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+/* 模式按钮容器 */
+.input-controls {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* 模式按钮 */
+.mode-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.mode-btn {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mode-btn:hover {
+    background-color: #e0e0e0;
+    border-color: #ccc;
+}
+
+.mode-btn.selected {
+    background-color: #C3DAF8;
+    color: #4D6BFE;
+    border: 1px solid #418fe3;
+}
+
+/* 文本输入框 */
+#messageInput {
+    flex: 1;
+    padding: 28px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    resize: none;
+    outline: none;
+    transition: border-color 0.3s ease;
+    height: 100px;
+}
+
+#messageInput:focus {
+    border-color: #007bff;
+}
+
+/* 发送按钮 */
+#sendButton {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-self: flex-end;
+}
+
+#sendButton:hover {
+    background-color: #0056b3;
+}
+
+/* 消息样式 */
+.message {
+    margin-bottom: 10px;
+    border-radius: 8px;
+    padding: 12px;
+    background-color: #f8f9fa;
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-width: 80%;
+}
+
+.user-message {
+    margin-left: auto;
+    background-color: #e9f7ff;
+    border-left: 3px solid #007bff;
+}
+
+.ai-message {
+    margin-right: auto;
+    background-color: #f8f9fa;
+    border-left: 3px solid #6c757d;
+}
+
+/* 加载动画 */
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.loading-message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.loading-spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid #007bff;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+/* 优化滚动条样式 */
+.chat-messages::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
