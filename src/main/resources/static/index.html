@@ -4,10 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Local Helper - 你的本地AI助手</title>
-    <link rel="icon" type="image/x-icon" href="imgs/favicon.ico">
-    <link rel="stylesheet" href="./css/styles_all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" type="image/jpg" href="imgs/logo.jpg">
+    <link rel="stylesheet" href="./css/styles2.css">
 </head>
 <body>
+<!-- 侧边栏 -->
+<div class="sidebar-container" id="sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-title">
+            <h1>会话历史</h1>
+            <button class="new-conversation-btn" id="newChatBtn">
+                <i class="fas fa-plus-circle"></i>
+            </button>
+        </div>
+        <div class="divider"></div>
+        <div class="history-list" id="historyList"></div>
+    </div>
+</div>
+<!-- 主界面结构 -->
 <div class="chat-container">
     <div class="chat-header">
         <h1>AI助手</h1>

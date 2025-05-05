@@ -24,7 +24,7 @@ body {
     background-color: #ffffff;
     border-radius: 15px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    width: 98%;
+    width: calc(100% - 290px);
     max-width: none;
     height: 95vh;
     margin: 20px;
@@ -32,6 +32,8 @@ body {
     border: 2px solid #575555;
     display: flex;
     flex-direction: column;
+    margin-left: 290px;
+    transition: margin 0.3s ease;
 }
 
 /* 聊天头部 */
@@ -51,13 +53,50 @@ body {
     text-align: center;
 }
 
-/* 模型名称 */
-.model-name {
+/* 模型名称下拉框 */
+/* 模型名称下拉框 */
+.model-selector {
+    position: relative;
     font-size: 14px;
     color: #666;
+}
+
+.model-name {
     padding: 5px 10px;
     background-color: #f0f0f0;
     border-radius: 15px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.model-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 15px 15px;
+    min-width: 150px;
+    display: none;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.model-dropdown.active {
+    display: block;
+}
+
+.model-option {
+    padding: 5px 10px;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.model-option:hover {
+    background-color: #e0e0e0;
 }
 
 /* 连接状态 */
@@ -224,4 +263,123 @@ body {
 
 .chat-messages::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+
+/* 侧边栏头部样式 */
+.sidebar-header {
+    padding: 15px;
+}
+
+.sidebar-container {
+    position: fixed;
+    left: 10px;  /* 修改初始位置为可见 */
+    top: 20px;
+    width: 280px;  /* 微调宽度适配布局 */
+    height: calc(100vh - 40px);
+    background-color: #f8f9fa;
+    border-left: 2px solid #575555;  /* 新增左侧边框 */
+    border-right: 2px solid #575555;
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+    z-index: 999;  /* 调整层级关系 */
+    overflow: visible;  /* 原为 hidden */
+    height: calc(100vh - 40px);  /* 高度调整 */
+    border-radius: 15px;  /* 右侧圆角 */
+    margin-top: 0px;  /* 与主容器对齐 */
+    border-top: 2px solid #575555;
+    border-bottom: 2px solid #575555;
+}
+
+/* 新增伪元素处理圆角边框 */
+.sidebar-container::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 15px;
+    border: 2px solid #575555;
+    z-index: -1;
+}
+
+.history-list {
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+}
+
+.sidebar-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sidebar-title h1 {
+    margin-top: 5px;
+    font-size: 24px;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* 新建按钮样式 */
+.new-conversation-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;     /* 确保图标居中 */
+    align-items: center;  /* 新增居中 */
+    justify-content: center; /* 新增居中 */
+}
+
+.new-conversation-btn i {
+    font-size: 28px;  /* 适当放大图标 */
+    color: #aeafb1;    /* 使用主色调 */
+    vertical-align: middle;  /* 新增垂直对齐 */
+    margin-top: 0px;  /* 微调对齐位置 */
+    transition: opacity 0.3s ease;
+    display: inline-block; /* 确保图标可见 */
+}
+
+.new-conversation-btn:hover i {
+    color: #007bff;
+    opacity: 0.8;
+}
+
+/* 分割线样式 */
+.divider {
+    height: 2px;
+    background: #eee;  /* 与聊天头部分割线一致 */
+    margin: 12px 0;    /* 调整间距 */
+}
+
+/* 会话记录样式 */
+.history-item {
+    padding: 12px;
+    background-color: #fff;
+    background: transparent; /* 完全透明背景 */
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1); /* 半透明边框 */
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.05);
+    margin-bottom: 8px;
+    transition: all 0.2s ease;
+}
+
+.history-item.selected {
+    background: rgba(61, 53, 53, 0.1); /* 选中时的背景 */
+    border-color: rgba(61, 53, 53, 0.1); /* 选中时边框颜色加深 */
+}
+
+
+.session-title {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.session-meta {
+    font-size: 12px;
+    color: #7f8c8d;
 }
