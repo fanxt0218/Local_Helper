@@ -1,21 +1,31 @@
 package com.ai.controller;
 
 import com.ai.model.po.GetRequest;
+import com.ai.model.vo.ChatHistoryMessage;
+import com.ai.service.ChatHistoryService;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.InMemoryChatMemory;
+import org.springframework.ai.chat.messages.Message;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
+
+import java.util.List;
 
 import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY;
 
 @Component
 @RefreshScope // 添加此注解，表示热更新
 //@RequiredArgsConstructor
+@RestController
 public class AiController {
 
     @Value("${spring.ai.ollama.chat.model}")
@@ -23,6 +33,9 @@ public class AiController {
 
     ChatClient chatClient;
     ChatMemory chatMemory = new InMemoryChatMemory();
+
+    @Autowired
+    private ChatHistoryService  chatHistoryService;
 
 //    需要构造器注入
     public AiController(ChatClient.Builder chatClient) {
@@ -47,16 +60,27 @@ public class AiController {
     public Flux<String> chat(@RequestBody GetRequest request) {
         //用户消息
         String message = request.getMessage();
+        //保存会话id
+        chatHistoryService.save("chat",request.getChatId());
         //构建提示词，用户提示词，调用模型，取出响应
-
         //流式响应
         System.out.println("调用"+modelName+"模型进行响应");
         Flux<String> response = chatClient.prompt()
                 .system(System_Prompt) // 设置系统提示词
                 .user(message)   // 设置用户提示词
-                .advisors(a -> a.param(CHAT_MEMORY_CONVERSATION_ID_KEY,request.getSid()))  //  设置会话ID
+                .advisors(a -> a.param(CHAT_MEMORY_CONVERSATION_ID_KEY,request.getChatId()))  //  设置会话ID
                 .stream()        //流式响应
                 .content();  //获取响应内容
         return response;
+    }
+
+    //获取会话详情
+    @GetMapping("/ai/history/{type}/{chatId}")
+    public List<ChatHistoryMessage> getChatHistory(@PathVariable("type") String type, @PathVariable("chatId") String chatId){
+        List<Message> messages = chatMemory.get(chatId, Integer.MAX_VALUE);
+        if (messages == null){
+            return null;
+        }
+        return messages.stream().map(ChatHistoryMessage::new).toList();
     }
 }

@@ -8,6 +8,9 @@ public class GetRequest {
     //消息
     private String message;
 
-    //会话id
+    //用户id
     private String sid;
+
+    //会话id
+    private String chatId;
 }

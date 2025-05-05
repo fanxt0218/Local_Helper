@@ -67,14 +67,17 @@ public class WebSocketServer {
      * @param message 客户端发送过来的消息
      */
     @OnMessage
-    public void onMessage(String message, @PathParam("sid") String sid) throws IOException, InterruptedException {
+    public void onMessage(String message,@PathParam("sid") String sid) throws IOException, InterruptedException {
         Session session = sessionMap.get(sid);
-        GetRequest getRequest = new GetRequest();
-        getRequest.setMessage(message);
-        getRequest.setSid(sid);
+        if (message.isEmpty()){
+            throw new RuntimeException("不能发送空白内容");
+        }
+        // 解析 JSON 字符串
+        GetRequest request = objectMapper.readValue(message, GetRequest.class);
+        System.out.println("收到客户端消息：" + request);
 
         // 获取流式响应
-        Flux<String> responseFlux = aiController.chat(getRequest);
+        Flux<String> responseFlux = aiController.chat(request);
 
         // 订阅响应流
         responseFlux
