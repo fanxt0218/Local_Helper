@@ -1,29 +1,14 @@
 package com.ai.controller;
 
 import com.ai.model.po.GetRequest;
-import com.ai.service.AIService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
-import org.springframework.ai.chat.client.advisor.api.AdvisedRequest;
-import org.springframework.ai.chat.client.advisor.api.AdvisedResponse;
-import org.springframework.ai.chat.client.advisor.api.CallAroundAdvisorChain;
-import org.springframework.ai.chat.client.advisor.api.StreamAroundAdvisorChain;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.InMemoryChatMemory;
-import org.springframework.ai.ollama.api.OllamaApi;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
 import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY;
@@ -56,7 +41,8 @@ public class AiController {
             "5. 流式响应时保持语义连贯" +
             "【响应内容】" +
             "1. 严格按照用户的问题进行输出，不得回答不相关的问题" +
-            "2. 禁止输出乱码内容，保证输出内容的合理性、合法性，符合常规语言的构成";
+            "2. 禁止输出乱码内容，保证输出内容的合理性、合法性，符合常规语言的构成" +
+            "3. 如果用户以中文进行提问，在正常对话中请保持中文回复,需要用到其他语言场景时除外";
 
     public Flux<String> chat(@RequestBody GetRequest request) {
         //用户消息
