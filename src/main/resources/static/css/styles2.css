@@ -24,16 +24,17 @@ body {
     background-color: #ffffff;
     border-radius: 15px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    width: calc(100% - 290px);
-    max-width: none;
-    height: 95vh;
-    margin: 20px;
+    position: fixed; /* 改为固定定位 */
+    left: 300px; /* 侧边栏宽度 + 边距 */
+    right: 20px;
+    top: 20px;
+    bottom: 20px;
+    margin: 0; /* 移除原有 margin */
     padding: 20px;
     border: 2px solid #575555;
     display: flex;
     flex-direction: column;
-    margin-left: 290px;
-    transition: margin 0.3s ease;
+    z-index: 998; /* 确保低于侧边栏的 z-index */
 }
 
 /* 聊天头部 */
@@ -127,6 +128,8 @@ body {
     justify-content: space-between;
     align-items: flex-end;
     gap: 10px;
+    position: relative; /* 新增相对定位 */
+    padding-right: 60px; /* 为按钮留出空间 */
 }
 
 /* 模式按钮容器 */
@@ -168,7 +171,7 @@ body {
 /* 文本输入框 */
 #messageInput {
     flex: 1;
-    padding: 28px;
+    /* padding: 28px; */
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 16px;
@@ -176,6 +179,11 @@ body {
     outline: none;
     transition: border-color 0.3s ease;
     height: 100px;
+    padding-right: 50px; /* 防止文本被按钮遮挡 */
+    padding: 20px 63px 20px 20px; /* 右侧留白增加 */
+    min-height: 60px; /* 保持最小高度 */
+    line-height: 1.5; /* 改善文本垂直居中 */
+    margin-right: 10px; /* 增加右侧间距 */
 }
 
 #messageInput:focus {
@@ -184,20 +192,54 @@ body {
 
 /* 发送按钮 */
 #sendButton {
-    background-color: #007bff;
-    color: #ffffff;
+    position: absolute;
+    right: 12px;
+    top: 50%; /* 垂直居中定位 */
+    transform: translateY(-50%); /* 精确垂直居中 */
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #4D6BFE;
     border: none;
-    border-radius: 5px;
-    padding: 15px 20px;
-    font-size: 16px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    align-self: flex-end;
-}
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* 向下微调位置 */
+    margin-top: 25px; /* 向下微调位置 */
+  }
 
-#sendButton:hover {
-    background-color: #0056b3;
+  #sendButton:hover {
+    /* background: #3b5bdb;
+    transform: scale(1.05); */
+    background: #3b5bdb;
+    transform: translateY(-50%) scale(1.05);
 }
+  
+  .send-icon, .stop-icon {
+    width: 24px;
+    height: 24px;
+    /* fill: currentColor; */
+    fill: white; /* 确保图标在深色背景上可见 */
+  }
+  
+  .stop-icon {
+    display: none;
+  }
+
+    /* 响应状态保持居中 */
+    #sendButton.responding {
+        transform: translateY(-50%);
+    }
+  
+  #sendButton.responding .send-icon {
+    display: none;
+  }
+  
+  #sendButton.responding .stop-icon {
+    display: block;
+  }
 
 /* 消息样式 */
 .message {
@@ -382,4 +424,258 @@ body {
 .session-meta {
     font-size: 12px;
     color: #7f8c8d;
+}
+
+/* 在消息样式部分添加 */
+.ai-message {
+    position: relative;
+    padding: 15px;
+    white-space: pre-wrap; /* 确保正文内容自动换行 */
+}
+
+.think-message {
+    background-color: rgba(215, 215, 213, 0.5);
+    border-radius: 8px;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid rgba(215, 215, 213, 0.5);
+    white-space: pre-wrap;
+    color: #888; /* 思考字体颜色设置 */
+}
+
+/* 特别处理思考内容中的格式元素 */
+.think-message .content-header {
+    color: #888; /* 标题颜色 */
+    border-bottom-color: #ddd; /* 分隔线颜色 */
+}
+
+.think-message .content-subheader {
+    color: #888; /* 副标题颜色 */
+    border-left-color: #ccc; /* 左侧装饰线颜色 */
+}
+
+.think-message strong {
+    color: #888; /* 加粗文字颜色 */
+}
+
+.think-message .emphasis-block {
+    background-color: rgba(200, 200, 200, 0.15); /* 强调区块背景 */
+    border-color: rgba(200, 200, 200, 0.2);
+}
+
+.content-header {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 10px 0;
+    padding-bottom: 3px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+/* 增强加粗效果 */
+strong {
+    color: #4D6BFE;
+    font-weight: 700;
+}
+
+.message {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* 副标题样式 */
+.content-subheader {
+    font-size: 0.95em;
+    font-weight: 600;
+    color: #4D6BFE;
+    margin: 8px 0;
+    padding-left: 5px;
+    border-left: 3px solid #4D6BFE;
+}
+
+/* 强调块样式 */
+/* .emphasis-block {
+    background-color: rgba(77, 107, 254, 0.1);
+    border-radius: 8px;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid rgba(77, 107, 254, 0.2);
+} */
+
+
+/* CSS添加段落间距样式 */
+.paragraph-break {
+    height: 1em;
+    display: block;
+    content: "";
+}
+
+/* 代码块样式 */
+.code-block {
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    margin: 15px 0;
+    border: 1px solid #e0e0e0;
+    overflow-x: auto;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9em;
+    line-height: 1.5;
+    position: relative;
+    padding: 28px 15px 15px; /* 从20px增加到28px */
+    overflow: visible; /* 修改overflow设置 */
+}
+
+.code-block::before {
+    content: '代码';
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    background: #f8f9fa;
+    padding: 2px 8px;
+    color: #666;
+    font-size: 0.8em;
+    font-family: 'Arial', sans-serif; /* 恢复默认字体 */
+    z-index: 1;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+
+.code-block code {
+    display: block;
+    white-space: pre;
+    word-break: normal;
+    color: #333;
+    overflow-x: auto;
+    padding-top: 10px; /* 增加代码区域顶部间距 */
+}
+
+/* ==================== 新增导航确认弹窗样式 ==================== */
+#navigationConfirm {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    backdrop-filter: blur(5px);
+}
+
+.confirm-content {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    min-width: 320px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.confirm-content p {
+    color: #333;
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.confirm-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+/* 按钮统一样式 */
+#confirmLeave, 
+#cancelLeave {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.2s ease;
+}
+
+#confirmLeave {
+    background: #4D6BFE;
+    color: white;
+}
+
+#confirmLeave:hover {
+    background: #3b5bdb;
+}
+
+#cancelLeave {
+    background: #f0f0f0;
+    color: #666;
+    border: 1px solid #ddd;
+}
+
+#cancelLeave:hover {
+    background: #e0e0e0;
+}
+
+/* 悬停状态保持对称 */
+#confirmLeave:hover, 
+#cancelLeave:hover {
+    transform: translateY(-1px) scale(1.02); /* 统一缩放比例 */
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .confirm-content {
+        width: 90%;
+        min-width: auto;
+        padding: 20px;
+    }
+    
+    .confirm-buttons {
+        flex-direction: column;
+    }
+    
+    #confirmLeave, 
+    #cancelLeave {
+        width: 100%;
+    }
+}
+
+/* 删除按钮 */
+.history-item {
+    position: relative;
+    padding-right: 35px !important;
+}
+
+.delete-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    color: #2c2b2b;
+}
+
+.history-item:hover .delete-btn {
+    opacity: 1;
+}
+
+.delete-btn:hover {
+    color: #2c2b2b;
 }

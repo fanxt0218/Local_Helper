@@ -10,5 +10,7 @@ public interface ChatHistoryService {
     //获取会话id列表
     List<String> getChatIds(String type);
 
+    //删除会话记录
+    void deleteChatId(String type, String chatId);
 
 }

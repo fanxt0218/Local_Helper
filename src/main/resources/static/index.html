@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Local Helper - 你的本地AI助手</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="icon" type="image/jpg" href="imgs/logo.jpg">
+    <link rel="icon" type="image/x-icon" href="imgs/logo.jpg">
     <link rel="stylesheet" href="./css/styles2.css">
 </head>
 <body>
@@ -46,7 +46,14 @@
             </div>
             <textarea id="messageInput" placeholder="输入消息后可按Enter发送，Shift+Enter换行..."></textarea>
         </div>
-        <button id="sendButton">发送</button>
+        <button id="sendButton">
+            <svg class="send-icon" viewBox="0 0 24 24">
+                <path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/>
+            </svg>
+            <svg class="stop-icon" viewBox="0 0 24 24" style="display:none;">
+                <rect x="6" y="6" width="12" height="12" rx="2"/>
+            </svg>
+        </button>
     </div>
 </div>
 <script src="./js/script2.js"></script>

@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.TimeoutException;
 
 @Component
 @ServerEndpoint("/ai/response/{sid}")
@@ -78,12 +79,17 @@ public class WebSocketServer {
 
         // 获取流式响应
         Flux<String> responseFlux = aiController.chat(request);
+//                .timeout(Duration.ofMinutes(3))// 设置超时时间3分钟;
+//                .onErrorResume(TimeoutException.class, e -> {
+//            return Flux.just("{\"chat\":\"服务响应超时，请稍后再试，或检查ollama是否可达\"}\n" +
+//                    "<end>");
+//        });  //默认超时消息
 
         // 订阅响应流
         responseFlux
                 .onBackpressureBuffer(50) // 缓存50个元素
                 .buffer(Duration.ofMillis(200)) // 每200ms批量发送
-//                .doOnNext(chunk -> System.out.println("Processing chunk: " + chunk))
+                .doOnNext(chunk -> System.out.println("Processing chunk: " + chunk))
                 .map(chunks -> String.join("", chunks)).subscribe(
                         chunk -> {
                             try {
