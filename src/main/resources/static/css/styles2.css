@@ -474,7 +474,7 @@ body {
 
 /* 增强加粗效果 */
 strong {
-    color: #4D6BFE;
+    color: #4e4e4f;
     font-weight: 700;
 }
 
@@ -487,10 +487,10 @@ strong {
 .content-subheader {
     font-size: 0.95em;
     font-weight: 600;
-    color: #4D6BFE;
+    color: #48484a;
     margin: 8px 0;
     padding-left: 5px;
-    border-left: 3px solid #4D6BFE;
+    border-left: 3px solid #454647;
 }
 
 /* 强调块样式 */
@@ -672,10 +672,20 @@ strong {
     color: #2c2b2b;
 }
 
-.history-item:hover .delete-btn {
+/* .history-item:hover .delete-btn {
     opacity: 1;
-}
+} */
 
 .delete-btn:hover {
+    opacity: 1;  /* 鼠标悬停在按钮上时显示 */
     color: #2c2b2b;
+}
+
+/* 会话记录样式 */
+.session-meta {
+    color: #666;
+    font-size: 0.8em;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
 }

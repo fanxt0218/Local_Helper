@@ -9,7 +9,7 @@ public class GetRequest {
     private String message;
 
     //用户id
-    private String sid;
+    private Integer sid;
 
     //会话id
     private String chatId;

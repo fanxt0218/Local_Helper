@@ -1,6 +1,7 @@
 package com.ai.controller;
 
 import com.ai.model.vo.ChatHistoryMessage;
+import com.ai.model.vo.ChatListVo;
 import com.ai.service.ChatHistoryService;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.InMemoryChatMemory;
@@ -20,14 +21,14 @@ public class ChatHistoryController {
 
     //获取会话历史
     @GetMapping("/{type}")
-    public List<String> getChatIds(@PathVariable("type") String type){
+    public List<ChatListVo> getChatIds(@PathVariable("type") String type){
         return chatHistoryService.getChatIds(type);
     }
 
-    //保存会话历史
-    @PostMapping("/{type}/{chatId}")
-    public void saveChatId(@PathVariable("type") String type,@PathVariable("chatId") String chatId){
-        chatHistoryService.save(type, chatId);
+    //新建会话
+    @PostMapping("/{type}/{chatId}/{sid}")
+    public void saveChatId(@PathVariable("type") String type,@PathVariable("chatId") String chatId,@PathVariable("sid") Integer sid){
+        chatHistoryService.save(type, chatId, sid);
     }
 
 

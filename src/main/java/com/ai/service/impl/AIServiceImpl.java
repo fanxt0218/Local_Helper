@@ -1,5 +1,7 @@
 package com.ai.service.impl;
 
+
+import com.ai.model.po.ChatDetail;
 import com.ai.service.AIService;
 import com.ai.socket.WebSocketServer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class AIServiceImpl implements AIService {
     @Autowired
     private WebSocketServer webSocketServer;
 
+//    @Autowired
+//    private ChatDetailMapper chatDetailMapper;
+
     @Override
     public void sendToUser(String message) {
         Map map = new HashMap<>();
@@ -28,4 +33,8 @@ public class AIServiceImpl implements AIService {
             System.err.println("JSON序列化失败: " + e);
         }
     }
+
+//    public void saveChatHistory(ChatDetail chat) {
+//        chatDetailMapper.saveChatHistory(chat);
+//    }
 }

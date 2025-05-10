@@ -62,6 +62,7 @@ public class ModelMessageServiceImpl implements ModelMessageService {
     @Autowired
     private ContextRefresher contextRefresher;
 
+    //刷新配置
     public void asyncRefreshConfig1() {
         CompletableFuture.runAsync(() -> {
             contextRefresher.refresh();

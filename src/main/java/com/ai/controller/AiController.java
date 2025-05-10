@@ -1,8 +1,14 @@
 package com.ai.controller;
 
+//import com.ai.mapper.ChatDetailMapper;
+//import com.ai.mapper.ChatMapper;
+import com.ai.mapper.ChatDetailMapper;
+import com.ai.model.po.ChatDetail;
 import com.ai.model.po.GetRequest;
+import com.ai.model.vo.ChatDetailVo;
 import com.ai.model.vo.ChatHistoryMessage;
 import com.ai.service.ChatHistoryService;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.reactivestreams.Subscription;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
@@ -12,17 +18,12 @@ import org.springframework.ai.chat.messages.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.SignalType;
 
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.Flow;
 
 import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY;
 
@@ -44,6 +45,8 @@ public class AiController {
 
     @Autowired
     private ChatHistoryService  chatHistoryService;
+    @Autowired
+    private ChatDetailMapper chatDetailMapper;
 
 //    需要构造器注入
     public AiController(ChatClient.Builder chatClient) {
@@ -65,8 +68,8 @@ public class AiController {
             "2. 禁止输出乱码内容，保证输出内容的合理性、合法性，符合常规语言的构成" +
             "3. 如果用户以中文进行提问，在正常对话中请保持中文回复,需要用到其他语言场景时除外" +
             "【历史对话处理要求】" +
-            "1. 若发现上一条回答标记了[INTERRUPTED]，表示回答被中断" +
-            "2. 遇到中断标记时：" +
+            "1. 若发现上一次提问只有用户提问而没有回答，这表示回答被中断" +
+            "2. 遇到中断情况时：" +
             "- 不主动延续未完成内容" +
             "- 等待用户明确续问需求" +
             "- 新回答需保持独立完整性";
@@ -75,7 +78,7 @@ public class AiController {
         //用户消息
         String userMessage = request.getMessage();
         //保存会话id
-        chatHistoryService.save("chat",request.getChatId());
+        chatHistoryService.save("chat",request.getChatId(),request.getSid());
         //构建提示词，用户提示词，调用模型，取出响应
         //流式响应
         // 创建响应收集器,不断加载响应内容，用于在中断时保存已生成内容
@@ -86,36 +89,32 @@ public class AiController {
                 .user(userMessage)   // 设置用户提示词
                 .advisors(a -> a.param(CHAT_MEMORY_CONVERSATION_ID_KEY,request.getChatId()))  //  设置会话ID
                 .stream()        //流式响应
-                .content();  //获取响应内容
-//                .doOnNext(assistantResponse::append) // 追加到响应收集器中
+                .content()  //获取响应内容
+                .doOnNext(assistantResponse::append) // 追加到响应收集器中
 //                .doOnSubscribe(sub -> activeSubscriptions.put(request.getChatId(), sub)) // 直接存储Subscription
-//                .doFinally(signal -> {
-//                    // 无论是否中断都保存已生成内容
-//                    if (!assistantResponse.isEmpty()) {
-//                        boolean isInterrupted = signal == SignalType.CANCEL;
-//
-//                        Message message = new AssistantMessage(
-//                                assistantResponse.toString(),
-//                                Map.of(CHAT_MEMORY_CONVERSATION_ID_KEY, request.getChatId(),
-//                                        "INTERRUPTED", isInterrupted  //中断标记
-//                                )
-//                        );
-//                        chatMemory.add(request.getChatId(), message); // 手动保存到记忆
-//                    }
-//                    activeSubscriptions.remove(request.getChatId());
-//                });
+                .doFinally(Message->{
+                    //将响应信息存储到数据库
+                    String type = "assistant"; //后续寻找如何获取响应类型
+                    //将用户信息保存到数据库
+                    saveChatHistory(request.getChatId(),"user", userMessage);
+                    //将响应信息存储到数据库
+                    saveChatHistory(request.getChatId(),type, assistantResponse.toString());
+                });
         return response;
     }
 
     //获取会话详情
     @GetMapping("/ai/history/{type}/{chatId}")
-    public List<ChatHistoryMessage> getChatHistory(@PathVariable("type") String type, @PathVariable("chatId") String chatId){
+    public List<ChatDetailVo> getChatHistory(@PathVariable("type") String type, @PathVariable("chatId") String chatId){
         //TODO 临时写法，被中断的内容直接清除，后续考虑如何保存到 chatMemory
-        List<Message> messages = chatMemory.get(chatId, Integer.MAX_VALUE);
-        if (messages == null){
-            return null;
-        }
-        return messages.stream().map(ChatHistoryMessage::new).toList();
+//        List<Message> messages = chatMemory.get(chatId, Integer.MAX_VALUE);
+//        if (messages == null){
+//            return null;
+//        }
+//        return messages.stream().map(ChatHistoryMessage::new).toList();
+        //从数据库中查询会话详情
+        List<ChatDetail> chatDetails = chatDetailMapper.selectList(new LambdaQueryWrapper<ChatDetail>().eq(ChatDetail::getChatId, chatId));
+        return chatDetails.stream().map(c->new ChatDetailVo(c.getMessageType(),c.getContent())).toList();
     }
 
     @PostMapping("/ai/stopresponse/{currentChatId}")
@@ -149,5 +148,14 @@ public class AiController {
         System.out.println("删除会话详情:"+chatId);
     }
 
+
+    //将会话信息存储到数据库
+    public void saveChatHistory(String chatId, String type,  String content) {
+        ChatDetail chatDetail = new ChatDetail();
+        chatDetail.setChatId(chatId);
+        chatDetail.setMessageType(type);
+        chatDetail.setContent(content);
+        chatDetailMapper.insert(chatDetail);
+    }
 
 }

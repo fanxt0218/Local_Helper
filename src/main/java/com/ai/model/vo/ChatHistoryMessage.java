@@ -12,8 +12,6 @@ public class ChatHistoryMessage {
 
     private String content;
 
-    private boolean interrupted;  //是否是中断的响应
-
     //通过构造渲染对话消息
     public ChatHistoryMessage(Message message) {
         switch (message.getMessageType()){
@@ -29,8 +27,5 @@ public class ChatHistoryMessage {
         }
         this.role = role;
         this.content = message.getText();
-        this.interrupted = Boolean.TRUE.equals(
-                message.getMetadata().get("INTERRUPTED")
-        );
     }
 }

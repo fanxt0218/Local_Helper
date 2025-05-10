@@ -55,9 +55,9 @@ public class WebSocketServer {
      * 连接建立成功调用的方法
      */
     @OnOpen
-    public void onOpen(Session session, @PathParam("sid") String sid) {
+    public void onOpen(Session session, @PathParam("sid") Integer sid) {
         System.out.println("客户端：" + sid + "建立连接");
-        sessionMap.put(sid, session);
+        sessionMap.put(sid.toString(), session);
         aiController = context.getBean(AiController.class);
         objectMapper = context.getBean(ObjectMapper.class);
     }
@@ -68,8 +68,8 @@ public class WebSocketServer {
      * @param message 客户端发送过来的消息
      */
     @OnMessage
-    public void onMessage(String message,@PathParam("sid") String sid) throws IOException, InterruptedException {
-        Session session = sessionMap.get(sid);
+    public void onMessage(String message,@PathParam("sid") Integer sid) throws IOException, InterruptedException {
+        Session session = sessionMap.get(sid.toString());
         if (message.isEmpty()){
             throw new RuntimeException("不能发送空白内容");
         }
@@ -105,6 +105,8 @@ public class WebSocketServer {
                                 error.printStackTrace();
                                 session.getBasicRemote().sendText("{\"chat\":\"服务繁忙,请稍后再试\"}");
                                 session.getBasicRemote().sendText("<end>");
+                                //每次响应完成后，调用方法将消息保存到数据库中
+                                aiController.saveChatHistory(request.getChatId(), "assistant", "{\"chat\":\"服务繁忙,请稍后再试\"}");
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -127,9 +129,9 @@ public class WebSocketServer {
      * @param sid
      */
     @OnClose
-    public void onClose(@PathParam("sid") String sid) {
+    public void onClose(@PathParam("sid") Integer sid) {
         System.out.println("连接断开:" + sid);
-        sessionMap.remove(sid);
+        sessionMap.remove(sid.toString());
     }
 
     /**
