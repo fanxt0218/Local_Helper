@@ -15,4 +15,6 @@ public interface ChatHistoryService {
     //删除会话记录
     void deleteChatId(String type, String chatId);
 
+    //更新会话信息
+    void updateChatId(ChatListVo chatListVo);
 }

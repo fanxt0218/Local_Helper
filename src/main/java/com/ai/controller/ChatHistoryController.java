@@ -31,6 +31,12 @@ public class ChatHistoryController {
         chatHistoryService.save(type, chatId, sid);
     }
 
+    //修改会话信息
+    @PostMapping("/chat")
+    public void updateChatId(@RequestBody ChatListVo chatListVo){
+        chatHistoryService.updateChatId(chatListVo);
+    }
+
 
 
 

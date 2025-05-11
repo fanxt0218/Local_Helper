@@ -106,7 +106,6 @@ public class AiController {
     //获取会话详情
     @GetMapping("/ai/history/{type}/{chatId}")
     public List<ChatDetailVo> getChatHistory(@PathVariable("type") String type, @PathVariable("chatId") String chatId){
-        //TODO 临时写法，被中断的内容直接清除，后续考虑如何保存到 chatMemory
 //        List<Message> messages = chatMemory.get(chatId, Integer.MAX_VALUE);
 //        if (messages == null){
 //            return null;
@@ -114,6 +113,21 @@ public class AiController {
 //        return messages.stream().map(ChatHistoryMessage::new).toList();
         //从数据库中查询会话详情
         List<ChatDetail> chatDetails = chatDetailMapper.selectList(new LambdaQueryWrapper<ChatDetail>().eq(ChatDetail::getChatId, chatId));
+        //将当前会话的信息保存到模型记忆上下文
+        //清除其他会话记忆
+        chatHistoryService.getChatIds(type).forEach(chat->chatMemory.clear(chat.getChatId()));
+        activeSubscriptions.clear(); // 同时清理订阅关系
+        //加入当前会话记忆
+        if (!chatDetails.isEmpty()) {
+            chatDetails.forEach(c -> {
+                if (c.getMessageType().equals("user")) {
+                    chatMemory.add(chatId, new UserMessage(c.getContent()));     //用户信息
+                } else if (c.getMessageType().equals("assistant")) {
+                    chatMemory.add(chatId, new AssistantMessage(c.getContent())); //模型回复信息
+                }
+            });
+            System.err.println("当前模型记忆为:"+chatMemory.get(chatId,  Integer.MAX_VALUE));
+        }
         return chatDetails.stream().map(c->new ChatDetailVo(c.getMessageType(),c.getContent())).toList();
     }
 
@@ -146,6 +160,8 @@ public class AiController {
         //删除会话详情
         chatMemory.clear(chatId);
         System.out.println("删除会话详情:"+chatId);
+        //删除内存记忆
+        chatMemory.clear(chatId);
     }
 
 

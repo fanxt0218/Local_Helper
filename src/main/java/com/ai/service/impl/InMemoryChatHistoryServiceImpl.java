@@ -113,4 +113,24 @@ public class InMemoryChatHistoryServiceImpl implements ChatHistoryService {
         //删除会话信息表
         chatDetailMapper.delete(new LambdaQueryWrapper<ChatDetail>().eq(ChatDetail::getChatId,chatId));
     }
+
+    @Override
+    public void updateChatId(ChatListVo chatListVo) {
+        if (chatListVo == null || chatListVo.getChatId() == null){
+            return;
+        }
+        //根据请求体中具有的信息更新
+        Chat chat = new Chat();
+        chat.setId(chatListVo.getChatId());
+        //模型名称
+        if (chatListVo.getModelName() != null){
+            chat.setModelName(chatListVo.getModelName());
+            chatMapper.updateById(chat);
+        }
+        //创建时间
+        if (chatListVo.getCreateTime() != null){
+            chat.setCreateTime(chatListVo.getCreateTime());
+            chatMapper.updateById(chat);
+        }
+    }
 }
