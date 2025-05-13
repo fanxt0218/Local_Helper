@@ -29,7 +29,7 @@ function connectWebSocket(sid) {
 
     websocket.onmessage = function(event) {
         const data = event.data;
-
+    
         if (data === '<end>') {
             // 处理缓冲区剩余内容
             processBuffer(buffer, true);
@@ -43,12 +43,19 @@ function connectWebSocket(sid) {
         try {
             const response = JSON.parse(data);
             if (response.chat) {
+                totalMessages += 1; // AI回复计数+1
+                totalChars += response.chat.length; // AI回复字符数累加
+                // // 实时检测
+                // if (totalMessages >= 50 || totalChars >= 40) {
+                //     document.getElementById('contextWarning').style.display = 'flex';
+                // }
+
                 buffer += response.chat;
                 buffer = processBuffer(buffer, false);
 
                 // 简化滚动判断逻辑
                 requestAnimationFrame(() => {
-                    const isNearBottom = chatMessages.scrollHeight - chatMessages.clientHeight
+                    const isNearBottom = chatMessages.scrollHeight - chatMessages.clientHeight 
                         <= chatMessages.scrollTop + 150;
 
                     if (isNearBottom) {
@@ -61,7 +68,7 @@ function connectWebSocket(sid) {
             console.error('消息处理失败:', error);
         }
     };
-
+    
     websocket.onerror = function(error) {
         isResponsePending = false; // 新增错误处理
         console.error('WebSocket 错误:', error);
@@ -189,6 +196,7 @@ function connectWebSocket(sid) {
 // 在全局变量区域新增会话id
 let currentChatId = null;
 let isSending = false;
+let currentMessage = []; // 新增当前消息变量
 async function sendMessage() {
     if (!currentChatId) {
         // 自动创建新会话
@@ -199,7 +207,7 @@ async function sendMessage() {
         loadChatHistory(); // 刷新会话列表
     }
     if (isSending) return;
-
+    
     currentStreamingMessage = null; // 重置引用
     createLoadingMessage(); // 创建加载动画
 
@@ -227,6 +235,11 @@ async function sendMessage() {
                 sid: sid
             }));
         }
+        //立即检测并显示警告
+        const contextWarning = document.getElementById('contextWarning');
+        if (totalMessages >= 50 || totalChars >= 4000) {
+            contextWarning.style.display = 'flex';
+        }
     } catch (error) {
         console.error('发送失败:', error);
         addMessage('消息发送失败', 'ai-message');
@@ -251,12 +264,12 @@ function clearLoading() {
 function addMessage(text, className) {
     const messageElement = document.createElement('div');
     messageElement.classList.add('message', className);
-
+    
     // 仅转换AI消息，用户消息保持原样
-    messageElement.innerHTML = className === 'ai-message'
-        ? formatContent(text)
+    messageElement.innerHTML = className === 'ai-message' 
+        ? formatContent(text) 
         : text.replace(/\n/g, '<br>');
-
+    
     chatMessages.appendChild(messageElement);
 }
 
@@ -285,20 +298,20 @@ document.addEventListener('DOMContentLoaded', () => {
 function createLoadingMessage() {
     // 防御性检查：如果已有加载动画则不再创建
     if (document.querySelector('.loading-message')) return;
-
+    
     const container = document.createElement('div');
     container.classList.add('loading-message');
-
+    
     const spinner = document.createElement('div');
     spinner.classList.add('loading-spinner');
-
+    
     const text = document.createElement('span');
     text.textContent = 'AI正在思考...';
-
+    
     container.appendChild(spinner);
     container.appendChild(text);
     chatMessages.appendChild(container);
-
+    
     return container;
 }
 
@@ -306,7 +319,7 @@ function createLoadingMessage() {
 
 document.addEventListener('DOMContentLoaded', function() {
     const modeButtons = document.querySelectorAll('.mode-btn');
-
+    
     modeButtons.forEach(button => {
         button.addEventListener('click', function() {
             // 切换按钮的选中状态
@@ -340,13 +353,13 @@ async function fetchModelName() {
         console.log('正在尝试获取模型名称...');
         const response = await fetch('http://localhost:1618/ai/getmodelname');
         console.log('请求已发送，等待响应...');
-
+        
         if (!response.ok) {
             console.error('请求失败，状态码:', response.status);
             modelName.textContent = '未知模型';
             return;
         }
-
+        
         const data = await response.json();
         modelName.textContent = data.modelName || '未知模型';
         console.log('成功获取模型名称:', data.modelName);
@@ -362,15 +375,15 @@ async function fetchModelList() {
         console.log('正在尝试获取模型列表...');
         const response = await fetch('http://localhost:1618/ai/getmodellist');
         console.log('请求已发送，等待响应...');
-
+        
         if (!response.ok) {
             console.error('请求失败，状态码:', response.status);
             return;
         }
-
+        
         const data = await response.json();
         console.log('后端返回的数据:', data);
-
+        
         if (Array.isArray(data)) {
             // 填充下拉框
             modelDropdown.innerHTML = '';
@@ -382,7 +395,7 @@ async function fetchModelList() {
                     // 更新模型名称
                     modelName.textContent = model;
                     modelDropdown.classList.remove('active');
-
+                    
                     // 向后端发送更改模型的请求
                     await changeModel(model);
                 });
@@ -419,15 +432,15 @@ async function changeModel(modelName) {
             },
             body: JSON.stringify({ modelName: modelName }),
         });
-
+        
         const responseText = await response.text(); // 先获取文本
         console.log('原始响应:', responseText);
-
+        
         if (!response.ok) {
             console.error('更改模型失败，状态码:', response.status);
             return;
         }
-
+        
         // 尝试解析JSON
         try {
             const data = JSON.parse(responseText);
@@ -435,7 +448,7 @@ async function changeModel(modelName) {
             fetchModelName()
             //重新加载当前会话历史
             if (currentChatId) {
-                await loadChatDetails(currentChatId);
+                await loadChatDetails(currentChatId); 
                 await loadChatHistory(); // 同时刷新会话列表
             }
         } catch (e) {
@@ -478,9 +491,9 @@ function initSidebar() {
             const response = await fetch(`http://localhost:1618/ai/history/${type}/${chatId}/${sid}`, {
                 method: 'POST'
             });
-
+            
             if (!response.ok) throw new Error('请求失败');
-
+            
             // 清空当前聊天记录
             chatMessages.innerHTML = '';
             // 加载历史记录并自动选中新会话
@@ -502,7 +515,7 @@ async function findUnusedSession() {
     try {
         const response = await fetch('http://localhost:1618/ai/history/chat');
         const sessions = await response.json();
-
+        
         for (const chat of sessions) {
             const res = await fetch(`http://localhost:1618/ai/history/chat/${chat.chatId}`);
             const messages = await res.json();
@@ -519,14 +532,15 @@ async function findUnusedSession() {
 
 // 加载历史记录函数
 async function loadChatHistory() {
-    try {
+     try {
         const response = await fetch(`http://localhost:1618/ai/history/chat`);
         const history = await response.json();
-
+        
         const container = document.getElementById('historyList');
         container.innerHTML = '';
-
-        history.forEach(chat => {  // 参数改为chat对象
+        
+        history.sort((a, b) => new Date(b.createTime) - new Date(a.createTime))
+        .forEach(chat => {  // 参数改为chat对象
             const item = document.createElement('div');
             item.className = 'history-item';
             // 存储chatId到DOM属性
@@ -543,7 +557,7 @@ async function loadChatHistory() {
                 </div>
                 <div class="delete-btn"><i class="fas fa-times-circle"></i></div>
             `;
-
+            
             // 添加删除按钮点击事件（修改获取chatId的方式）
             const deleteBtn = item.querySelector('.delete-btn');
             deleteBtn.addEventListener('click', async (e) => {
@@ -553,7 +567,7 @@ async function loadChatHistory() {
                     await deleteChat(chatId);
                 }
             });
-
+            
             // 绑定点击事件（修改获取chatId的方式）
             item.addEventListener('click', async (e) => {
                 if (await shouldBlockNavigation()) {
@@ -566,7 +580,7 @@ async function loadChatHistory() {
                 item.classList.add('selected');
                 loadChatDetails(item.getAttribute('data-chat-id')); // 从属性获取chatId
             });
-
+            
             container.appendChild(item);
         });
     } catch (error) {
@@ -574,6 +588,8 @@ async function loadChatHistory() {
     }
 }
 
+let totalMessages = 0 // 新增消息计数器
+let totalChars = 0
 async function loadChatDetails(chatId) {
     try {
         currentChatId = chatId; // 更新当前会话ID
@@ -586,20 +602,32 @@ async function loadChatDetails(chatId) {
 
         const response = await fetch(`http://localhost:1618/ai/history/chat/${chatId}`);
         const messages = await response.json();
-
+        
         // 清空当前聊天记录
         chatMessages.innerHTML = '';
-
+        
         // 使用通用消息处理函数渲染历史消息
         messages.forEach(msg => {
             const className = msg.messageType === 'assistant' ? 'ai-message' : 'user-message';
             processMessageContent(msg.content, className); // 替换原来的addMessage调用
         });
+        
+        currentMessage = messages;
+        // 新增上下文长度检测
+        const contextWarning = document.getElementById('contextWarning');
+        totalMessages = messages.length;
+        totalChars = messages.reduce((sum, msg) => sum + (msg.content?.length || 0), 0);
+        
+        if (totalMessages >= 50 || totalChars >= 4000) {
+            contextWarning.style.display = 'flex';
+        } else {
+            contextWarning.style.display = 'none';
+        }
         // 滚动控制（使用双重保障）
         setTimeout(() => {
             // 方式一：直接设置滚动位置
             // chatMessages.scrollTop = chatMessages.scrollHeight;
-
+            
             // 方式二：使用平滑滚动（可选）
             const lastMessage = chatMessages.lastElementChild;
             if (lastMessage) {
@@ -619,14 +647,14 @@ async function loadChatDetails(chatId) {
 function processMessageContent(content, className) {
     const container = document.createElement('div');
     container.classList.add('message', className);
-
+    
     // 先进行格式转换
     const processedContent = formatContent(content);
-
+    
     // 拆分思考块和普通内容
     const parts = processedContent.split(/<think>|<\/think>/g);
     let isInThink = false;
-
+    
     parts.forEach(part => {
         if (isInThink && part) {
             const thinkDiv = document.createElement('div');
@@ -640,7 +668,7 @@ function processMessageContent(content, className) {
         }
         isInThink = !isInThink;
     });
-
+    
     chatMessages.appendChild(container);
 }
 
@@ -651,7 +679,7 @@ async function deleteChat(chatId) {
         const response = await fetch(`http://localhost:1618/ai/deleteChatId/${chat}/${chatId}`, {
             method: 'DELETE'
         });
-
+        
         if (response.ok) {
             // 如果删除的是当前会话，清空聊天记录
             if (currentChatId === chatId) {
@@ -672,10 +700,10 @@ function formatContent(text) {
 
     // 处理标题（双星号**标题**）
     formatted = text.replace(/\*\*([^*]+)\*\*/g, '<span class="content-header">$1</span>');
-
+    
     // 处理加粗（单星号*内容*）
     formatted = formatted.replace(/\*([^*]+?)\*/g, '<strong>$1</strong>');
-
+    
     // 处理强调块（三井号###内容###）
     formatted = formatted.replace(/###([^#]+)###/g, (_, p1) => {
         const lines = p1.split('\n').filter(l => l.trim());
@@ -684,7 +712,7 @@ function formatContent(text) {
 
     // 处理副标题（双井号##副标题##）
     formatted = formatted.replace(/##([^#]+)##/g, '<span class="content-subheader">$1</span>');
-
+    
     // 处理副标题（双井号#副标题#）
     formatted = formatted.replace(/#([^#]+)#/g, '<span class="content-subheader">$1</span>');
 
@@ -709,7 +737,7 @@ function formatContent(text) {
 
 async function shouldBlockNavigation() {
     if (!isResponsePending) return false;
-
+    
     const result = await showNavigationConfirm();
     return !result;
 }
@@ -727,14 +755,14 @@ function showNavigationConfirm() {
                 </div>
             </div>
         `;
-
+        
         document.body.appendChild(confirmBox);
-
+        
         confirmBox.querySelector('#confirmLeave').addEventListener('click', () => {
             confirmBox.remove();
             resolve(true);
         });
-
+        
         confirmBox.querySelector('#cancelLeave').addEventListener('click', () => {
             confirmBox.remove();
             resolve(false);

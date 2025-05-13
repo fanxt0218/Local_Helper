@@ -22,6 +22,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -54,6 +56,7 @@ public class AiController {
                 .defaultAdvisors(new MessageChatMemoryAdvisor(chatMemory))
                 .build();
     }
+
 
     String System_Prompt =
             "你是一个AI助手，善于帮助用户回答问题，你需要按照以下要求进行响应" +
@@ -112,13 +115,25 @@ public class AiController {
 //        }
 //        return messages.stream().map(ChatHistoryMessage::new).toList();
         //从数据库中查询会话详情
-        List<ChatDetail> chatDetails = chatDetailMapper.selectList(new LambdaQueryWrapper<ChatDetail>().eq(ChatDetail::getChatId, chatId));
+        List<ChatDetail> chatDetails;
+        LambdaQueryWrapper<ChatDetail> wrapper = new LambdaQueryWrapper<ChatDetail>().eq(ChatDetail::getChatId, chatId);
+        //深度思考模型做出限制
+        if (modelName.contains("deepseek")){
+                wrapper
+                 .orderByDesc(ChatDetail::getId)
+                 .last("LIMIT 50");
+            chatDetails = chatDetailMapper.selectList(wrapper);
+            Collections.reverse(chatDetails);
+        }else {
+            chatDetails = chatDetailMapper.selectList(wrapper);
+        }
         //将当前会话的信息保存到模型记忆上下文
         //清除其他会话记忆
         chatHistoryService.getChatIds(type).forEach(chat->chatMemory.clear(chat.getChatId()));
         activeSubscriptions.clear(); // 同时清理订阅关系
         //加入当前会话记忆
         if (!chatDetails.isEmpty()) {
+            if (chatDetails.size() > 50)
             chatDetails.forEach(c -> {
                 if (c.getMessageType().equals("user")) {
                     chatMemory.add(chatId, new UserMessage(c.getContent()));     //用户信息

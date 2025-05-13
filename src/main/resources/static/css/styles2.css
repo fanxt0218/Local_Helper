@@ -689,3 +689,30 @@ strong {
     justify-content: space-between;
     margin-top: 5px;
 }
+
+/* 警告提示框样式 */
+.chat-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 10px;
+    position: relative;
+    padding-right: 60px;
+}
+
+.context-warning {
+    display: none;
+    background: #fff3cd;
+    color: #856404;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    margin-bottom: -42px;
+    animation: fadeIn 0.3s ease;
+    opacity: 0.8;
+    z-index: 10;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 80%;
+}
