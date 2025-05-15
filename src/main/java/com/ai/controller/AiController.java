@@ -9,12 +9,15 @@ import com.ai.model.vo.ChatDetailVo;
 import com.ai.model.vo.ChatHistoryMessage;
 import com.ai.service.ChatHistoryService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import io.modelcontextprotocol.client.McpSyncClient;
 import org.reactivestreams.Subscription;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.InMemoryChatMemory;
 import org.springframework.ai.chat.messages.*;
+import org.springframework.ai.mcp.AsyncMcpToolCallbackProvider;
+import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -133,11 +136,10 @@ public class AiController {
         activeSubscriptions.clear(); // 同时清理订阅关系
         //加入当前会话记忆
         if (!chatDetails.isEmpty()) {
-            if (chatDetails.size() > 50)
             chatDetails.forEach(c -> {
                 if (c.getMessageType().equals("user")) {
                     chatMemory.add(chatId, new UserMessage(c.getContent()));     //用户信息
-                } else if (c.getMessageType().equals("assistant")) {
+                } else if (c.getMessageType().equals("assistant")&& !c.getContent().equals("服务繁忙,请稍后再试")) {
                     chatMemory.add(chatId, new AssistantMessage(c.getContent())); //模型回复信息
                 }
             });
