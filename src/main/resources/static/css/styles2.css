@@ -208,38 +208,38 @@ body {
     justify-content: center;
     /* 向下微调位置 */
     margin-top: 25px; /* 向下微调位置 */
-  }
+}
 
-  #sendButton:hover {
+#sendButton:hover {
     /* background: #3b5bdb;
     transform: scale(1.05); */
     background: #3b5bdb;
     transform: translateY(-50%) scale(1.05);
 }
-  
-  .send-icon, .stop-icon {
+
+.send-icon, .stop-icon {
     width: 24px;
     height: 24px;
     /* fill: currentColor; */
     fill: white; /* 确保图标在深色背景上可见 */
-  }
-  
-  .stop-icon {
-    display: none;
-  }
+}
 
-    /* 响应状态保持居中 */
-    #sendButton.responding {
-        transform: translateY(-50%);
-    }
-  
-  #sendButton.responding .send-icon {
+.stop-icon {
     display: none;
-  }
-  
-  #sendButton.responding .stop-icon {
+}
+
+/* 响应状态保持居中 */
+#sendButton.responding {
+    transform: translateY(-50%);
+}
+
+#sendButton.responding .send-icon {
+    display: none;
+}
+
+#sendButton.responding .stop-icon {
     display: block;
-  }
+}
 
 /* 消息样式 */
 .message {
@@ -600,7 +600,7 @@ strong {
 }
 
 /* 按钮统一样式 */
-#confirmLeave, 
+#confirmLeave,
 #cancelLeave {
     padding: 10px 20px;
     border: none;
@@ -630,7 +630,7 @@ strong {
 }
 
 /* 悬停状态保持对称 */
-#confirmLeave:hover, 
+#confirmLeave:hover,
 #cancelLeave:hover {
     transform: translateY(-1px) scale(1.02); /* 统一缩放比例 */
 }
@@ -642,12 +642,12 @@ strong {
         min-width: auto;
         padding: 20px;
     }
-    
+
     .confirm-buttons {
         flex-direction: column;
     }
-    
-    #confirmLeave, 
+
+    #confirmLeave,
     #cancelLeave {
         width: 100%;
     }
@@ -715,4 +715,10 @@ strong {
     margin-left: auto;
     margin-right: auto;
     max-width: 80%;
+}
+
+.mode-icon {
+    width: 15px;  /* 根据实际图片尺寸调整 */
+    height: 15px;
+    vertical-align: middle;
 }
