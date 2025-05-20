@@ -148,6 +148,7 @@
       <updated>1747724089741</updated>
       <workItem from="1747724090656" duration="5420000" />
       <workItem from="1747729542698" duration="195000" />
+      <workItem from="1747729747985" duration="1005000" />
     </task>
     <task id="LOCAL-00001" summary="2.0.0版本项目工程">
       <option name="closed" value="true" />
@@ -182,7 +183,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/local_helper-v2.0.0" />
+                        <option value="origin/master" />
                       </list>
                     </value>
                   </entry>
