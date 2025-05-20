@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Helper - 你的本地AI助手</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" type="imgs/x-icon" href="imgs/favicon.ico">
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/settings.css">
+</head>
+<body>
+<!-- 侧边栏 -->
+<div class="sidebar-container" id="sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-title">
+            <h1>会话历史</h1>
+            <button class="new-conversation-btn" id="newChatBtn">
+                <i class="fas fa-plus-circle"></i>
+            </button>
+        </div>
+        <div class="divider"></div>
+        <div class="history-list" id="historyList"></div>
+        <div class="sidebar-footer">
+            <div class="footer-divider"></div>
+            <div class="user-info">
+                <div class="user-avatar">U</div>
+                <div>用户：LocalUser</div>
+            </div>
+            <button class="settings-btn">
+                <i class="fas fa-cog fa-lg"></i>
+            </button>
+            <!-- 新增设置弹窗 -->
+            <div class="settings-modal" id="settingsModal">
+                <div class="settings-content">
+                    <div class="settings-sidebar">
+                        <div class="settings-categories" id="settingsCategories">
+                            <!-- 分类将通过JavaScript动态添加 -->
+                        </div>
+                        <div class="sidebar-divider"></div>
+                    </div>
+                    <div class="settings-main">
+                        <div class="settings-body" id="settingsBody">
+                            <!-- 设置项将在此动态添加 -->
+                        </div>
+                        <div class="settings-footer">
+                            <button class="btn-save">保存设置</button>
+                            <button class="btn-close">取消</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 主界面结构 -->
+<div class="chat-container">
+    <div class="chat-header">
+        <h1>AI助手</h1>
+        <div class="model-selector">
+            <div class="model-name" id="modelName">无模型</div>
+            <div class="model-dropdown" id="modelDropdown">
+                <!-- 模型选项将通过JavaScript动态添加 -->
+            </div>
+        </div>
+    </div>
+    <div class="status disconnected" id="connectionStatus">连接状态：已断开</div>
+    <div class="chat-messages" id="chatMessages">
+        <!-- 消息将在这里动态添加 -->
+    </div>
+    <div class="chat-input">
+        <div class="input-controls">
+            <div class="context-warning" id="contextWarning">
+                ⚠ 当前会话上下文过长，可能影响回答的质量，建议新建会话
+            </div>
+            <div class="mode-buttons">
+                <button class="mode-btn" data-mode="deep">
+                    <img src="imgs/deep_think.png" alt="深度思考" class="mode-icon">
+                    深度思考
+                </button>
+                <button class="mode-btn" data-mode="web">🌐 联网搜索</button>
+                <button class="mode-btn" data-mode="mcp">🔗 MCP</button>
+            </div>
+            <textarea id="messageInput" placeholder="输入消息后可按Enter发送，Shift+Enter换行..."></textarea>
+        </div>
+        <button id="sendButton">
+            <svg class="send-icon" viewBox="0 0 24 24">
+                <path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/>
+            </svg>
+            <svg class="stop-icon" viewBox="0 0 24 24" style="display:none;">
+                <rect x="6" y="6" width="12" height="12" rx="2"/>
+            </svg>
+        </button>
+    </div>
+</div>
+<script src="./js/settings.js"></script>
+<script src="./js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ai.mapper.ChatMapper">
+
+<!--    <insert id="saveChat" parameterType="com.ai.model.po.Chat">-->
+<!--        insert into chat(id,user_id,model_name,create_time)-->
+<!--        values (-->
+<!--                <if test="id != null">#{id},</if>-->
+<!--                <if test="userId != null"> #{userId},</if>-->
+<!--                <if test="modelName != null">#{modelName},</if>-->
+<!--                <if test="createTime != null">#{createTime}</if>-->
+<!--                )-->
+<!--    </insert>-->
+</mapper>

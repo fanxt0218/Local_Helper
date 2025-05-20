@@ -1,0 +1,849 @@
+/* 大气美观简约的CSS样式 */
+
+/* 基础样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* 聊天容器 */
+.chat-container {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    position: fixed; /* 改为固定定位 */
+    left: 300px; /* 侧边栏宽度 + 边距 */
+    right: 20px;
+    top: 20px;
+    bottom: 20px;
+    margin: 0; /* 移除原有 margin */
+    padding: 20px;
+    border: 2px solid #575555;
+    display: flex;
+    flex-direction: column;
+    z-index: 998; /* 确保低于侧边栏的 z-index */
+}
+
+/* 聊天头部 */
+.chat-header {
+    border-bottom: 2px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-header h1 {
+    font-size: 24px;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* 模型名称下拉框 */
+/* 模型名称下拉框 */
+.model-selector {
+    position: relative;
+    font-size: 14px;
+    color: #666;
+}
+
+.model-name {
+    padding: 5px 10px;
+    background-color: #f0f0f0;
+    border-radius: 15px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.model-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 15px 15px;
+    min-width: 150px;
+    display: none;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.model-dropdown.active {
+    display: block;
+}
+
+.model-option {
+    padding: 5px 10px;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.model-option:hover {
+    background-color: #e0e0e0;
+}
+
+/* 连接状态 */
+.status {
+    text-align: center;
+    color: #666;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+/* 消息区域 */
+.chat-messages {
+    height: calc(70vh - 100px);
+    overflow-y: auto;
+    margin-bottom: 15px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 10px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* 聊天输入区域 */
+.chat-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 10px;
+    position: relative; /* 新增相对定位 */
+    padding-right: 60px; /* 为按钮留出空间 */
+}
+
+/* 模式按钮容器 */
+.input-controls {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* 模式按钮 */
+.mode-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.mode-btn {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mode-btn:hover {
+    background-color: #e0e0e0;
+    border-color: #ccc;
+}
+
+.mode-btn.selected {
+    background-color: #C3DAF8;
+    color: #4D6BFE;
+    border: 1px solid #418fe3;
+}
+
+/* 文本输入框 */
+#messageInput {
+    flex: 1;
+    /* padding: 28px; */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    resize: none;
+    outline: none;
+    transition: border-color 0.3s ease;
+    height: 100px;
+    padding-right: 50px; /* 防止文本被按钮遮挡 */
+    padding: 20px 63px 20px 20px; /* 右侧留白增加 */
+    min-height: 60px; /* 保持最小高度 */
+    line-height: 1.5; /* 改善文本垂直居中 */
+    margin-right: 10px; /* 增加右侧间距 */
+}
+
+#messageInput:focus {
+    border-color: #007bff;
+}
+
+/* 发送按钮 */
+#sendButton {
+    position: absolute;
+    right: 12px;
+    top: 50%; /* 垂直居中定位 */
+    transform: translateY(-50%); /* 精确垂直居中 */
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #4D6BFE;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* 向下微调位置 */
+    margin-top: 25px; /* 向下微调位置 */
+  }
+
+  #sendButton:hover {
+    /* background: #3b5bdb;
+    transform: scale(1.05); */
+    background: #3b5bdb;
+    transform: translateY(-50%) scale(1.05);
+}
+  
+  .send-icon, .stop-icon {
+    width: 24px;
+    height: 24px;
+    /* fill: currentColor; */
+    fill: white; /* 确保图标在深色背景上可见 */
+  }
+  
+  .stop-icon {
+    display: none;
+  }
+
+    /* 响应状态保持居中 */
+    #sendButton.responding {
+        transform: translateY(-50%);
+    }
+  
+  #sendButton.responding .send-icon {
+    display: none;
+  }
+  
+  #sendButton.responding .stop-icon {
+    display: block;
+  }
+
+/* 消息样式 */
+.message {
+    margin-bottom: 10px;
+    border-radius: 8px;
+    padding: 12px;
+    background-color: #f8f9fa;
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-width: 80%;
+}
+
+.user-message {
+    margin-left: auto;
+    background-color: #e9f7ff;
+    border-left: 3px solid #007bff;
+}
+
+.ai-message {
+    margin-right: auto;
+    background-color: #f8f9fa;
+    border-left: 3px solid #6c757d;
+}
+
+/* 加载动画 */
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.loading-message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.loading-spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid #007bff;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+/* 优化滚动条样式 */
+.chat-messages::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* 侧边栏头部样式 */
+.sidebar-header {
+    padding: 15px;
+}
+
+.sidebar-container {
+    position: fixed;
+    left: 10px;  /* 修改初始位置为可见 */
+    top: 20px;
+    width: 280px;  /* 微调宽度适配布局 */
+    height: calc(100vh - 40px);
+    background-color: #f8f9fa;
+    border-left: 2px solid #575555;  /* 新增左侧边框 */
+    border-right: 2px solid #575555;
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+    z-index: 999;  /* 调整层级关系 */
+    overflow: visible;  /* 原为 hidden */
+    height: calc(100vh - 40px);  /* 高度调整 */
+    border-radius: 15px;  /* 右侧圆角 */
+    margin-top: 0px;  /* 与主容器对齐 */
+    border-top: 2px solid #575555;
+    border-bottom: 2px solid #575555;
+    /* 新增定位关系 */
+    display: flex;
+    flex-direction: column
+}
+
+/* 新增伪元素处理圆角边框 */
+.sidebar-container::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 15px;
+    border: 2px solid #575555;
+    z-index: -1;
+}
+
+.history-list {
+    max-height: calc(100vh - 206px);
+    overflow-y: auto;
+    flex: 1;
+    position: relative;
+    margin-bottom: 80px; /* 为底部信息栏预留空间 */
+}
+
+.sidebar-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sidebar-title h1 {
+    margin-top: 5px;
+    font-size: 24px;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* 新增底部信息栏容器 */
+.sidebar-footer {
+    position: absolute;
+    bottom: 0;
+    left: -2px;  /* 补偿边框宽度 */
+    right: -2px; /* 补偿边框宽度 */
+    background: #f8f9fa;
+    padding: 17px 20px;
+    border-bottom-left-radius: 15px; /* 匹配侧边栏圆角 */
+    border-bottom-right-radius: 15px;
+    z-index: 2;
+    border: 2px solid #575555; /* 添加与侧边栏一致的边框 */
+    border-top: none; /* 移除顶部边框 */
+    border-bottom: none ;
+}
+
+/* 用户信息区域 */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* 用户头像 */
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #4D6BFE;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+}
+
+/* 设置按钮 */
+.settings-btn {
+   position: absolute;
+    right: 15px;
+    bottom: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    transition: all 0.3s ease;
+    width: 36px;  /* 新增按钮尺寸 */
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings-btn:hover {
+    color: #4D6BFE;
+    transform: rotate(45deg);
+}
+.settings-btn i {
+    font-size: 1.4rem; /* 放大图标尺寸 */
+}
+
+/* 新增固定分割线
+.footer-divider {
+    position: absolute;
+    top: -15px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #eee;
+} */
+
+/* 新建按钮样式 */
+.new-conversation-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;     /* 确保图标居中 */
+    align-items: center;  /* 新增居中 */
+    justify-content: center; /* 新增居中 */
+}
+
+.new-conversation-btn i {
+    font-size: 28px;  /* 适当放大图标 */
+    color: #aeafb1;    /* 使用主色调 */
+    vertical-align: middle;  /* 新增垂直对齐 */
+    margin-top: 0px;  /* 微调对齐位置 */
+    transition: opacity 0.3s ease;
+    display: inline-block; /* 确保图标可见 */
+}
+
+.new-conversation-btn:hover i {
+    color: #007bff;
+    opacity: 0.8;
+}
+
+/* 分割线样式 */
+.divider {
+    height: 2px;
+    background: #eee;  /* 与聊天头部分割线一致 */
+    margin: 12px 0;    /* 调整间距 */
+}
+
+/* 会话记录样式 */
+.history-item {
+    padding: 12px;
+    background-color: #fff;
+    background: transparent; /* 完全透明背景 */
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1); /* 半透明边框 */
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.05);
+    margin-bottom: 8px;
+    transition: all 0.2s ease;
+}
+
+.history-item.selected {
+    background: rgba(61, 53, 53, 0.1); /* 选中时的背景 */
+    border-color: rgba(61, 53, 53, 0.1); /* 选中时边框颜色加深 */
+}
+
+
+.session-title {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.session-meta {
+    font-size: 12px;
+    color: #7f8c8d;
+}
+
+/* 在消息样式部分添加 */
+.ai-message {
+    position: relative;
+    padding: 15px;
+    white-space: pre-wrap; /* 确保正文内容自动换行 */
+}
+
+.think-message {
+    background-color: rgba(215, 215, 213, 0.5);
+    border-radius: 8px;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid rgba(215, 215, 213, 0.5);
+    white-space: pre-wrap;
+    color: #888; /* 思考字体颜色设置 */
+}
+
+/* 特别处理思考内容中的格式元素 */
+.think-message .content-header {
+    color: #888; /* 标题颜色 */
+    border-bottom-color: #ddd; /* 分隔线颜色 */
+}
+
+.think-message .content-subheader {
+    color: #888; /* 副标题颜色 */
+    border-left-color: #ccc; /* 左侧装饰线颜色 */
+}
+
+.think-message strong {
+    color: #888; /* 加粗文字颜色 */
+}
+
+.think-message .emphasis-block {
+    background-color: rgba(200, 200, 200, 0.15); /* 强调区块背景 */
+    border-color: rgba(200, 200, 200, 0.2);
+}
+
+.content-header {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 10px 0;
+    padding-bottom: 3px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+/* 增强加粗效果 */
+strong {
+    color: #4e4e4f;
+    font-weight: 700;
+}
+
+.message {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* 副标题样式 */
+.content-subheader {
+    font-size: 0.95em;
+    font-weight: 600;
+    color: #48484a;
+    margin: 8px 0;
+    padding-left: 5px;
+    border-left: 3px solid #454647;
+}
+
+/* 强调块样式 */
+/* .emphasis-block {
+    background-color: rgba(77, 107, 254, 0.1);
+    border-radius: 8px;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid rgba(77, 107, 254, 0.2);
+} */
+
+
+/* CSS添加段落间距样式 */
+.paragraph-break {
+    height: 1em;
+    display: block;
+    content: "";
+}
+
+/* 代码块样式 */
+.code-block {
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    margin: 15px 0;
+    border: 1px solid #e0e0e0;
+    overflow-x: auto;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9em;
+    line-height: 1.5;
+    position: relative;
+    padding: 28px 15px 15px; /* 从20px增加到28px */
+    overflow: visible; /* 修改overflow设置 */
+}
+
+.code-block::before {
+    content: '代码';
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    background: #f8f9fa;
+    padding: 2px 8px;
+    color: #666;
+    font-size: 0.8em;
+    font-family: 'Arial', sans-serif; /* 恢复默认字体 */
+    z-index: 1;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+
+.code-block code {
+    display: block;
+    white-space: pre;
+    word-break: normal;
+    color: #333;
+    overflow-x: auto;
+    padding-top: 10px; /* 增加代码区域顶部间距 */
+}
+
+/* ==================== 新增导航确认弹窗样式 ==================== */
+#navigationConfirm {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    backdrop-filter: blur(5px);
+}
+
+.confirm-content {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    min-width: 320px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.confirm-content p {
+    color: #333;
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.confirm-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+/* 按钮统一样式 */
+#confirmLeave, 
+#cancelLeave {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.2s ease;
+}
+
+#confirmLeave {
+    background: #4D6BFE;
+    color: white;
+}
+
+#confirmLeave:hover {
+    background: #3b5bdb;
+}
+
+#cancelLeave {
+    background: #f0f0f0;
+    color: #666;
+    border: 1px solid #ddd;
+}
+
+#cancelLeave:hover {
+    background: #e0e0e0;
+}
+
+/* 悬停状态保持对称 */
+#confirmLeave:hover, 
+#cancelLeave:hover {
+    transform: translateY(-1px) scale(1.02); /* 统一缩放比例 */
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .confirm-content {
+        width: 90%;
+        min-width: auto;
+        padding: 20px;
+    }
+    
+    .confirm-buttons {
+        flex-direction: column;
+    }
+    
+    #confirmLeave, 
+    #cancelLeave {
+        width: 100%;
+    }
+}
+
+/* 删除按钮 */
+.history-item {
+    position: relative;
+    padding-right: 35px !important;
+}
+
+.delete-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    color: #2c2b2b;
+}
+
+/* .history-item:hover .delete-btn {
+    opacity: 1;
+} */
+
+.delete-btn:hover {
+    opacity: 1;  /* 鼠标悬停在按钮上时显示 */
+    color: #2c2b2b;
+}
+
+/* 会话记录样式 */
+.session-meta {
+    color: #666;
+    font-size: 0.8em;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+/* 警告提示框样式 */
+.chat-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 10px;
+    position: relative;
+    padding-right: 60px;
+}
+
+.context-warning {
+    display: none;
+    background: #fff3cd;
+    color: #856404;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    margin-bottom: -42px;
+    animation: fadeIn 0.3s ease;
+    opacity: 0.8;
+    z-index: 10;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 80%;
+}
+
+.mode-icon {
+    width: 15px;  /* 根据实际图片尺寸调整 */
+    height: 15px;
+    vertical-align: middle;
+}
+
+/* 新增按钮提示样式 */
+.button-alert {
+    position: fixed;
+    background: #bcbcb0;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    z-index: 1000;
+    white-space: nowrap;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    animation: alertSlide 0.3s ease-out;
+}
+
+@keyframes alertSlide {
+    from {
+        transform: translate(-50%, 10px);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+}
+
+/* 在:root选择器中添加字体变量 */
+:root {
+    --font-size-normal: 16px;
+    --font-size-large: 18px;
+    --font-size-small: 14px;
+}
+
+/* 在body样式中应用基础字体大小 */
+body {
+    font-size: var(--font-size-normal);
+}
+
+/* 添加字体大小类 */
+.text-small {
+    font-size: var(--font-size-small) !important;
+}
+.text-large {
+    font-size: var(--font-size-large) !important;
+}

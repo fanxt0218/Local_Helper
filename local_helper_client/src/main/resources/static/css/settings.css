@@ -1,0 +1,550 @@
+/* 设置弹窗容器 */
+.settings-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 900px;
+    height: 700px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    z-index: 1000;;
+    border: 1px solid #111112;
+    overflow: hidden; /* 新增overflow控制 */
+    position: fixed;   /* 确保使用fixed定位 */
+}
+
+/* 弹窗内容容器 */
+.settings-content {
+    display: flex;
+    height: 100%;
+}
+
+/* 左侧分类栏 */
+.settings-sidebar {
+    width: 20%;
+    background: #f8f9fa;
+    border-right: 1px solid #e9ecef;
+    padding: 20px 0;
+}
+
+/* 分类标题 */
+.settings-modal::before {
+     content: "设置选项";
+    display: block;
+    font-size: 20px;
+    font-weight: 600;
+    color: #2d3436;
+    padding: 24px 32px 16px;
+    border-bottom: 1px solid #e9ecef;
+    position: relative;  /* 新增定位 */
+    z-index: 1;          /* 确保标题层级正确 */
+}
+
+/* 分类项样式 */
+.settings-categories {
+    padding: 0 16px;
+}
+
+.category-item {
+    padding: 12px 24px;
+    margin: 8px 0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #495057;
+    position: relative;
+}
+
+.category-item:hover {
+    background: #e9ecef;
+}
+
+.category-item.active {
+    background: #e3f2fd;
+    color: #1976d2;
+    font-weight: 500;
+}
+
+.category-item.active::before {
+    content: "";
+    position: absolute;
+    left: -1px;
+    top: 0;
+    height: 100%;
+    width: 3px;
+    /* background: #1976d2; */
+}
+
+/* 右侧设置区域 */
+.settings-main {
+    width: 80%;
+    padding: 32px;
+    position: relative;
+    width: 80%;
+    padding: 32px;
+    position: relative;
+    height: 100%; /* 新增高度设置 */
+    display: flex; /* 新增弹性布局 */
+    flex-direction: column; /* 垂直排列 */
+}
+
+/* 设置项容器 */
+.settings-body {
+    flex: 1; /* 占据剩余空间 */
+    overflow-y: auto; /* 启用垂直滚动 */
+    padding-right: 12px; /* 为滚动条留出空间 */
+    scrollbar-width: thin; /* Firefox 兼容 */
+    scrollbar-color: #c1c1c1 transparent; /* 默认隐藏滚动条 */
+}
+
+/* 自定义滚动条（Webkit 内核） */
+.settings-body::-webkit-scrollbar {
+    width: 6px;
+    background-color: transparent;
+}
+
+.settings-body::-webkit-scrollbar-thumb {
+    background-color: #c1c1c1;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.settings-body:hover::-webkit-scrollbar-thumb {
+    background-color: #a8a8a8;
+}
+
+/* 暗色模式适配 */
+.dark-theme .settings-body::-webkit-scrollbar-thumb {
+    background-color: #555;
+}
+
+.dark-theme .settings-body:hover::-webkit-scrollbar-thumb {
+    background-color: #666;
+}
+
+/* 设置项通用样式 */
+.setting-group {
+    margin-bottom: 28px;
+}
+
+.setting-title {
+    font-weight: 500;
+    color: #2d3436;
+    margin-bottom: 12px;
+    font-size: 15px;
+}
+
+/* 输入框样式 */
+.setting-input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    transition: border-color 0.2s;
+}
+
+.setting-input:focus {
+    border-color: #90caf9;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+}
+
+/* 下拉菜单样式 */
+.setting-select {
+    appearance: none;
+    background: url("data:image/svg+xml;utf8,<svg fill='%23495057' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") no-repeat right 10px center/12px;
+    padding-right: 32px;
+}
+
+/* 开关样式 */
+.switch-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #dee2e6;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #1976d2;
+}
+
+input:checked + .slider:before {
+    transform: translateX(16px);
+}
+
+/* 底部按钮区域 */
+.settings-footer {
+    /* position: absolute; */
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px 32px;
+    border-top: 1px solid #e9ecef;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    background: white;
+    box-sizing: border-box; /* 新增盒子模型计算 */
+    height: 80px; /* 添加固定高度 */
+    position: static; /* 从 absolute 改为静态定位 */
+    /* margin-top: 20px; 添加顶部间距 */
+}
+
+.settings-content {
+    display: flex;
+    height: calc(100% - 40px); /* 给footer留出空间 */
+}
+
+.btn-close, .btn-save {
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.btn-close {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    color: #495057;
+}
+
+.btn-close:hover {
+    background: #e9ecef;
+}
+
+.btn-save {
+    background: #1976d2;
+    color: white;
+    border: none;
+}
+
+.btn-save:hover {
+    background: #1565c0;
+}
+
+/* 分类项终极优化 */
+.settings-categories {
+    padding: 0 12px;
+}
+
+.category-item {
+    padding: 14px 24px;
+    margin: 8px 0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: #4a5568;
+    font-size: 15px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #ffffff;
+    border: 1px solid transparent;
+}
+
+.category-item:hover {
+    background: #f1f5f9;
+    transform: translateX(6px);
+    box-shadow: 2px 2px 8px rgba(99, 102, 241, 0.1);
+}
+
+.category-item.active {
+    background: linear-gradient(135deg, #f8fafc 0%, #ebf8ff 100%);
+    color: #2563eb;
+    font-weight: 600;
+    border-color: #bfdbfe;
+    /* box-shadow: 
+        inset 4px 0 0 #3b82f6,
+        3px 3px 12px rgba(59, 130, 246, 0.1); */
+}
+
+.category-item.active i {
+    color: #3b82f6;
+    transform: scale(1.1);
+}
+
+/* 取消触碰动态效果 */
+.category-item:hover {
+
+    transform: none;
+    box-shadow: none;
+}
+
+
+/* 设置项终极优化 */
+.setting-group {
+    margin-bottom: 24px;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(203, 213, 225, 0.1);
+}
+
+.setting-group:hover {
+    border-color: #93c5fd;
+    box-shadow: 0 4px 6px rgba(59, 130, 246, 0.05);
+}
+
+.setting-title {
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 16px;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 4px;
+}
+
+.setting-title i {
+    color: #64748b;
+    font-size: 17px;
+    transition: color 0.2s;
+}
+
+/* 输入框动态效果 */
+.setting-input {
+    transition: all 0.3s ease;
+    background: #f8fafc;
+}
+
+.setting-input:focus {
+    background: #ffffff;
+    box-shadow: 
+        0 0 0 3px rgba(59, 130, 246, 0.2),
+        0 2px 6px rgba(59, 130, 246, 0.1);
+}
+
+/* 下拉菜单增强 */
+.setting-select {
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%233b82f6' viewBox='0 0 24 24'><path d='M7 10l5 5 5-5z'/></svg>");
+    transition: all 0.2s ease;
+}
+
+.setting-select:hover {
+    border-color: #93c5fd;
+}
+
+/* 开关控件升级 */
+.switch-container {
+    padding: 8px 0;
+}
+
+.slider {
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+input:checked + .slider {
+    background: #3b82f6;
+    box-shadow: 
+        inset 0 1px 3px rgba(0, 0, 0, 0.1),
+        0 2px 4px rgba(59, 130, 246, 0.2);
+}
+
+/* 新增浮动标签效果 */
+.setting-group.focus .setting-title {
+    color: #3b82f6;
+}
+
+.setting-group.focus .setting-title i {
+    color: #3b82f6;
+    animation: iconPulse 0.6s ease;
+}
+
+@keyframes iconPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+
+
+/* 显示样式切换 */
+/* 显示样式切换 */
+.dark-theme {
+    --bg-color: #1a1a1a;
+    --text-color: #ffffff;
+    --sidebar-bg: #2d2d2d;
+    --input-bg: #333333;
+    --modal-bg: #2a2a2a;
+    --button-active: #404040;
+    --chat-bg: #2a2a2a;
+    --header-bg: #333333;
+    --status-bg: #404040;
+}
+
+
+/* 具体元素的暗色模式样式 */
+.dark-theme body {
+   background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.dark-theme .sidebar-container {
+    background-color: var(--sidebar-bg);
+}
+.dark-theme .sidebar-title h1 {
+    color: var(--text-color);
+}
+
+.dark-theme .sidebar-footer {
+    background-color: var(--sidebar-bg);
+    border-top: 1px solid #444;
+    /* 设置字体颜色 */
+    color: var(--text-color);
+}
+
+.dark-theme .chat-input textarea {
+    background-color: var(--input-bg);
+    color: var(--text-color);
+}
+
+.dark-theme .chat-container,
+.dark-theme .chat-messages {
+    background-color: var(--chat-bg);
+    border-color: #5f5e5e;
+}
+
+/* 新增以下样式 */
+.dark-theme .chat-container {
+    background-color: var(--chat-bg);
+    border-color: #5b5a5a;
+}
+
+.dark-theme .chat-header h1{
+    background-color: var(--header-bg);
+    border-bottom: 1px solid var(--header-bg);
+    color: var(--text-color);
+}
+
+.dark-theme .status {
+    background-color: var(--chat-bg);
+    color: #e0e0e0;
+}
+
+.dark-theme .model-selector {
+    background-color: var(--input-bg);
+    border-color: #666666;
+}
+
+.dark-theme .mode-buttons button {
+    background-color: var(--sidebar-bg);
+    color: var(--text-color);
+    border-color: #666666;
+}
+
+.dark-theme .chat-messages {
+    background-color: var(--chat-bg);
+}
+
+.dark-theme .history-list {
+    background-color: var(--sidebar-bg);
+}
+
+.dark-theme .history-item .session-title {
+    background-color: var(--sidebar-bg);
+    color: #cbc9c9;
+}
+
+.dark-theme .history-item {
+    border: 1px solid #ddd;
+}
+
+.dark-theme .session-meta {
+    background-color: var(--sidebar-bg);
+    color: #cbc9c9;
+}
+
+.dark-theme .new-conversation-btn {
+    color: var(--text-color);
+    background-color: var(--sidebar-bg);
+}
+
+/* 按钮交互状态 */
+.dark-theme .mode-btn:active {
+    background-color: var(--button-active) !important;
+    border-color: #388cf3 !important;
+}
+
+.dark-theme .mode-btn.selected {
+    border-color: #388cf3;
+    background-color:  #388cf3;
+}
+
+/* 设置弹窗相关 */
+.dark-theme .settings-modal {
+    background: var(--modal-bg);
+    border: 1px solid #a3a2a2;
+}
+
+.dark-theme .settings-sidebar {
+    background: var(--sidebar-bg);
+    border-right-color: #444;
+}
+
+.dark-theme .category-item {
+    background: var(--input-bg);
+    color: var(--text-color);
+}
+
+.dark-theme .settings-footer {
+    background: var(--modal-bg);
+    border-top-color: #444;
+}
+
+/* 暗色模式标题 */
+.dark-theme .settings-modal::before {
+    color: var(--text-color);
+    border-bottom-color: #444;
+}
+
+.dark-theme .setting-group {
+    background: var(--input-bg);
+    border-color: #555; 
+    color: var(--text-color);
+}
+
+.dark-theme .setting-title  {
+   color: var(--text-color);
+}
