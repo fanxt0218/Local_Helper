@@ -74,7 +74,7 @@ public class ModelMessageServiceImpl implements ModelMessageService {
     }
 
     //TODO 扩展不支持工具的模型列表
-    ArrayList<String> UnSupportToolsModelNames = new ArrayList<>(List.of("deepseek"));
+    ArrayList<String> UnSupportToolsModelNames = new ArrayList<>(List.of("deepseek","qwen2.5vl","phi4","nomic-embed-text","llama2","codellama"));
     @Override
     public String checkButton(ButtonStatusDto buttonStatusDto,String modelName) {
         //按钮状态
