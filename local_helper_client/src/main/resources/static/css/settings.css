@@ -346,8 +346,11 @@ input:checked + .slider:before {
 
 /* 输入框动态效果 */
 .setting-input {
-    transition: all 0.3s ease;
-    background: #f8fafc;
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    transition: border-color 0.2s;
 }
 
 .setting-input:focus {
@@ -547,4 +550,159 @@ input:checked + .slider {
 
 .dark-theme .setting-title  {
    color: var(--text-color);
+}
+
+.dark-theme .setting-input {
+    background: var(--input-bg);
+    color: var(--text-color);
+    border-color: #666;
+}
+
+
+
+/*          滚动条                 */
+/* 滑动条样式 */
+.setting-input[type="range"] {
+    width: 90%;
+    height: 4px;
+    background: #e9ecef;
+    border-radius: 3px;
+    outline: none;
+    /* -webkit-appearance: none; */
+    margin: 12px 0 8px; /* 增加垂直间距 */
+    transform: none; /* 移除垂直偏移 */
+}
+
+.range-value {
+    margin-left: 10px;
+    color: #495057;
+    font-size: 14px;
+    /* 加粗 */
+    font-weight: 590;
+    min-width: 40px;
+    display: inline-block;
+    flex-shrink: 0;
+    width: 40px;
+    text-align: right;
+    /* 提高位置 */
+    transform: translateY(-6px);
+}
+.range-control {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+/* 暗色模式适配 */
+.dark-theme .range-value {
+   color: #ffffff;
+}
+
+/* 滑动条滑块 */
+.setting-input[type="range"]::-webkit-slider-runnable-track {
+    border-radius: 3px;
+    width: calc(100% - 16px); /* 给滑块留出空间 */
+    margin: 0 8px; /* 左右留出滑块半径的空间 */
+    height: 4px;
+}
+
+.setting-input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #1976d2;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s;
+    transform: translateY(-6px) translateX(-8px); /* 左移半个滑块宽度 */
+    margin-right: -8px; /* 补偿右侧空间 */
+}
+
+.setting-input[type="range"]:hover::-webkit-slider-thumb {
+    background: #1565c0;
+}
+
+.setting-input[type="range"]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: #1976d2;
+    border: none;
+}
+
+.setting-input[type="range"]::-moz-range-track {
+    width: 100%;
+    height: 4px;
+}
+/*                 多行文本框                   */ 
+/* 多行文本框样式 */
+.textarea-input {
+    resize: vertical;
+    min-height: 80px;
+    padding: 12px;
+    line-height: 1.5;
+    font-family: inherit;
+    overflow-y: auto;
+}
+
+/* 暗色模式适配 */
+.dark-theme .textarea-input {
+    background: #535252;
+    border-color: #555;
+    color: #fff;
+}
+
+/*           设置提示               */
+/* 提示图标样式 */
+.tooltip-icon {
+    position: relative;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: #1e293b;
+    border-radius: 50%;
+    color: white;
+    font-size: 12px;
+    text-align: center;
+    cursor: help;
+    margin-left: 8px;
+    line-height: 16px;
+}
+
+.tooltip-text {
+    display: none;
+    position: absolute;
+    left: 120%;
+    top: -10px;
+    width: 200px;
+    padding: 8px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    z-index: 100;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.tooltip-icon:hover .tooltip-text {
+    display: block;
+}
+
+.dark-theme .tooltip-icon {
+    background: #ffffff; /* 暗色模式背景 */
+    color: #000000; /* 暗色模式文字颜色 */
+}
+
+/* 新增文字颜色设置 */
+.tooltip-text {
+    color: #ffffff; /* 亮色模式文字颜色 */
+    background: #4b4b4b; /* 亮色模式背景 */
+    border-color: #666666; /* 亮色模式边框 */;
+}
+
+.dark-theme .tooltip-text {
+    color: #ffffff; /* 暗色模式文字颜色 */
+    background: #334155; /* 暗色模式背景 */
+    border-color: #475569;
 }
