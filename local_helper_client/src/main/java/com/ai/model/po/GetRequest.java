@@ -2,6 +2,8 @@ package com.ai.model.po;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class GetRequest {
 
@@ -22,4 +24,8 @@ public class GetRequest {
 
     //  MCP按钮状态
     private String mcpButtonStatus;
+
+    //文件列表
+    private List<String> fileIds;
+
 }

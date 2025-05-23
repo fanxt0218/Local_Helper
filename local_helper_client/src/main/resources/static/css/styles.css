@@ -847,3 +847,199 @@ body {
 .text-large {
     font-size: var(--font-size-large) !important;
 }
+
+/* 附件按钮样式 */
+/* 在模式按钮样式中添加对齐方式 */
+.mode-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    align-items: center; /* 新增垂直居中 */
+}
+
+/* 新增图标悬停效果 */
+.el-icon-paperclip:hover {
+    color: #3b5bdb;
+    transform: scale(1.1);
+    transition: all 0.2s ease;
+}
+
+/* 在原有发送按钮样式后添加 */
+.attachment-trigger {
+    position: absolute;
+    right: 27px; /* 发送按钮宽度 + 间距 */
+    bottom: 100px; /* 根据输入框高度调整 */
+    color: #858687;
+    font-size: 30px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 999; /* 确保在输入框上方 */
+}
+
+.attachment-trigger:hover {
+    color: #3b5bdb;
+    transform: scale(1.1);
+}
+
+/* 保持原有模式按钮样式不变 */
+.mode-buttons {
+    gap: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap; /* 防止换行 */
+    overflow-x: auto;  /* 允许水平滚动 */
+}
+
+/* 文件列表 */
+/* 新增上传文件列表样式 */
+.uploaded-files {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 0;
+    right: 0;
+    background: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.file-item {
+    background: #f0f0f0;
+    padding: 6px 12px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.file-name {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.file-remove {
+    color: #999;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.file-remove:hover {
+    color: #ff4444;
+}
+/* 文件列表容器 */
+.file-list-wrapper {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    margin-left: auto;
+    overflow-x: auto;
+    max-width: 40%;
+    gap: 8px;
+    /* 圆角 */
+    border-radius: 15px;
+}
+
+.file-list {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 8px;
+    padding-right: 5px;
+}
+
+/* 文件项 */
+.file-item {
+    background: #f0f0f0;
+    padding: 6px 12px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    animation: slideIn 0.3s ease;
+}
+
+
+@keyframes slideIn {
+    from { transform: translateX(20px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.attachment-container {
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* 推到最右侧 */
+    flex-direction: row-reverse; /* 反向排列 */
+    max-width: 45%;
+    overflow-x: auto;
+}
+
+/* 文件上传提示 */
+/* 在附件按钮样式中添加提示框 */
+/* .attachment-trigger {
+    position: relative;
+    cursor: pointer;
+} */
+
+/* 悬停提示框 */
+.attachment-trigger:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.2s ease 0.3s;
+    pointer-events: none;
+    border: 1px solid #444;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.attachment-trigger:hover::after {
+    right: 0;
+    left: auto;
+    transform: translateX(0);
+    min-width: 80px;  /* 最小宽度适配2个汉字 */
+    max-width: 120px; /* 7个汉字宽度（按14px字号计算） */
+    width: max-content; /* 根据内容自适应 */
+    white-space: normal;
+    text-align: left; /* 左对齐更美观 */
+    /* 其他样式保持不变 */
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    background: #333;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    /* 行距 */
+    line-height: 1.5;
+    overflow-wrap: break-word;
+}
+
+/* 当接近顶部时显示在下方 */
+@media (max-height: 600px) {
+    .attachment-trigger:hover::after {
+        bottom: auto;
+        top: calc(100% + 8px);
+    }
+}
+
+.attachment-trigger:hover::after {
+    opacity: 1;
+    margin-right: -60px;  /* 增加右侧间距 */
+    left: auto;
+    right: 100%;  /* 改为从右侧延伸 */
+}

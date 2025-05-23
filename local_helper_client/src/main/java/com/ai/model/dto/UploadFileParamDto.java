@@ -1,4 +1,4 @@
-package com.enjoylearning.media.model.dto;
+package com.ai.model.dto;
 
 import lombok.Data;
 import lombok.ToString;

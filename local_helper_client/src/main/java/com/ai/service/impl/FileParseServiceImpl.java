@@ -1,36 +1,28 @@
 package com.ai.service.impl;
 
-import org.springframework.scheduling.annotation.Scheduled;
+import com.ai.service.FileParseService;
+import com.ai.utils.TxtFileParser;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.Objects;
 
 @Service
-public class FileStorageServiceImpl {
+public class FileParseServiceImpl implements FileParseService {
 
-    private final Map<String, Path> fileMap = new ConcurrentHashMap<>();
 
-    @Scheduled(fixedRate = 3600000) // 每小时清理一次
-    public void cleanExpiredFiles() {
-        fileMap.entrySet().removeIf(entry -> {
-            try {
-                return Files.getLastModifiedTime(entry.getValue()).toMillis()
-                        < System.currentTimeMillis() - 3600000; // 保留1小时
-            } catch (IOException e) {
-                return true;
+    @Override
+    public String parse(MultipartFile file) {
+        //根据文件类型解析文件
+        try {
+            if (Objects.equals(file.getContentType(), "text/plain")){
+                return new TxtFileParser().parse(file);
             }
-        });
-    }
-
-    public void save(String fileId, Path filePath) {
-        fileMap.put(fileId, filePath);
-    }
-
-    public Path get(String fileId) {
-        return fileMap.get(fileId);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 }

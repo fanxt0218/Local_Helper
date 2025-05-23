@@ -7,6 +7,7 @@ import com.ai.model.po.Chat;
 import com.ai.model.po.ChatDetail;
 import com.ai.model.vo.ChatListVo;
 import com.ai.service.ChatHistoryService;
+import com.ai.utils.MessageFilter;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
@@ -90,7 +91,7 @@ public class InMemoryChatHistoryServiceImpl implements ChatHistoryService {
                 continue;
             }
             chatListVo.setChatId(chat.getId());
-            chatListVo.setChatName(chatDetail.getContent());
+            chatListVo.setChatName(MessageFilter.filterUserMessage(chatDetail.getContent()));
             chatListVo.setCreateTime(chat.getCreateTime());
             chatListVo.setModelName(chat.getModelName());
             chatListVos.add(chatListVo);
