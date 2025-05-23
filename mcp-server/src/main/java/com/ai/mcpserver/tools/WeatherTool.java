@@ -57,6 +57,8 @@ public class WeatherTool {
         // 参数校验
         boolean validAdCode = validateAdCode(adCode);
         boolean validLocation = validateLocation(location);
+        System.err.println("调用查询天气工具,"+"adCode:"+adCode+",location:"+location);
+
 
         if (!validAdCode && !validLocation) {
             throw new IllegalArgumentException("参数格式错误：adCode应为数字，location应为经度,纬度格式");

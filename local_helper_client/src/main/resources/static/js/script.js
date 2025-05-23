@@ -236,9 +236,14 @@ async function sendMessage() {
                 // 三个按钮状态字段
                 deepThinkButtonStatus: buttonStates.deepThinkButtonStatus,
                 webButtonStatus: buttonStates.webButtonStatus,
-                mcpButtonStatus: buttonStates.mcpButtonStatus
-
+                mcpButtonStatus: buttonStates.mcpButtonStatus,
+                fileIds: uploadedFileIds, // 文件ID列表    
             }));
+
+            uploadedFileIds = [];
+            uploadedFiles.forEach(file => file.element.remove());
+            uploadedFiles = [];
+            document.getElementById('fileList').innerHTML = '';
         }
         //立即检测并显示警告
         const contextWarning = document.getElementById('contextWarning');
@@ -307,6 +312,8 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchModelList(); // 调用获取模型列表的函数
     initSidebar(); // 初始化侧边栏
     loadChatHistory(); // 加载历史记录
+    // 初始化文件上传
+    initFileUpload();
 });
 
 function createLoadingMessage() {
@@ -711,6 +718,26 @@ async function loadChatDetails(chatId) {
         });
         
         currentMessage = messages;
+
+        // 清空当前文件列表
+        document.getElementById('fileList').innerHTML = '';
+
+        // 加载当前会话关联的文件
+        uploadedFiles
+            .filter(file => file.chatId === chatId)
+            .forEach(file => {
+                // 重新创建文件项但不重复存储
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                fileItem.innerHTML = `
+                    <i class="fas fa-file-alt"></i>
+                    <span class="file-name">${file.fileName}</span>
+                    <span class="file-remove">&times;</span>
+                `;
+                // 重新绑定删除事件...
+                document.getElementById('fileList').appendChild(fileItem);
+            });
+
         // 新增上下文长度检测
         const contextWarning = document.getElementById('contextWarning');
         totalMessages = messages.length;
@@ -774,6 +801,23 @@ function processMessageContent(content, className) {
 async function deleteChat(chatId) {
     try {
         chat = 'chat'; // 确保chat变量存在
+
+        // 新增文件清理逻辑
+        const sessionFiles = uploadedFiles.filter(f => f.chatId === chatId);
+        // 并行删除所有关联文件
+        await Promise.all(sessionFiles.map(async file => {
+            await fetch(`http://localhost:1618/files/${file.fileId}`, {
+                method: 'DELETE'
+            });
+        }));
+
+        // 更新文件数组
+        uploadedFiles = uploadedFiles.filter(f => f.chatId !== chatId);
+        uploadedFileIds = uploadedFileIds.filter(id => 
+            !sessionFiles.some(f => f.fileId === id)
+        );
+
+        //删除会话
         const response = await fetch(`http://localhost:1618/ai/deleteChatId/${chat}/${chatId}`, {
             method: 'DELETE'
         });
@@ -783,6 +827,9 @@ async function deleteChat(chatId) {
             if (currentChatId === chatId) {
                 chatMessages.innerHTML = '';
                 currentChatId = null;
+                // 新增当前会话文件列表清理
+                document.getElementById('fileList').innerHTML = '';
+
             }
             // 刷新会话列表
             await loadChatHistory();
@@ -866,4 +913,115 @@ function showNavigationConfirm() {
             resolve(false);
         });
     });
+}
+
+
+let uploadedFiles = [];  // 上传的文件列表
+let uploadedFileIds = []; // 文件ID列表
+
+// 新增文件上传初始化函数
+function initFileUpload() {
+    // 创建隐藏的文件输入
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = '.txt';
+    fileInput.style.display = 'none';
+    document.body.appendChild(fileInput);
+
+    // 点击附件图标触发文件选择
+    document.querySelector('.attachment-trigger').addEventListener('click', () => {
+        fileInput.click();
+    });
+
+    // 处理文件选择
+    fileInput.addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        // 验证文件类型和大小
+        if (!file.name.endsWith('.txt') && !file.type.includes('text/plain')) {
+            alert('仅支持上传txt文件');
+            return;
+        }
+        if (file.size > 10 * 1024 * 1024) {
+            alert('文件大小不能超过10MB');
+            return;
+        }
+
+        try {
+            const formData = new FormData();
+            formData.append('filedata', file);
+
+            const response = await fetch('http://localhost:1618/files/upload', {
+                method: 'POST',
+                body: formData
+            });
+            //获取响应的fileId
+
+            if (!response.ok) {
+                const error = await response.text();
+                throw new Error(error);
+            }
+
+            const result = await response.json();
+            showUploadedFile(file.name, result.fileId);
+        } catch (error) {
+            console.error('上传失败:', error);
+            alert(`上传失败: ${error.message}`);
+        }
+    });
+}
+
+// 显示已上传文件
+function showUploadedFile(fileName, fileId) {
+    const fileList = document.getElementById('fileList');
+    
+    // 创建文件项
+    const fileItem = document.createElement('div');
+    fileItem.className = 'file-item';
+    fileItem.innerHTML = `
+        <i class="fas fa-file-alt"></i>
+        <span class="file-name">${fileName}</span>
+        <span class="file-remove">&times;</span>
+    `;
+
+    // 插入到列表最前面（由于flex反向布局，视觉上在最右侧）
+    fileList.insertBefore(fileItem, fileList.firstChild);
+
+    // 存储文件信息
+    uploadedFiles.push({
+        fileName,
+        fileId,
+        chatId: currentChatId, // 新增会话ID绑定
+        element: fileItem
+    });
+
+    // 自动滚动到最新文件
+    fileList.scrollTo({
+        left: 0,
+        behavior: 'smooth'
+    });
+
+
+    // 修改删除按钮点击事件
+    const removeBtn = fileItem.querySelector('.file-remove');
+    removeBtn.addEventListener('click', async () => {
+        try {
+            // 调用后端删除接口
+            await fetch(`http://localhost:1618/files/${fileId}`, {
+                method: 'DELETE'
+            });
+            
+            // 从数组中移除对应文件
+            uploadedFiles = uploadedFiles.filter(f => f.fileId !== fileId);
+            uploadedFileIds = uploadedFileIds.filter(id => id !== fileId);
+            fileItem.remove();
+        } catch (error) {
+            console.error('文件删除失败:', error);
+            alert('文件删除失败，请稍后重试');
+        }
+    });
+
+    uploadedFileIds.push(fileId); // 将fileId添加到列表
+
 }

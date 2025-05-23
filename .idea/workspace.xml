@@ -4,18 +4,47 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="新增不支持工具模型名称列表">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="新增一批样式和设置项">
+      <change afterPath="$PROJECT_DIR$/.idea/Local_Helper-2.0.0.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/FilesController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/model/dto/UploadFileParamDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/model/dto/UploadFileResultDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/FileParseService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/FileParseServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/MemoryStorage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/TxtFileParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/config/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/config/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/css/settings.css" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/css/settings.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/AiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/AiController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/model/po/GetRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/model/po/GetRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/InMemoryChatHistoryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/InMemoryChatHistoryServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/socket/WebSocketServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/socket/WebSocketServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/FilterResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/MessageFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/js/settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/js/settings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/com/ai/service/impl/ModelMessageServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/classes/com/ai/service/impl/ModelMessageServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/com/ai/controller/AiController.class" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/classes/com/ai/controller/AiController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/com/ai/model/po/GetRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/classes/com/ai/model/po/GetRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/com/ai/socket/WebSocketServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/classes/com/ai/socket/WebSocketServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/com/ai/utils/FilterResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/css/settings.css" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/classes/static/css/settings.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/js/settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/classes/static/js/settings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mcp-server/src/main/java/com/ai/mcpserver/tools/WeatherTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/mcp-server/src/main/java/com/ai/mcpserver/tools/WeatherTool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/update_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/update_log.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -31,6 +60,12 @@
     &quot;assignee&quot;: &quot;fanxt0218&quot;
   }
 }</component>
+  <component name="GiteeDefaultAccount">
+    <option name="defaultAccountId" value="7dc84b9e-c0d7-4450-8172-576230ad4f9d" />
+  </component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="920e4915-c6de-42e6-a0b8-b2ff07e53eb6" />
+  </component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/fanxt0218/Local_Helper&quot;,
@@ -68,6 +103,7 @@
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.LocalHelperApplication.executor": "Run",
     "Spring Boot.MCPServerApplication.executor": "Run",
     "git-widget-placeholder": "local__helper-v2.0.0",
@@ -82,8 +118,13 @@
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
     "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "com.gitee.ui.GiteeSettingsConfigurable",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
   }
 }]]></component>
   <component name="ReactorSettings">
@@ -99,6 +140,9 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.ai.model.dto" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="configurationTypes">
@@ -111,9 +155,15 @@
     </option>
   </component>
   <component name="RunManager" selected="Spring Boot.LocalHelperApplication">
-    <configuration name="LocalHelperApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <configuration name="LocalHelperApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="local_helper_client" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.ai.LocalHelperApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ai.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -125,6 +175,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Spring Boot.MCPServerApplication" />
+      <item itemvalue="Spring Boot.LocalHelperApplication" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.LocalHelperApplication" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -147,7 +206,9 @@
       <workItem from="1747729747985" duration="1498000" />
       <workItem from="1747731865808" duration="3084000" />
       <workItem from="1747735760852" duration="363000" />
-      <workItem from="1747792500804" duration="7003000" />
+      <workItem from="1747792500804" duration="8622000" />
+      <workItem from="1747875905867" duration="14360000" />
+      <workItem from="1747962848436" duration="15859000" />
     </task>
     <task id="LOCAL-00001" summary="2.0.0版本项目工程">
       <option name="closed" value="true" />
@@ -173,7 +234,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747736036209</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="新增一批样式和设置项">
+      <option name="closed" value="true" />
+      <created>1747808415162</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1747808415162</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -190,7 +259,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/master" />
+                        <option value="origin/local_helper-v2.0.0" />
                       </list>
                     </value>
                   </entry>
@@ -205,6 +274,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="2.0.0版本项目工程" />
     <MESSAGE value="新增不支持工具模型名称列表" />
-    <option name="LAST_COMMIT_MESSAGE" value="新增不支持工具模型名称列表" />
+    <MESSAGE value="新增一批样式和设置项" />
+    <option name="LAST_COMMIT_MESSAGE" value="新增一批样式和设置项" />
   </component>
 </project>

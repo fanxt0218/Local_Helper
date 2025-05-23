@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         options: ['小', '中', '大'],
         default: '中'
     });
+    
 
     addSettingItem({
         category: '系统设置',
@@ -218,6 +219,7 @@ function addSettingItem(config) {
             localStorage.setItem('字体大小', this.value);
         });
     }
+
     
     group.appendChild(title);
     group.appendChild(control.element);
@@ -263,6 +265,7 @@ function createControlElement(config) {
                 </label>
             `;
             break;
+       
 
         case 'range':
             control = document.createElement('input');

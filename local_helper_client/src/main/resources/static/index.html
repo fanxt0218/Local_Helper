@@ -64,7 +64,11 @@
             </div>
         </div>
     </div>
-    <div class="status disconnected" id="connectionStatus">连接状态：已断开</div>
+    <!-- 连接状态图标与连接状态在同一行 -->
+    <div class="status">
+        <i class="el-icon-link"></i>
+        <span class="status disconnected" id="connectionStatus">连接状态：已断开</span>
+    </div>
     <div class="chat-messages" id="chatMessages">
         <!-- 消息将在这里动态添加 -->
     </div>
@@ -80,6 +84,11 @@
                 </button>
                 <button class="mode-btn" data-mode="web">🌐 联网搜索</button>
                 <button class="mode-btn" data-mode="mcp">🔗 MCP</button>
+                <!-- 添加文件上传容器 -->
+                <div class="attachment-container">
+                    <div class="file-list" id="fileList"></div>
+                    <i class="el-icon-paperclip attachment-trigger" data-tooltip="上传附件(仅识别文字) 目前仅支持.txt文件，每个最大10M"></i> <!-- 修改类名为唯一标识 -->
+                </div>
             </div>
             <textarea id="messageInput" placeholder="输入消息后可按Enter发送，Shift+Enter换行..."></textarea>
         </div>
@@ -95,5 +104,7 @@
 </div>
 <script src="./js/settings.js"></script>
 <script src="./js/script.js"></script>
+<!-- 引入UI组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
 </body>
 </html>

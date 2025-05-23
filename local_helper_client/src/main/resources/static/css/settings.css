@@ -664,7 +664,7 @@ input:checked + .slider {
     color: white;
     font-size: 12px;
     text-align: center;
-    cursor: help;
+    cursor: pointer;
     margin-left: 8px;
     line-height: 16px;
 }
@@ -706,3 +706,5 @@ input:checked + .slider {
     background: #334155; /* 暗色模式背景 */
     border-color: #475569;
 }
+
+/* 滑块控件 */

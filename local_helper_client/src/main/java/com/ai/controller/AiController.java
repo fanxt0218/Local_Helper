@@ -7,23 +7,19 @@ import com.ai.model.dto.ButtonStatusDto;
 import com.ai.model.po.ChatDetail;
 import com.ai.model.po.GetRequest;
 import com.ai.model.vo.ChatDetailVo;
-import com.ai.model.vo.ChatHistoryMessage;
 import com.ai.service.ChatHistoryService;
 import com.ai.service.ModelMessageService;
+import com.ai.utils.MessageFilter;
+import com.ai.utils.MemoryStorage;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.modelcontextprotocol.client.McpAsyncClient;
-import io.modelcontextprotocol.client.McpClient;
-import io.modelcontextprotocol.client.McpSyncClient;
-import io.modelcontextprotocol.spec.McpSchema;
 import org.reactivestreams.Subscription;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.InMemoryChatMemory;
 import org.springframework.ai.chat.messages.*;
-import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.mcp.AsyncMcpToolCallbackProvider;
-import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -32,10 +28,8 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.BiPredicate;
 
 import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY;
 
@@ -99,6 +93,10 @@ public class AiController {
     public Flux<String> chat(@RequestBody GetRequest request) {
         //用户消息
         String userMessage = request.getMessage();
+        //文件内容->将用户消息和文件内容进行拼接
+        if (request.getFileIds() != null){
+            userMessage = formatFile(request.getFileIds()) + "【用户消息】:\n"+userMessage;
+        }
         //保存会话id
         chatHistoryService.save("chat",request.getChatId(),request.getSid());
         //构建提示词，用户提示词，调用模型，取出响应
@@ -125,13 +123,14 @@ public class AiController {
                     .content();  //获取响应内容
         }
 
-                return response.doOnNext(assistantResponse::append) // 追加到响应收集器中
+        String finalUserMessage = userMessage;
+        return response.doOnNext(assistantResponse::append) // 追加到响应收集器中
 //                .doOnSubscribe(sub -> activeSubscriptions.put(request.getChatId(), sub)) // 直接存储Subscription
                 .doFinally(Message->{
                     //将响应信息存储到数据库
                     String type = "assistant"; //后续寻找如何获取响应类型
                     //将用户信息保存到数据库
-                    saveChatHistory(request.getChatId(),"user", userMessage);
+                    saveChatHistory(request.getChatId(),"user", finalUserMessage);
                     //将响应信息存储到数据库
                     saveChatHistory(request.getChatId(),type, assistantResponse.toString());
                 });
@@ -167,14 +166,14 @@ public class AiController {
         if (!chatDetails.isEmpty()) {
             chatDetails.forEach(c -> {
                 if (c.getMessageType().equals("user")) {
-                    chatMemory.add(chatId, new UserMessage(c.getContent()));     //用户信息
+                    chatMemory.add(chatId, new UserMessage(MessageFilter.filterUserMessage(c.getContent())));     //用户信息
                 } else if (c.getMessageType().equals("assistant")&& !c.getContent().equals("服务繁忙,请稍后再试")) {
                     chatMemory.add(chatId, new AssistantMessage(c.getContent())); //模型回复信息
                 }
             });
             System.err.println("当前模型记忆为:"+chatMemory.get(chatId,  Integer.MAX_VALUE));
         }
-        return chatDetails.stream().map(c->new ChatDetailVo(c.getMessageType(),c.getContent())).toList();
+        return chatDetails.stream().map(c->new ChatDetailVo(c.getMessageType(),MessageFilter.filterUserMessage(c.getContent()))).toList();
     }
 
     @PostMapping("/ai/stopresponse/{currentChatId}")
@@ -220,13 +219,6 @@ public class AiController {
         chatDetailMapper.insert(chatDetail);
     }
 
-    //更改工具配置
-    public void updateToolConfig(String modelName) {
-        System.out.println("切换至 "+modelName+" 模型");
-        if (modelName.contains("deepseek")){
-            chatClient.prompt().tools(new AsyncMcpToolCallbackProvider(mcpASyncClients));
-        }
-    }
 
     @Autowired
     private ModelMessageService modelMessageService;
@@ -239,5 +231,19 @@ public class AiController {
         //先刷新状态
         modelMessageService.asyncRefreshConfig1();
         return modelMessageService.checkButton(buttonStatusDto,modelName);
+    }
+
+    @Autowired
+    private MemoryStorage memoryStorage;
+    public String formatFile(List<String> fileIds){
+        if (fileIds == null){
+            return null;
+        }
+        StringBuilder fileContent = new StringBuilder();
+        for (String fileId : fileIds){
+            String content = memoryStorage.get(fileId);
+            fileContent.append(content).append("\n");
+        }
+        return fileContent.toString();
     }
 }

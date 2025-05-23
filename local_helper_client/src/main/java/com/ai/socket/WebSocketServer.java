@@ -2,8 +2,7 @@ package com.ai.socket;
 
 import com.ai.controller.AiController;
 import com.ai.model.po.GetRequest;
-import com.ai.service.AIService;
-import com.ai.utils.FilterResponse;
+import com.ai.utils.MessageFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.websocket.OnClose;
 import jakarta.websocket.OnMessage;
@@ -11,7 +10,6 @@ import jakarta.websocket.OnOpen;
 import jakarta.websocket.Session;
 import jakarta.websocket.server.PathParam;
 import jakarta.websocket.server.ServerEndpoint;
-import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -22,8 +20,6 @@ import java.time.Duration;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
-import java.util.concurrent.TimeoutException;
 
 @Component
 @ServerEndpoint("/ai/response/{sid}")
@@ -94,7 +90,7 @@ public class WebSocketServer {
                         chunk -> {
                             try {
                                 Map<String, String> map = new HashMap<>();
-                                map.put("chat", FilterResponse.filterLeadingTag(chunk));
+                                map.put("chat", MessageFilter.filterLeadingTag(chunk));
                                 session.getBasicRemote().sendText(objectMapper.writeValueAsString(map));
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
