@@ -924,7 +924,7 @@ function initFileUpload() {
     // 创建隐藏的文件输入
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
-    fileInput.accept = '.txt';
+     fileInput.accept = '.txt, .xlsx, .xls, .pdf, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/pdf'; // 添加新类型
     fileInput.style.display = 'none';
     document.body.appendChild(fileInput);
 
@@ -938,16 +938,23 @@ function initFileUpload() {
         const file = e.target.files[0];
         if (!file) return;
 
-        // 验证文件类型和大小
-        if (!file.name.endsWith('.txt') && !file.type.includes('text/plain')) {
-            alert('仅支持上传txt文件');
+        // 扩展文件类型验证
+        const allowedExtensions = /(\.txt|\.xlsx|\.xls|\.pdf)$/i;
+        const allowedMimeTypes = [
+            'text/plain',
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'application/vnd.ms-excel',
+            'application/pdf'
+        ];
+
+        if (!allowedExtensions.exec(file.name) || !allowedMimeTypes.includes(file.type)) {
+            alert('仅支持上传 txt, xlsx, xls, pdf 文件'); // 修改提示信息
             return;
         }
         if (file.size > 10 * 1024 * 1024) {
             alert('文件大小不能超过10MB');
             return;
         }
-
         try {
             const formData = new FormData();
             formData.append('filedata', file);
@@ -1001,7 +1008,6 @@ function showUploadedFile(fileName, fileId) {
         left: 0,
         behavior: 'smooth'
     });
-
 
     // 修改删除按钮点击事件
     const removeBtn = fileItem.querySelector('.file-remove');

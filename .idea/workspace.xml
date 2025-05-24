@@ -4,33 +4,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="新增一批样式和设置项">
-      <change afterPath="$PROJECT_DIR$/.idea/Local_Helper-2.0.0.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/FilesController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/model/dto/UploadFileParamDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/model/dto/UploadFileResultDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/FileParseService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/FileParseServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/MemoryStorage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/TxtFileParser.java" afterDir="false" />
+    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="新增添加附件功能、新增设置项、优化了界面显示效果">
+      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/ExcelFileParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/PDFFileParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/AiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/AiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/model/po/GetRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/model/po/GetRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/InMemoryChatHistoryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/InMemoryChatHistoryServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/socket/WebSocketServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/socket/WebSocketServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/FilterResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/MessageFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/FileParseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/FileParseServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/css/settings.css" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/css/settings.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/js/script.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/js/settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/js/settings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/com/ai/controller/AiController.class" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/classes/com/ai/controller/AiController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/com/ai/model/po/GetRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/classes/com/ai/model/po/GetRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/com/ai/socket/WebSocketServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/classes/com/ai/socket/WebSocketServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/com/ai/utils/FilterResponse.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/css/settings.css" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/classes/static/css/settings.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/mapper/ChatDetailMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/mapper/ChatMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/css/settings.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/classes/static/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/css/styles2.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/css/styles_all.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/imgs/deep_think.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/imgs/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/classes/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/classes/static/js/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/js/script1.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/js/script2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/js/script3.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/js/settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/classes/static/js/settings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcp-server/src/main/java/com/ai/mcpserver/tools/WeatherTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/mcp-server/src/main/java/com/ai/mcpserver/tools/WeatherTool.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/update_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/update_log.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -108,7 +109,7 @@
     "Spring Boot.MCPServerApplication.executor": "Run",
     "git-widget-placeholder": "local__helper-v2.0.0",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/86130/idea2024Projects/Local_Helper-2.0.0/local_helper_client/src/main/resources/static/js",
+    "last_opened_file_path": "C:/Users/86130/idea2024Projects/Local_Helper-2.0.0/local_helper_client/src/main/resources/static/css",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -132,8 +133,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0\local_helper_client\src\main\resources\static\js" />
       <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0\local_helper_client\src\main\resources\static\css" />
+      <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0\local_helper_client\src\main\resources\static\js" />
       <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0\local_helper\src\main\resources\static\js" />
       <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0\local_helper\src\main\resources\static\css" />
     </key>
@@ -208,7 +209,8 @@
       <workItem from="1747735760852" duration="363000" />
       <workItem from="1747792500804" duration="8622000" />
       <workItem from="1747875905867" duration="14360000" />
-      <workItem from="1747962848436" duration="15859000" />
+      <workItem from="1747962848436" duration="20479000" />
+      <workItem from="1748066193594" duration="11131000" />
     </task>
     <task id="LOCAL-00001" summary="2.0.0版本项目工程">
       <option name="closed" value="true" />
@@ -242,7 +244,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747808415162</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="新增添加附件功能、新增设置项、优化了界面显示效果">
+      <option name="closed" value="true" />
+      <created>1747985657921</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1747985657921</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -275,6 +285,7 @@
     <MESSAGE value="2.0.0版本项目工程" />
     <MESSAGE value="新增不支持工具模型名称列表" />
     <MESSAGE value="新增一批样式和设置项" />
-    <option name="LAST_COMMIT_MESSAGE" value="新增一批样式和设置项" />
+    <MESSAGE value="新增添加附件功能、新增设置项、优化了界面显示效果" />
+    <option name="LAST_COMMIT_MESSAGE" value="新增添加附件功能、新增设置项、优化了界面显示效果" />
   </component>
 </project>
