@@ -155,6 +155,12 @@ body {
     font-size: 14px;
     cursor: pointer;
     transition: all 0.3s ease;
+
+     display: inline-flex;  /* 修改为flex布局 */
+    align-items: center;   /* 垂直居中 */
+    justify-content: center; /* 水平居中 */
+    gap: 8px;              /* 图标文字间距 */
+    padding: 4px 10px;     /* 统一内边距 */
 }
 
 .mode-btn:hover {
@@ -183,7 +189,7 @@ body {
     padding: 20px 63px 20px 20px; /* 右侧留白增加 */
     min-height: 60px; /* 保持最小高度 */
     line-height: 1.5; /* 改善文本垂直居中 */
-    margin-right: 10px; /* 增加右侧间距 */
+    margin-right: -60px; /* 增加右侧间距 */
 }
 
 #messageInput:focus {
@@ -383,6 +389,7 @@ body {
     border: 2px solid #575555; /* 添加与侧边栏一致的边框 */
     border-top: none; /* 移除顶部边框 */
     border-bottom: none ;
+    border-left: 2.3px solid #575554;
 }
 
 /* 用户信息区域 */
@@ -798,6 +805,20 @@ strong {
     width: 15px;  /* 根据实际图片尺寸调整 */
     height: 15px;
     vertical-align: middle;
+
+     flex-shrink: 0;        /* 防止图标被压缩 */
+    width: 15px;
+    height: 15px;
+    margin: 2px 0;         /* 增加垂直间距 */
+}
+
+.mode-icon-dark {
+   /* 加粗图标 */
+   font-weight: 800; 
+}
+
+.dark-theme .mode-icon-dark{
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(90deg) brightness(100%) contrast(100%);
 }
 
 /* 新增按钮提示样式 */
@@ -866,19 +887,20 @@ body {
 
 /* 在原有发送按钮样式后添加 */
 .attachment-trigger {
-    position: absolute;
-    right: 27px; /* 发送按钮宽度 + 间距 */
-    bottom: 100px; /* 根据输入框高度调整 */
+ position: absolute;
+    right: 70px; /* 发送按钮宽度50px + 间距20px */
+    bottom: 15px; /* 与发送按钮垂直对齐 */
     color: #858687;
-    font-size: 30px;
+    font-size: 35px;
     cursor: pointer;
     transition: all 0.2s ease;
-    z-index: 999; /* 确保在输入框上方 */
+    z-index: 999;
+    transform: translateY(-27%); /* 保持垂直居中 */
 }
 
 .attachment-trigger:hover {
     color: #3b5bdb;
-    transform: scale(1.1);
+    transform: translateY(-27%) scale(1.05); /* 缩小缩放比例 */
 }
 
 /* 保持原有模式按钮样式不变 */
@@ -1011,9 +1033,9 @@ body {
     left: auto;
     transform: translateX(0);
     min-width: 80px;  /* 最小宽度适配2个汉字 */
-    max-width: 120px; /* 7个汉字宽度（按14px字号计算） */
+    max-width: 150px; /* 7个汉字宽度（按14px字号计算） */
     width: max-content; /* 根据内容自适应 */
-    white-space: normal;
+    /* white-space: normal; */
     text-align: left; /* 左对齐更美观 */
     /* 其他样式保持不变 */
     content: attr(data-tooltip);
@@ -1027,6 +1049,7 @@ body {
     /* 行距 */
     line-height: 1.5;
     overflow-wrap: break-word;
+    white-space: pre-wrap; /* 修改为pre-wrap保留空格 */
 }
 
 /* 当接近顶部时显示在下方 */
@@ -1039,7 +1062,8 @@ body {
 
 .attachment-trigger:hover::after {
     opacity: 1;
-    margin-right: -60px;  /* 增加右侧间距 */
+    margin-right: -80px;  /* 增加右侧间距 */
     left: auto;
     right: 100%;  /* 改为从右侧延伸 */
 }
+
