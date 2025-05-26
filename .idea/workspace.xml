@@ -4,34 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="新增添加附件功能、新增设置项、优化了界面显示效果">
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/ExcelFileParser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/PDFFileParser.java" afterDir="false" />
+    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="支持对Excel、PDF文件的上传、优化布局、UI、解决了一些bug">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/AiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/AiController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/FileParseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/FileParseServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/css/settings.css" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/css/settings.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/js/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/ExcelFileParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/ExcelFileParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/PDFFileParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/PDFFileParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/js/settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/js/settings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/mapper/ChatDetailMapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/mapper/ChatMapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/css/settings.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/classes/static/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/css/styles2.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/css/styles_all.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/imgs/deep_think.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/imgs/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/classes/static/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/classes/static/js/script.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/js/script1.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/js/script2.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/js/script3.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/js/settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/classes/static/js/settings.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/update_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/update_log.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -105,7 +84,7 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.LocalHelperApplication.executor": "Run",
+    "Spring Boot.LocalHelperApplication.executor": "Debug",
     "Spring Boot.MCPServerApplication.executor": "Run",
     "git-widget-placeholder": "local__helper-v2.0.0",
     "kotlin-language-version-configured": "true",
@@ -210,7 +189,8 @@
       <workItem from="1747792500804" duration="8622000" />
       <workItem from="1747875905867" duration="14360000" />
       <workItem from="1747962848436" duration="20479000" />
-      <workItem from="1748066193594" duration="11131000" />
+      <workItem from="1748066193594" duration="12199000" />
+      <workItem from="1748221237018" duration="6427000" />
     </task>
     <task id="LOCAL-00001" summary="2.0.0版本项目工程">
       <option name="closed" value="true" />
@@ -252,7 +232,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747985657921</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="支持对Excel、PDF文件的上传、优化布局、UI、解决了一些bug">
+      <option name="closed" value="true" />
+      <created>1748093235174</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1748093235174</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -286,6 +274,18 @@
     <MESSAGE value="新增不支持工具模型名称列表" />
     <MESSAGE value="新增一批样式和设置项" />
     <MESSAGE value="新增添加附件功能、新增设置项、优化了界面显示效果" />
-    <option name="LAST_COMMIT_MESSAGE" value="新增添加附件功能、新增设置项、优化了界面显示效果" />
+    <MESSAGE value="支持对Excel、PDF文件的上传、优化布局、UI、解决了一些bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="支持对Excel、PDF文件的上传、优化布局、UI、解决了一些bug" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/MemoryStorage.java</url>
+          <line>17</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

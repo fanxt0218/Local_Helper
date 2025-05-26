@@ -20,6 +20,7 @@ public class PDFFileParser {
              PDDocument document = Loader.loadPDF(inputStream.readAllBytes())) {
 
             PDFTextStripper stripper = new PDFTextStripper();
+            System.out.println("解析成功PDF "+ stripper.getText(document));
             return stripper.getText(document);
         } catch (Exception e) {
             throw new Exception("解析失败: " + e.getMessage());
