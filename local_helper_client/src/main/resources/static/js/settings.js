@@ -6,11 +6,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const savedSize = localStorage.getItem('字体大小') || '中';
     applyFontSize(savedSize);
 
+    // 添加评分初始化
+    const savedRating = parseInt(localStorage.getItem('userRating')) || 0;
+    document.querySelectorAll('.el-star').forEach((star, index) => {
+        star.classList.toggle('active', index < savedRating);
+    });
+    initRatingSystem();
+
     // 示例设置项（测试用）
     addSettingsCategory('通用设置');
     addSettingsCategory('系统设置');
     addSettingsCategory('模型设置');
     addSettingsCategory('MCP设置');
+    addSettingsCategory('关于我们');
 
     addSettingItem({
         category: '通用设置', 
@@ -80,6 +88,68 @@ document.addEventListener('DOMContentLoaded', () => {
        step: 1,
        default: 40,
        tooltip: 'top-k 采样通过限制模型每次生成时考虑的候选词数量来控制输出的多样性。较高的 top-k 值会使输出更具创造性，较低的值则会使输出更具确定性。仅从概率最高的前 K 个词中采样，减少随机性，提高稳定性。'
+    });
+
+    addSettingItem({
+    category: '关于我们',
+    type: "custom",
+    content: `
+            <div class="about-container">
+                <header class="about-header">
+                    <h1 class="gradient-title">关于我们</h1>
+                    <p class="version-tag">Version 2.1.2</p>
+                </header>
+                
+                <div class="info-grid">
+                    <!-- 开发者信息 -->
+                    <section class="info-card">
+                        <div class="card-header">
+                            <i class="codicon codicon-organization"></i>
+                            <h2>开发团队</h2>
+                        </div>
+                        <ul class="developer-list">
+                            <li><span>首席架构师</span>Fanxt</li>
+                            <li><span>前端负责人</span>Fanxt</li>
+                            <li><span>质量保障</span>Fanxt</li>
+                        </ul>
+                    </section>
+    
+                    <!-- 开源信息 -->
+                    <section class="info-card">
+                        <div class="card-header">
+                            <i class="codicon codicon-source-control"></i>
+                            <h2>开源生态</h2>
+                        </div>
+                        <div class="oss-buttons">
+                            <a href="https://github.com/fanxt0218/Local_Helper" class="oss-btn github">
+                                <i class="codicon codicon-github"></i>
+                                <span>GitHub 仓库</span>
+                                <span class="repo-address">github.com/fanxt0218/Local_Helper</span>
+                            </a>
+                            <a href="https://gitee.com/fan_xt/local_helper" class="oss-btn gitee">
+                                <i class="codicon codicon-repo-clone"></i>
+                                <span>Gitee 仓库</span>
+                                <span class="repo-address">gitee.com/fan_xt/local_helper</span>
+                            </a>
+                        </div>
+                    </section>
+    
+                    <!-- 用户评分 -->
+                    <section class="info-card">
+                        <div class="card-header">
+                            <i class="codicon codicon-feedback"></i>
+                            <h2>体验评分</h2>
+                        </div>
+                        <div class="el-rate-container">
+                            ${Array(5).fill().map((_, i) => 
+                                `<div class="el-star" data-rating="${i + 1}"></div>`
+                            ).join('')}
+                        </div>
+                        <div class="rating-text"></div>
+                    </section>
+                </div>
+            </div>
+        `
     });
 
 });
@@ -298,6 +368,10 @@ function createControlElement(config) {
             if(config.placeholder) control.placeholder = config.placeholder;
             container.appendChild(control);
             break;
+
+        case 'custom':  
+            container.innerHTML = config.content;
+            return { element: container };
             
         default:
             control = document.createElement('input');
@@ -332,4 +406,56 @@ function applyFontSize(size) {
             break;
         // 默认保持正常尺寸
     }
+}
+
+//评分
+document.addEventListener('click', (e) => {
+      if(e.target.classList.contains('el-star')) {
+        const container = e.target.closest('.el-rate-container');
+        const stars = container.querySelectorAll('.el-star');
+        const currentIndex = Array.from(stars).indexOf(e.target);
+        
+        stars.forEach((star, index) => {
+            const delay = index * 50;
+            star.style.transition = `all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55) ${delay}ms`;
+            star.classList.remove('active');
+            if(index <= currentIndex) star.classList.add('active');
+        });
+        
+        // 修复文字反馈变量
+        const texts = ['需要改进', '基本可用', '体验良好', '非常优秀', '完美体验'];
+        container.nextElementSibling.textContent = texts[currentIndex];  // 使用 currentIndex
+        
+        localStorage.setItem('userRating', currentIndex + 1);
+    }
+});
+
+
+function initRatingSystem() {
+    // 使用动态选择器监听动态创建的元素
+    document.addEventListener('mouseover', (e) => {
+        if(e.target.classList.contains('el-star')) {
+            const container = e.target.closest('.el-rate-container');
+            const stars = container.querySelectorAll('.el-star');
+            const currentIndex = Array.from(stars).indexOf(e.target);
+            
+            stars.forEach((star, index) => {
+                star.style.background = index <= currentIndex ? '#409EFF' : '#f0f2f5';
+                star.style.transform = index <= currentIndex ? 'scale(1.1)' : 'scale(1)';
+            });
+        }
+    });
+
+    document.addEventListener('mouseout', (e) => {
+        if(e.target.classList.contains('el-star')) {
+            const container = e.target.closest('.el-rate-container');
+            const stars = container.querySelectorAll('.el-star');
+            const savedRating = parseInt(localStorage.getItem('userRating')) || 0;
+            
+            stars.forEach((star, index) => {
+                star.style.background = index < savedRating ? '#7c4dff' : '#f0f2f5';
+                star.style.transform = 'scale(1)';
+            });
+        }
+    });
 }

@@ -29,7 +29,7 @@ public class FileParseServiceImpl implements FileParseService {
             }
             //Excel文件
             if (Objects.equals(file.getContentType(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")|| Objects.equals(file.getContentType(), "application/vnd.ms-excel")){
-                return new ExcelFileParser().parse(file,0);
+                return new ExcelFileParser().parse(file);
             }
             //不支持的文件类型
             throw new RuntimeException("不支持的文件类型");

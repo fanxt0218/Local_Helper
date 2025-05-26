@@ -1,0 +1,208 @@
+/* 全新设计系统 */
+.about-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+
+/* 标题区域 */
+.about-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.gradient-title {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, #409EFF 30%, #7c4dff 70%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.05em;
+}
+
+.version-tag {
+    font-size: 1.1rem;
+    color: #909399;
+    margin-top: 0.5rem;
+}
+
+/* 网格布局 */
+.info-grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+/* 信息卡片 */
+.info-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #ebeef5;
+    padding-bottom: 1rem;
+}
+
+.card-header i {
+    font-size: 1.8rem;
+    margin-right: 0.8rem;
+    color: #409EFF;
+}
+
+/* 开发者列表 */
+.developer-list {
+    list-style: none;
+    padding: 0;
+}
+
+.developer-list li {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #f5f7fa;
+    display: flex;
+    justify-content: space-between;
+}
+
+.developer-list li span {
+    color: #909399;
+    width: 80px;
+}
+
+/* 评分组件 */
+.el-rate-container {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin: 1.5rem 0;
+}
+
+.el-star {
+    width: 32px;
+    height: 32px;
+    background: #f0f2f5;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+}
+
+.el-star:hover {
+    background: #409EFF;
+    transform: scale(1.1);
+}
+
+.el-star.active {
+    background: #7c4dff;
+}
+
+/* 新增悬停效果 */
+.el-rate-container:hover .el-star {
+    transform: scale(1);
+}
+
+.el-rate-container:hover .el-star:hover,
+.el-rate-container:hover .el-star:hover ~ .el-star {
+    transform: scale(1);
+}
+
+.el-rate-container:hover .el-star:hover,
+.el-rate-container:hover .el-star:hover ~ .el-star {
+    background: #409EFF;
+}
+
+
+.rating-text {
+    text-align: center;
+    color: #7c4dff;
+    font-weight: 500;
+}
+
+/* 开源按钮 */
+.oss-buttons {
+    display: grid;
+    gap: 1rem;
+}
+
+.oss-btn {
+    padding: 12px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    transition: all 0.3s;
+    flex-direction: column; /* 改为垂直布局 */
+    gap: 4px;
+}
+
+.oss-btn i {
+    font-size: 1.2rem;
+    margin-right: 8px;
+}
+
+.github {
+    background: #80bdfa;
+    color: #0e84fa;
+    /* 取消下划线 */
+    text-decoration: none;
+}
+
+.github:hover {
+    background: #409EFF;
+    color: white;
+}
+
+.gitee {
+    background: #b298fa;
+    color: #6e3bf9;
+     /* 取消下划线 */
+    text-decoration: none;
+}
+
+.gitee:hover {
+    background: #7c4dff;
+    color: white;
+}
+
+/* 新增地址文字样式 */
+.repo-address {
+   font-size: 0.85em;
+    color: #fff; /* 浅色模式文字颜色 */
+    font-weight: normal;
+    word-break: break-all;
+    line-height: 1.3;
+    border-radius: 4px;
+    padding: 2px 6px;
+    margin-top: 4px;
+}
+
+/* 暗色模式适配 */
+.dark-theme .info-card {
+    background: #1a1a1a;
+    box-shadow: 0 8px 24px rgba(255, 255, 255, 0.05);
+}
+
+.dark-theme .developer-list li {
+    border-color: #2d2d2d;
+}
+
+.dark-theme .el-star {
+    background: #2d2d2d;
+}
+
+/* 暗色模式适配 */
+.dark-theme .repo-address {
+    color: rgba(255, 255, 255, 0.9) !important; /* 保持白色但增加不透明度 */
+    background: rgba(64, 158, 255, 0.2);
+}
+

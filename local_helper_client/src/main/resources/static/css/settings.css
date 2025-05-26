@@ -33,7 +33,7 @@
 
 /* 分类标题 */
 .settings-modal::before {
-     content: "设置选项";
+    content: "设置选项";
     display: block;
     font-size: 20px;
     font-weight: 600;
@@ -708,4 +708,4 @@ input:checked + .slider {
     border-color: #475569;
 }
 
-/* 滑块控件 */
+

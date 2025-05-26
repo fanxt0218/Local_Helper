@@ -1,97 +1,86 @@
 package com.ai.utils;
-
-import lombok.Builder;
 import org.apache.poi.ss.usermodel.*;
-import org.springframework.stereotype.Component;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.ss.util.CellReference;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
-import java.io.InputStream;
-import java.util.*;
 
-@Component
+import java.io.InputStream;
+import java.util.HashSet;
+import java.util.Set;
+
 public class ExcelFileParser {
 
-    /**
-     * 解析 Excel 文件为结构化数据（支持 xls/xlsx）
-     * @param file        上传的 Excel 文件
-     * @param headerRow   表头所在行号（从 0 开始）
-     * @return List<Map<String, Object>> 每行数据对应一个 Map，键为表头字段名
-     */
-    public String parse(
-            MultipartFile file,
-            int headerRow
-    ) throws Exception {
-        try (InputStream inputStream = file.getInputStream();
-             Workbook workbook = WorkbookFactory.create(inputStream)) {
+    public String parse(MultipartFile file) throws Exception {
+        StringBuilder output = new StringBuilder();
+        DataFormatter dataFormatter = new DataFormatter();
 
-            List<Map<String, Object>> result = new ArrayList<>();
-            Sheet sheet = workbook.getSheetAt(0); // 默认解析第一个工作表
+        try (InputStream is = file.getInputStream();
+             // 根据文件扩展名自动选择Workbook实现
+             Workbook workbook = file.getOriginalFilename().endsWith(".xlsx") ?
+                     new XSSFWorkbook(is) : new HSSFWorkbook(is)) {
 
-            // 提取表头
-            Row header = sheet.getRow(headerRow);
-            List<String> headers = new ArrayList<>();
-            for (Cell cell : header) {
-                headers.add(getCellValueAsString(cell));
-            }
+            for (Sheet sheet : workbook) {
+                Set<CellRangeAddress> mergedRegions = new HashSet<>(sheet.getMergedRegions());
 
-            // 遍历数据行
-            for (int rowIdx = headerRow + 1; rowIdx <= sheet.getLastRowNum(); rowIdx++) {
-                Row row = sheet.getRow(rowIdx);
-                if (row == null) continue;
+                for (Row row : sheet) {
+                    output.append("\nRow ").append(row.getRowNum() + 1).append(":\n");
 
-                Map<String, Object> rowData = new LinkedHashMap<>();
-                for (int colIdx = 0; colIdx < headers.size(); colIdx++) {
-                    Cell cell = row.getCell(colIdx, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-                    rowData.put(headers.get(colIdx), getCellValue(cell));
+                    for (Cell cell : row) {
+                        boolean isMerged = mergedRegions.stream()
+                                .anyMatch(region -> region.isInRange(cell.getRowIndex(), cell.getColumnIndex()));
+
+                        String cellAddress = getCellAddress(cell);
+                        String cellValue = formatCellValue(dataFormatter, cell);
+
+                        output.append("  ")
+                                .append(String.format("%-5s", cellAddress))  // 固定宽度对齐
+                                .append(isMerged ? "(M) " : "    ")
+                                .append(": ")
+                                .append(cellValue)
+                                .append(" [")
+                                .append(getCellTypeName(cell))
+                                .append("]\n");
+                    }
                 }
-                result.add(rowData);
             }
-            return result.toString();
-        } catch (Exception e) {
-            throw new Exception("Excel 解析失败: " + e.getMessage(), e);
         }
+        return output.toString().trim();
     }
 
-    /**
-     * 获取单元格值（自动识别类型）
-     */
-    private static Object getCellValue(Cell cell) {
-        CellType cellType = cell.getCellType();
+    private static String formatCellValue(DataFormatter formatter, Cell cell) {
+        String value = formatter.formatCellValue(cell);
+        if (value.isEmpty()) return "[空]";
+
+        // 特殊处理布尔值显示
+        if (cell.getCellType() == CellType.BOOLEAN) {
+            return Boolean.valueOf(value).toString().toUpperCase();
+        }
+        return value;
+    }
+
+    private static String getCellAddress(Cell cell) {
+        return CellReference.convertNumToColString(cell.getColumnIndex()) + (cell.getRowIndex() + 1);
+    }
+
+    private static String getCellTypeName(Cell cell) {
+        // 优先处理公式类型
+        if (cell.getCellType() == CellType.FORMULA) {
+            CellType resultType = cell.getCachedFormulaResultType();
+            return "FORMULA(" + getBaseCellTypeName(resultType) + ")";
+        }
+        return getBaseCellTypeName(cell.getCellType());
+    }
+
+    // 基础类型名称转换
+    private static String getBaseCellTypeName(CellType cellType) {
         switch (cellType) {
-            case STRING:
-                return cell.getStringCellValue().trim();
-            case NUMERIC:
-                if (DateUtil.isCellDateFormatted(cell)) {
-                    return cell.getDateCellValue();
-                } else {
-                    return cell.getNumericCellValue();
-                }
-            case BOOLEAN:
-                return cell.getBooleanCellValue();
-            case FORMULA:
-                return evaluateFormulaCell(cell);
-            case BLANK:
-            default:
-                return null;
+            case STRING:  return "TEXT";
+            case NUMERIC: return "NUMBER";
+            case BOOLEAN: return "BOOL";
+            case BLANK:   return "BLANK";
+            default:      return "OTHER";
         }
-    }
-
-    /**
-     * 处理公式单元格
-     */
-    private static Object evaluateFormulaCell(Cell cell) {
-        try {
-            return cell.getCellFormula(); // 返回公式本身
-            // 或计算结果：return cell.getNumericCellValue();
-        } catch (Exception e) {
-            return "公式计算错误";
-        }
-    }
-
-    /**
-     * 获取单元格值（强制转为字符串）
-     */
-    private static String getCellValueAsString(Cell cell) {
-        Object value = getCellValue(cell);
-        return (value != null) ? value.toString() : "";
     }
 }
