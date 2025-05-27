@@ -17,7 +17,9 @@ import org.reactivestreams.Subscription;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
-import org.springframework.ai.chat.memory.InMemoryChatMemory;
+//import org.springframework.ai.chat.memory.InMemoryChatMemory;
+import org.springframework.ai.chat.memory.InMemoryChatMemoryRepository;
+import org.springframework.ai.chat.memory.MessageWindowChatMemory;
 import org.springframework.ai.chat.messages.*;
 import org.springframework.ai.mcp.AsyncMcpToolCallbackProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +33,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY;
-
+//import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY;
 
 @Component
 @RefreshScope // 添加此注解，表示热更新
@@ -45,10 +46,16 @@ public class AiController {
     // 用于存储每个会话的订阅关系
     private final ConcurrentHashMap<String, Subscription> activeSubscriptions = new ConcurrentHashMap<>();
 
-    private final ChatClient chatClient;
-//    private final ChatClient unSupportToolChatClient;
-    ChatMemory chatMemory = new InMemoryChatMemory();
-    List<McpAsyncClient> mcpASyncClients;
+    private  ChatClient chatClient;
+    private  List<McpAsyncClient> mcpASyncClients;
+    private  ChatMemory chatMemory = MessageWindowChatMemory.builder().build();
+
+    public AiController(ChatClient.Builder chatClient, List<McpAsyncClient> mcpASyncClients) {
+        this.chatClient = chatClient
+                .defaultAdvisors(MessageChatMemoryAdvisor.builder(chatMemory).build())
+                .build();
+        this.mcpASyncClients = mcpASyncClients;
+    }
 
     @Autowired
     private ChatHistoryService  chatHistoryService;
@@ -56,13 +63,13 @@ public class AiController {
     private ChatDetailMapper chatDetailMapper;
 
 //    需要构造器注入
-    public AiController(ChatClient.Builder chatClient, List<McpAsyncClient> mcpASyncClients) {
-        this.chatClient = chatClient.clone()
-                .defaultAdvisors(new MessageChatMemoryAdvisor(chatMemory))
-//                .defaultTools(new AsyncMcpToolCallbackProvider(mcpASyncClients))
-                .build();
-        this.mcpASyncClients  = mcpASyncClients;
-    }
+//    public AiController(ChatClient.Builder chatClient, List<McpAsyncClient> mcpASyncClients) {
+//        this.chatClient = chatClient
+//                .defaultAdvisors()
+////                .defaultTools(new AsyncMcpToolCallbackProvider(mcpASyncClients))
+//                .build();
+//        this.mcpASyncClients  = mcpASyncClients;
+//    }
 
 
     String System_Prompt =
@@ -111,18 +118,19 @@ public class AiController {
             response = chatClient.prompt()
                     .system(System_Prompt) // 设置系统提示词
                     .user(userMessage)   // 设置用户提示词
-                    .tools(new AsyncMcpToolCallbackProvider(mcpASyncClients))
-                    .advisors(a -> a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, request.getChatId()))  //  设置会话ID
+                    .toolCallbacks(new AsyncMcpToolCallbackProvider(mcpASyncClients))
+                    .advisors(a -> a.param(ChatMemory.CONVERSATION_ID, request.getChatId()))  //  设置会话ID
                     .stream()        //流式响应
                     .content();  //获取响应内容
         }else {
             response = chatClient.prompt()
                     .system(System_Prompt) // 设置系统提示词
                     .user(userMessage)   // 设置用户提示词
-                    .advisors(a -> a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, request.getChatId()))  //  设置会话ID
+                    .advisors(a -> a.param(ChatMemory.CONVERSATION_ID, request.getChatId()))  //  设置会话ID
                     .stream()        //流式响应
                     .content();  //获取响应内容
         }
+//        System.err.println("----------------》模型的记忆《----------------------\n"+chatMemory.get(request.getChatId()));
 
         String finalUserMessage = userMessage;
         return response.doOnNext(assistantResponse::append) // 追加到响应收集器中
@@ -172,7 +180,7 @@ public class AiController {
                     chatMemory.add(chatId, new AssistantMessage(c.getContent())); //模型回复信息
                 }
             });
-            System.err.println("当前模型记忆为:"+chatMemory.get(chatId,  Integer.MAX_VALUE));
+            System.err.println("当前模型记忆为:"+chatMemory.get(chatId));
         }
         return chatDetails.stream().map(c->new ChatDetailVo(c.getMessageType(),MessageFilter.filterUserMessage(c.getContent()))).toList();
     }

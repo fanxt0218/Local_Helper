@@ -4,13 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="支持对Excel、PDF文件的上传、优化布局、UI、解决了一些bug">
+    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment=" 修复文件上传错误,修复Excel文件解析问题,新增“关于我们”">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/FileParseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/FileParseServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/ExcelFileParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/ExcelFileParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/PDFFileParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/PDFFileParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/config/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/config/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/config/ChatClientConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/config/ChatClientConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/AiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/AiController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/ChatHistoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/ChatHistoryController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/js/settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/js/settings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/css/settings.css" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/classes/static/css/settings.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/classes/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/js/settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/classes/static/js/settings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/target/local_helper_client-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/local_helper_client-0.0.1-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/target/local_helper_client-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/local_helper_client-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mcp-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/mcp-server/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mcp-server/src/main/java/com/ai/mcpserver/MCPServerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/mcp-server/src/main/java/com/ai/mcpserver/MCPServerApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mcp-server/src/main/java/com/ai/mcpserver/tools/LocationTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/mcp-server/src/main/java/com/ai/mcpserver/tools/LocationTool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/update_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/update_log.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -84,11 +96,11 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.LocalHelperApplication.executor": "Debug",
+    "Spring Boot.LocalHelperApplication.executor": "Run",
     "Spring Boot.MCPServerApplication.executor": "Run",
     "git-widget-placeholder": "local__helper-v2.0.0",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/86130/idea2024Projects/Local_Helper-2.0.0/local_helper_client/src/main/resources/static/css",
+    "last_opened_file_path": "C:/Users/86130/idea2024Projects/Local_Helper-2.0.0/local_helper_client/src/main/resources/static/js",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -112,8 +124,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0\local_helper_client\src\main\resources\static\css" />
       <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0\local_helper_client\src\main\resources\static\js" />
+      <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0\local_helper_client\src\main\resources\static\css" />
       <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0\local_helper\src\main\resources\static\js" />
       <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0\local_helper\src\main\resources\static\css" />
     </key>
@@ -190,7 +202,8 @@
       <workItem from="1747875905867" duration="14360000" />
       <workItem from="1747962848436" duration="20479000" />
       <workItem from="1748066193594" duration="12199000" />
-      <workItem from="1748221237018" duration="6427000" />
+      <workItem from="1748221237018" duration="6683000" />
+      <workItem from="1748309236971" duration="16765000" />
     </task>
     <task id="LOCAL-00001" summary="2.0.0版本项目工程">
       <option name="closed" value="true" />
@@ -240,7 +253,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748093235174</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary=" 修复文件上传错误,修复Excel文件解析问题,新增“关于我们”">
+      <option name="closed" value="true" />
+      <created>1748233712611</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1748233712611</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -275,7 +296,8 @@
     <MESSAGE value="新增一批样式和设置项" />
     <MESSAGE value="新增添加附件功能、新增设置项、优化了界面显示效果" />
     <MESSAGE value="支持对Excel、PDF文件的上传、优化布局、UI、解决了一些bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="支持对Excel、PDF文件的上传、优化布局、UI、解决了一些bug" />
+    <MESSAGE value=" 修复文件上传错误,修复Excel文件解析问题,新增“关于我们”" />
+    <option name="LAST_COMMIT_MESSAGE" value=" 修复文件上传错误,修复Excel文件解析问题,新增“关于我们”" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -284,6 +306,36 @@
           <url>file://$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/MemoryStorage.java</url>
           <line>17</line>
           <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/org/springframework/ai/spring-ai-autoconfigure-mcp-client/1.0.0-M7/spring-ai-autoconfigure-mcp-client-1.0.0-M7.jar!/org/springframework/ai/mcp/client/autoconfigure/McpClientAutoConfiguration.class</url>
+          <line>106</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/org/springframework/ai/spring-ai-autoconfigure-mcp-client/1.0.0-M7/spring-ai-autoconfigure-mcp-client-1.0.0-M7.jar!/org/springframework/ai/mcp/client/autoconfigure/McpClientAutoConfiguration.class</url>
+          <line>107</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/org/springframework/ai/spring-ai-autoconfigure-mcp-client/1.0.0-M7/spring-ai-autoconfigure-mcp-client-1.0.0-M7.jar!/org/springframework/ai/mcp/client/autoconfigure/McpClientAutoConfiguration.class</url>
+          <line>108</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/org/springframework/ai/spring-ai-autoconfigure-mcp-client/1.0.0-M7/spring-ai-autoconfigure-mcp-client-1.0.0-M7.jar!/org/springframework/ai/mcp/client/autoconfigure/McpClientAutoConfiguration.class</url>
+          <line>109</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/org/springframework/ai/spring-ai-autoconfigure-mcp-client/1.0.0-M7/spring-ai-autoconfigure-mcp-client-1.0.0-M7.jar!/org/springframework/ai/mcp/client/autoconfigure/McpClientAutoConfiguration.class</url>
+          <line>110</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/org/springframework/ai/spring-ai-autoconfigure-mcp-client/1.0.0-M7/spring-ai-autoconfigure-mcp-client-1.0.0-M7.jar!/org/springframework/ai/mcp/client/autoconfigure/McpClientAutoConfiguration.class</url>
+          <line>115</line>
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

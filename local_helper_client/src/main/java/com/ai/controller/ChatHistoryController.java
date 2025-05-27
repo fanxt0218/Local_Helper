@@ -4,7 +4,7 @@ import com.ai.model.vo.ChatHistoryMessage;
 import com.ai.model.vo.ChatListVo;
 import com.ai.service.ChatHistoryService;
 import org.springframework.ai.chat.memory.ChatMemory;
-import org.springframework.ai.chat.memory.InMemoryChatMemory;
+//import org.springframework.ai.chat.memory.InMemoryChatMemory;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
