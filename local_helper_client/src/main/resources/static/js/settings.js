@@ -92,6 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     addSettingItem({
     category: '关于我们',
+    label:'关于我们',
     type: "custom",
     content: `
             <div class="about-container">
@@ -131,6 +132,20 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <span>Gitee 仓库</span>
                                 <span class="repo-address">gitee.com/fan_xt/local_helper</span>
                             </a>
+                        </div>
+                    </section>
+
+                    <section class="info-card">
+                        <div class="card-header">
+                            <i class="codicon codicon-feedback"></i>
+                            <h2>联系我们</h2>
+                        </div>
+                        <div class="contact-info">
+                            <p>如有问题，请联系：</p>
+                            <ul>
+                                <li><span>邮箱：</span>3515228784@QQ.com</li>
+                                <li><span>CSDN：</span><a href="https://blog.csdn.net/2402_84949062?spm=1011.2480.3001.5343" >Fanxt_Ja</a></li>
+                            </ul>
                         </div>
                     </section>
     

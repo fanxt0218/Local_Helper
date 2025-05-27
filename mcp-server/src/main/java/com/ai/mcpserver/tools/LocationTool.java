@@ -4,6 +4,7 @@ import com.ai.mcpserver.model.location.LocationResponse;
 import com.ai.mcpserver.model.location.Point;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.ai.tool.annotation.Tool;
+import org.springframework.ai.tool.annotation.ToolParam;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
