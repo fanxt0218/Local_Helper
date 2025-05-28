@@ -34,7 +34,7 @@ body {
     border: 2px solid #575555;
     display: flex;
     flex-direction: column;
-    z-index: 998; /* 确保低于侧边栏的 z-index */
+    z-index: 100; /* 确保低于侧边栏的 z-index */
 }
 
 /* 聊天头部 */

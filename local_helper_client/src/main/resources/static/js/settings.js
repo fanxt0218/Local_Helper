@@ -13,12 +13,77 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     initRatingSystem();
 
+   
+
     // 示例设置项（测试用）
     addSettingsCategory('通用设置');
     addSettingsCategory('系统设置');
     addSettingsCategory('模型设置');
     addSettingsCategory('MCP设置');
     addSettingsCategory('关于我们');
+     // 添加加号按钮
+    const mcpCategory = document.querySelector(`.category-content[data-category="MCP设置"]`);
+    const addBtn = document.createElement('div');
+    addBtn.className = 'mcp-add-btn';
+    addBtn.innerHTML = '<i class="codicon codicon-add"></i>';
+    mcpCategory.insertBefore(addBtn, mcpCategory.firstChild); // 插入到分类内容顶部
+    
+    // 初始化MCP对话框
+    const mcpDialog = document.createElement('div');
+    mcpDialog.className = 'mcp-dialog';
+    mcpDialog.style.display = 'none';
+    mcpDialog.innerHTML = `
+        <div class="mcp-dialog-input">
+            <label>服务名称</label>
+            <input type="text" class="service-name" required>
+        </div>
+        <div class="mcp-dialog-input">
+            <label>URL</label>
+            <input type="url" class="service-url" required>
+        </div>
+        <div class="mcp-dialog-input">
+            <label>End-point（可选）</label>
+            <input type="text" class="service-endpoint">
+        </div>
+        <div class="mcp-dialog-footer">
+            <button class="btn-close mcp-cancel">取消</button>
+            <button class="btn-save mcp-add">添加</button>
+        </div>
+    `;
+    document.body.appendChild(mcpDialog);
+    
+    // 添加按钮事件
+    addBtn.addEventListener('click', () => {
+        const mask = document.createElement('div');
+        mask.className = 'mcp-mask';
+        document.body.appendChild(mask);
+
+        mcpDialog.style.display = 'block';
+    });
+    
+    // 对话框按钮事件
+    mcpDialog.querySelector('.mcp-cancel').addEventListener('click', () => {
+        document.querySelector('.mcp-mask')?.remove();
+        mcpDialog.style.display = 'none';
+    });
+    
+    mcpDialog.querySelector('.mcp-add').addEventListener('click', () => {
+        const name = mcpDialog.querySelector('.service-name').value;
+        const url = mcpDialog.querySelector('.service-url').value;
+        const endpoint = mcpDialog.querySelector('.service-endpoint').value;
+        
+        if (!name || !url) return;
+        
+        addMCPItem({
+            name,
+            url,
+            endpoint
+        });
+        
+        mcpDialog.style.display = 'none';
+        // 清空输入
+        mcpDialog.querySelectorAll('input').forEach(input => input.value = '');
+    });
 
     addSettingItem({
         category: '通用设置', 
@@ -90,6 +155,10 @@ document.addEventListener('DOMContentLoaded', () => {
        tooltip: 'top-k 采样通过限制模型每次生成时考虑的候选词数量来控制输出的多样性。较高的 top-k 值会使输出更具创造性，较低的值则会使输出更具确定性。仅从概率最高的前 K 个词中采样，减少随机性，提高稳定性。'
     });
 
+
+
+
+
     addSettingItem({
     category: '关于我们',
     label:'关于我们',
@@ -122,12 +191,12 @@ document.addEventListener('DOMContentLoaded', () => {
                             <h2>开源生态</h2>
                         </div>
                         <div class="oss-buttons">
-                            <a href="https://github.com/fanxt0218/Local_Helper" class="oss-btn github">
+                            <a href="https://github.com/fanxt0218/Local_Helper" class="oss-btn github"  target="_blank"  rel="noopener noreferrer">
                                 <i class="codicon codicon-github"></i>
                                 <span>GitHub 仓库</span>
                                 <span class="repo-address">github.com/fanxt0218/Local_Helper</span>
                             </a>
-                            <a href="https://gitee.com/fan_xt/local_helper" class="oss-btn gitee">
+                            <a href="https://gitee.com/fan_xt/local_helper" class="oss-btn gitee"  target="_blank"  rel="noopener noreferrer">
                                 <i class="codicon codicon-repo-clone"></i>
                                 <span>Gitee 仓库</span>
                                 <span class="repo-address">gitee.com/fan_xt/local_helper</span>
@@ -144,7 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <p>如有问题，请联系：</p>
                             <ul>
                                 <li><span>邮箱：</span>3515228784@QQ.com</li>
-                                <li><span>CSDN：</span><a href="https://blog.csdn.net/2402_84949062?spm=1011.2480.3001.5343" >Fanxt_Ja</a></li>
+                                <li><span>CSDN：</span><a href="https://blog.csdn.net/2402_84949062?spm=1011.2480.3001.5343"  target="_blank"  rel="noopener noreferrer">Fanxt_Ja</a></li>
                             </ul>
                         </div>
                     </section>
@@ -175,7 +244,13 @@ function initSettingsModal() {
     const closeBtns = document.querySelectorAll('.btn-close');
     const saveBtn = document.querySelector('.btn-save'); // 新增保存按钮引用
     
+    // 创建遮罩层
+    const overlay = document.createElement('div');
+    overlay.className = 'settings-modal-overlay';
+
+    
     settingsBtn.addEventListener('click', () => {
+        document.body.appendChild(overlay);
         modal.style.display = 'block';
         if(!activeCategory) document.querySelector('.category-item').click();
     });
@@ -191,12 +266,14 @@ function initSettingsModal() {
             }
         });
         modal.style.display = 'none';
+        overlay.remove();
     });
 
     // 关闭按钮事件修改
     closeBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             modal.style.display = 'none';
+            overlay.remove();
             // 还原所有设置项的值和页面状态
             document.querySelectorAll('.setting-input').forEach(input => {
                 const key = input.closest('.setting-group').querySelector('.setting-title').textContent;
@@ -218,10 +295,6 @@ function initSettingsModal() {
                 }
             });
         });
-    });
-    
-    window.addEventListener('click', (e) => {
-        if(e.target === modal) modal.style.display = 'none';
     });
 }
 
@@ -340,16 +413,6 @@ function createControlElement(config) {
             container.appendChild(control);  // 新增这行
             break;
             
-        case 'switch':
-            control = document.createElement('div');
-            control.className = 'switch-container';
-            control.innerHTML = `
-                <label class="switch">
-                    <input type="checkbox" ${config.checked ? 'checked' : ''}>
-                    <span class="slider"></span>
-                </label>
-            `;
-            break;
        
 
         case 'range':
@@ -474,3 +537,24 @@ function initRatingSystem() {
         }
     });
 }
+
+// 添加MCP项函数
+function addMCPItem(config) {
+    const contentSection = document.querySelector(`.category-content[data-category="MCP设置"]`);
+    
+    const group = document.createElement('div');
+    group.className = 'setting-group mcp-item';
+    
+    group.innerHTML = `
+        <div class="setting-title">${config.name}</div>
+        <div class="setting-content">${config.url}${config.endpoint ? '/' + config.endpoint : ''}</div>
+        <label class="mcp-switch">
+            <input type="checkbox">
+            <span class="mcp-slider"></span>
+        </label>
+    `;
+    
+    contentSection.insertBefore(group, contentSection.lastElementChild); // 插入到加号按钮前
+}
+
+
