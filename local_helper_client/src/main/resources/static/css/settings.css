@@ -11,7 +11,7 @@
     background: #ffffff;
     border-radius: 12px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-    z-index: 1000;;
+    z-index: 300;;
     border: 1px solid #111112;
     overflow: hidden; /* 新增overflow控制 */
     position: fixed;   /* 确保使用fixed定位 */
@@ -29,6 +29,7 @@
     background: #f8f9fa;
     border-right: 1px solid #e9ecef;
     padding: 20px 0;
+    z-index: 300;
 }
 
 /* 分类标题 */
@@ -90,6 +91,7 @@
     height: 100%; /* 新增高度设置 */
     display: flex; /* 新增弹性布局 */
     flex-direction: column; /* 垂直排列 */
+    z-index: 300;
 }
 
 /* 设置项容器 */
@@ -709,3 +711,216 @@ input:checked + .slider {
 }
 
 
+/* ================= MCP 设置专项样式 ================= */
+/* 加号按钮 */
+.mcp-add-btn {
+    position: absolute;
+    color: white !important;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+    top: 20px; /* 微调位置 */
+    right: 0px;
+    width: 32px;
+    height: 32px;
+    background: #3b82f6;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s;
+    /* 使用伪元素添加加号 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mcp-add-btn::before,
+.mcp-add-btn::after {
+    content: "";
+    position: absolute;
+    background: white;
+    transition: all 0.3s;
+}
+
+.mcp-add-btn::before {
+    width: 16px;
+    height: 2px;
+}
+
+.mcp-add-btn::after {
+    width: 2px;
+    height: 16px;
+}
+
+/* 悬停动效 */
+.mcp-add-btn:hover {
+    background: #2563eb;
+    transform: rotate(90deg) scale(1.1);
+}
+
+/* 对话框样式 */
+.mcp-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    opacity: 1 !important;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    width: 440px;
+    z-index: 9999;
+    border: 1px solid #e2e8f0;
+}
+
+.mcp-dialog-input {
+    margin-bottom: 20px;
+}
+
+.mcp-dialog-input label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.mcp-dialog-input input {
+    width: 100%;
+    padding: 10px 14px;
+    background: var(--modal-bg);
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    color: var(--text-color);
+}
+
+.mcp-dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+/* 调整原有按钮样式保持统一 */
+.mcp-cancel, .mcp-add {
+    order: 1; /* 保持按钮顺序不变 */
+    margin-left: 10px; /* 添加右侧间距 */
+}
+
+/* 设置项容器 */
+.mcp-item {
+    position: relative;
+    padding: 18px 24px;
+    margin-bottom: 16px;
+    background: var(--input-bg);
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+}
+
+.mcp-item:hover {
+    border-color: #93c5fd;
+    box-shadow: 0 4px 6px rgba(59, 130, 246, 0.05);
+}
+
+/* 开关样式 */
+.mcp-switch {
+    position: absolute;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 24px;
+    right: 24px !important;
+    top: 50% !important;
+    /* 隐藏原生复选框 */
+    overflow: hidden;
+}
+
+.mcp-switch input[type="checkbox"] {
+    opacity: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
+    /* 完全隐藏原生控件 */
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    clip: rect(0 0 0 0);
+}
+
+.mcp-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #e2e8f0;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.mcp-slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+input:checked + .mcp-slider {
+    background-color: #3b82f6;
+}
+
+input:checked + .mcp-slider:before {
+    transform: translateX(20px);
+}
+
+/* 暗色模式适配 */
+.dark-theme .mcp-slider {
+    background-color: #475569;
+}
+
+.dark-theme input:checked + .mcp-slider {
+    background-color: #1d4ed8;
+}
+
+.dark-theme .mcp-dialog {
+    border-color: #475569;
+}
+
+.category-content[data-category="MCP设置"] {
+    position: relative;
+    padding-top: 60px !important; /* 增加顶部内边距 */
+    min-height: 200px; /* 确保空状态可见 */
+}
+
+/* 设置项间距调整 */
+.mcp-item {
+    margin-top: 12px; /* 增加顶部间距 */
+    margin-bottom: 12px;
+}
+
+/* 遮罩层 */
+.mcp-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    z-index: 9998; /* 低于对话框的z-index */
+    /* backdrop-filter: blur(3px); */
+}
+
+.settings-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    z-index: 299; /* 指定层级 */
+}
