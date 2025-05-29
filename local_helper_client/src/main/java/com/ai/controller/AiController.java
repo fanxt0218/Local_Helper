@@ -48,7 +48,7 @@ public class AiController {
 
     private  ChatClient chatClient;
     private  List<McpAsyncClient> mcpASyncClients;
-    private  ChatMemory chatMemory = MessageWindowChatMemory.builder().build();
+    private  ChatMemory chatMemory = MessageWindowChatMemory.builder().maxMessages(50).build();
 
     public AiController(ChatClient.Builder chatClient, List<McpAsyncClient> mcpASyncClients) {
         this.chatClient = chatClient

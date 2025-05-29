@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ai.mapper.SettingsMapper">
+
+    <resultMap id="settingsMap" type="com.ai.model.po.Settings">
+        <collection property="groupSettings" ofType="com.ai.model.po.GroupSettings">
+            <id property="settingGroup" column="settings_group"/>
+            <collection property="items" ofType="com.ai.model.po.Item">
+                <result property="itemName" column="item"/>
+                <result property="value" column="value"/>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <select id="getSettings" resultMap="settingsMap">
+        select settings_group,item,value
+        from setting
+        order by settings_group desc
+    </select>
+</mapper>

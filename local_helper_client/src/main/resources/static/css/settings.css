@@ -924,3 +924,61 @@ input:checked + .mcp-slider:before {
     background: transparent;
     z-index: 299; /* 指定层级 */
 }
+
+/* MCP标题 */
+.mcp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-color);
+    /* 顶部 */
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.mcp-title {
+    margin: 0;
+    font-size: 1.8em;
+    color: var(--text-primary);
+}
+
+
+/* 操作按钮容器 */
+.mcp-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+/* 垃圾桶按钮 */
+.mcp-delete-btn {
+    /* 保持原有定位样式 */
+    position: absolute;
+    right: -380px;
+    top: 59% !important;
+    transform: translateY(-50%);
+    
+    /* 新增按钮样式 */
+    background: none !important;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+}
+
+
+.mcp-delete-btn svg {
+    display: block; /* 确保SVG正确渲染 */
+    margin: 0 auto;
+    width: 30px;
+    height: 30px;
+    fill: #000;
+    transition: fill 0.2s ease;  /* 新增过渡效果 */
+}
+
+.mcp-delete-btn:hover svg {
+    fill: #ff4d4f;  /* 悬停时变为亮红色 */
+    opacity: 1;     /* 覆盖原有透明度设置 */
+}
+
