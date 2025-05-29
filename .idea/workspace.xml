@@ -4,26 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment=" 修复文件上传错误,修复Excel文件解析问题,新增“关于我们”">
+    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="优化使用特性，新增MCP添加项">
+      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/SettingsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/mapper/McpDoMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/mapper/SettingsMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/model/po/GroupSettings.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/model/po/Item.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/model/po/McpDo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/model/po/SettingDO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/model/po/Settings.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/SettingsService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/SettingsServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/mapper/SettingsMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/config/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/config/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/config/ChatClientConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/config/ChatClientConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/AiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/AiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/ChatHistoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/ChatHistoryController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/css/settings.css" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/classes/static/css/settings.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/classes/static/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/target/classes/static/js/settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/classes/static/js/settings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/target/local_helper_client-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/local_helper_client-0.0.1-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/target/local_helper_client-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/local_helper_client-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcp-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/mcp-server/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcp-server/src/main/java/com/ai/mcpserver/MCPServerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/mcp-server/src/main/java/com/ai/mcpserver/MCPServerApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcp-server/src/main/java/com/ai/mcpserver/tools/LocationTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/mcp-server/src/main/java/com/ai/mcpserver/tools/LocationTool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/update_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/update_log.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,8 +28,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -71,6 +66,9 @@
       </MavenGeneralSettings>
     </option>
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -81,6 +79,8 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "HTTP 请求.LocalHelperApplication | #1.executor": "Run",
+    "HTTP 请求.generated-requests | #3.executor": "Run",
     "Maven.Local_Helper [clean].executor": "Run",
     "Maven.Local_Helper [compile].executor": "Run",
     "Maven.Local_Helper [install].executor": "Run",
@@ -100,7 +100,7 @@
     "Spring Boot.MCPServerApplication.executor": "Run",
     "git-widget-placeholder": "local__helper-v2.0.0",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/86130/idea2024Projects/Local_Helper-2.0.0/local_helper_client/src/main/resources/static/js",
+    "last_opened_file_path": "C:/Users/86130/idea2024Projects/Local_Helper-2.0.0/local_helper_client/src/main/resources/static/css",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -109,6 +109,7 @@
     "project.structure.last.edited": "模块",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
+    "run.code.analysis.last.selected.profile": "pProject Default",
     "run.configurations.included.in.services": "true",
     "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
     "vue.rearranger.settings.migration": "true"
@@ -124,12 +125,14 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0\local_helper_client\src\main\resources\static\js" />
       <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0\local_helper_client\src\main\resources\static\css" />
+      <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0\local_helper_client\src\main\resources\static\js" />
       <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0\local_helper\src\main\resources\static\js" />
       <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0\local_helper\src\main\resources\static\css" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0\local_helper_client\src\main\resources\mapper" />
+      <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0\local_helper_client\src\main\java\com\ai\mapper" />
       <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -146,7 +149,13 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.LocalHelperApplication">
+  <component name="RunManager" selected="HTTP 请求.generated-requests | #3">
+    <configuration name="LocalHelperApplication | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/LocalHelperApplication.http" requestIdentifier="#1" runType="运行单个请求">
+      <method v="2" />
+    </configuration>
+    <configuration name="generated-requests | #3" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="3" requestIdentifier="#3" runType="运行单个请求">
+      <method v="2" />
+    </configuration>
     <configuration name="LocalHelperApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="local_helper_client" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.ai.LocalHelperApplication" />
@@ -168,12 +177,16 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="HTTP 请求.LocalHelperApplication | #1" />
+      <item itemvalue="HTTP 请求.generated-requests | #3" />
       <item itemvalue="Spring Boot.MCPServerApplication" />
       <item itemvalue="Spring Boot.LocalHelperApplication" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.LocalHelperApplication" />
+        <item itemvalue="HTTP 请求.generated-requests | #3" />
+        <item itemvalue="HTTP 请求.LocalHelperApplication | #1" />
       </list>
     </recent_temporary>
   </component>
@@ -203,7 +216,10 @@
       <workItem from="1747962848436" duration="20479000" />
       <workItem from="1748066193594" duration="12199000" />
       <workItem from="1748221237018" duration="6683000" />
-      <workItem from="1748309236971" duration="16765000" />
+      <workItem from="1748309236971" duration="23214000" />
+      <workItem from="1748339693777" duration="375000" />
+      <workItem from="1748394200343" duration="7492000" />
+      <workItem from="1748480682129" duration="16463000" />
     </task>
     <task id="LOCAL-00001" summary="2.0.0版本项目工程">
       <option name="closed" value="true" />
@@ -261,7 +277,23 @@
       <option name="project" value="LOCAL" />
       <updated>1748233712611</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="更新Spring AI版本至1.0.0并修改适配。">
+      <option name="closed" value="true" />
+      <created>1748333089313</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1748333089313</updated>
+    </task>
+    <task id="LOCAL-00009" summary="优化使用特性，新增MCP添加项">
+      <option name="closed" value="true" />
+      <created>1748417340473</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1748417340473</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -297,7 +329,9 @@
     <MESSAGE value="新增添加附件功能、新增设置项、优化了界面显示效果" />
     <MESSAGE value="支持对Excel、PDF文件的上传、优化布局、UI、解决了一些bug" />
     <MESSAGE value=" 修复文件上传错误,修复Excel文件解析问题,新增“关于我们”" />
-    <option name="LAST_COMMIT_MESSAGE" value=" 修复文件上传错误,修复Excel文件解析问题,新增“关于我们”" />
+    <MESSAGE value="更新Spring AI版本至1.0.0并修改适配。" />
+    <MESSAGE value="优化使用特性，新增MCP添加项" />
+    <option name="LAST_COMMIT_MESSAGE" value="优化使用特性，新增MCP添加项" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
