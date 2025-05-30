@@ -4,20 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="持久化、实时渲染、修改设置项">
-      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/CssFileParser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/HtmlFileParser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/JsFileParser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/js/settings2.js" afterDir="false" />
+    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="增加删除MCP服务、支持上传html、css、js文件">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/SettingsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/SettingsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/SettingsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/SettingsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/FileParseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/FileParseServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/SettingsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/SettingsServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/mapper/SettingsMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/mapper/SettingsMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/css/settings.css" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/css/settings.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/update_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/update_log.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +87,7 @@
     &quot;Spring Boot.MCPServerApplication.executor&quot;: &quot;Run&quot;,
     &quot;git-widget-placeholder&quot;: &quot;local__helper-v2.0.0&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/86130/idea2024Projects/Local_Helper-2.0.0/local_helper_client/src/main/resources/static/css&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/86130/idea2024Projects/Local_Helper-2.0.0/local_helper_client/src/main/resources/static/js&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -124,8 +112,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0\local_helper_client\src\main\resources\static\css" />
       <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0\local_helper_client\src\main\resources\static\js" />
+      <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0\local_helper_client\src\main\resources\static\css" />
       <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0\local_helper\src\main\resources\static\js" />
       <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0\local_helper\src\main\resources\static\css" />
     </key>
@@ -219,7 +207,7 @@
       <workItem from="1748339693777" duration="375000" />
       <workItem from="1748394200343" duration="7492000" />
       <workItem from="1748480682129" duration="19817000" />
-      <workItem from="1748586915811" duration="5115000" />
+      <workItem from="1748586915811" duration="6630000" />
     </task>
     <task id="LOCAL-00001" summary="2.0.0版本项目工程">
       <option name="closed" value="true" />
@@ -309,7 +297,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748512680127</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="增加删除MCP服务、支持上传html、css、js文件">
+      <option name="closed" value="true" />
+      <created>1748595738921</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1748595738921</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -348,7 +344,8 @@
     <MESSAGE value="更新Spring AI版本至1.0.0并修改适配。" />
     <MESSAGE value="优化使用特性，新增MCP添加项" />
     <MESSAGE value="持久化、实时渲染、修改设置项" />
-    <option name="LAST_COMMIT_MESSAGE" value="持久化、实时渲染、修改设置项" />
+    <MESSAGE value="增加删除MCP服务、支持上传html、css、js文件" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加删除MCP服务、支持上传html、css、js文件" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
