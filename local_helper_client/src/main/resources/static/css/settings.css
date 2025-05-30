@@ -931,7 +931,7 @@ input:checked + .mcp-slider:before {
     justify-content: space-between;
     align-items: center;
     padding: 12px 16px;
-    border-bottom: 1px solid var(--border-color);
+    /*border-bottom: 1px solid var(--border-color);*/
     /* 顶部 */
     position: absolute;
     top: 0;
@@ -941,7 +941,7 @@ input:checked + .mcp-slider:before {
 .mcp-title {
     margin: 0;
     font-size: 1.8em;
-    color: var(--text-primary);
+    color: #000;
 }
 
 
@@ -980,5 +980,38 @@ input:checked + .mcp-slider:before {
 .mcp-delete-btn:hover svg {
     fill: #ff4d4f;  /* 悬停时变为亮红色 */
     opacity: 1;     /* 覆盖原有透明度设置 */
+}
+
+.mcp-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto; /* 靠右对齐 */
+}
+
+.mcp-delete-icon {
+    transition: all 0.3s ease;
+    /* order: 1; 删除按钮在开关左侧 */
+    position: absolute;
+    margin-top: -25px;
+}
+
+.mcp-switch {
+    order: 2; /* 开关在右侧 */
+}
+
+.mcp-delete-icon:hover {
+    transform: scale(1.2);
+    filter: brightness(1.2);
+}
+
+/* 删除按钮激活状态 */
+.mcp-delete-btn.active svg {
+    fill: #ff4d4f !important;
+    filter: drop-shadow(0 0 3px rgba(255,77,79,0.4));
+}
+
+.mcp-delete-btn.active:hover svg {
+    filter: drop-shadow(0 0 5px rgba(255,77,79,0.6)) !important;
 }
 

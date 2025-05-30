@@ -5,7 +5,7 @@
 <!--    <resultMap id="settingsMap" type="com.ai.model.po.Settings">-->
 <!--        <collection property="groupSettings" ofType="com.ai.model.po.GroupSettings">-->
 <!--            <id property="settingGroup" column="settings_group"/>-->
-<!--            <collection property="items" ofType="com.ai.model.po.Item">-->
+<!--            <collection property="item" ofType="com.ai.model.po.Item">-->
 <!--                <result property="itemName" column="item"/>-->
 <!--                <result property="value" column="value"/>-->
 <!--            </collection>-->

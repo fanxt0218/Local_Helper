@@ -296,6 +296,11 @@ messageInput.addEventListener('keydown', (event) => {
 
 // 页面加载时连接 WebSocket
 document.addEventListener('DOMContentLoaded', () => {
+    const fontAwesome = document.createElement('link');
+    fontAwesome.rel = 'stylesheet';
+    fontAwesome.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css';
+    document.head.appendChild(fontAwesome);
+
     // const sid = 'user_' + Math.random().toString(36).substr(2, 9);
     sid = 1; // 使用固定的ID进行测试
 
@@ -924,7 +929,7 @@ function initFileUpload() {
     // 创建隐藏的文件输入
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
-     fileInput.accept = '.txt, .xlsx, .xls, .pdf, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/pdf'; // 添加新类型
+    fileInput.accept = '.txt, .xlsx, .xls, .pdf, .html, .htm, .css, .js, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/pdf, text/html, text/css, application/javascript,text/javascript';    
     fileInput.style.display = 'none';
     document.body.appendChild(fileInput);
 
@@ -939,16 +944,20 @@ function initFileUpload() {
         if (!file) return;
 
         // 扩展文件类型验证
-        const allowedExtensions = /(\.txt|\.xlsx|\.xls|\.pdf)$/i;
+        const allowedExtensions = /(\.txt|\.xlsx?|\.pdf|\.html?|\.css|\.js)$/i;
         const allowedMimeTypes = [
             'text/plain',
             'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
             'application/vnd.ms-excel',
-            'application/pdf'
+            'application/pdf',
+            'text/html',
+            'text/css',
+            'application/javascript',
+            'text/javascript'
         ];
 
         if (!allowedExtensions.exec(file.name) || !allowedMimeTypes.includes(file.type)) {
-            alert('仅支持上传 txt, xlsx, xls, pdf 文件'); // 修改提示信息
+            alert('仅支持上传 txt、xlsx、pdf、html、css、js 文件'); // 修改提示信息
             return;
         }
         if (file.size > 10 * 1024 * 1024) {
@@ -987,7 +996,7 @@ function showUploadedFile(fileName, fileId) {
     const fileItem = document.createElement('div');
     fileItem.className = 'file-item';
     fileItem.innerHTML = `
-        <i class="fas fa-file-alt"></i>
+        <i class="fas ${getFileIcon(fileName)}"></i>
         <span class="file-name">${fileName}</span>
         <span class="file-remove">&times;</span>
     `;
@@ -1030,4 +1039,23 @@ function showUploadedFile(fileName, fileId) {
 
     uploadedFileIds.push(fileId); // 将fileId添加到列表
 
+}
+
+// 文件类型图标映射函数
+function getFileIcon(fileName) {
+    const ext = fileName.split('.').pop().toLowerCase();
+    switch(ext) {
+         case 'html': case 'htm':
+            return 'fa-html5'; 
+        case 'css':
+            return 'fa-css3-alt';
+        case 'js':
+            return 'fa-js';    
+        case 'pdf':
+            return 'fa-file-pdf';
+        case 'xlsx': case 'xls':
+            return 'fa-file-excel';
+        default:
+            return 'fa-file-alt';
+    }
 }
