@@ -53,4 +53,13 @@ public class SettingsController {
         settingsService.mcpStatus(mcpDo);
         return objectMapper.writeValueAsString(new HashMap<Integer,String>().put(200,"添加成功"));
     }
+
+    //删除MCP服务器
+    @DeleteMapping("/deletemcp")
+    public String deleteMcp(@RequestParam Integer id) throws IOException {
+        McpDo mcpDo = new McpDo();
+        mcpDo.setId(id);
+        settingsService.deleteMcp(mcpDo);
+        return objectMapper.writeValueAsString(new HashMap<Integer,String>().put(200,"删除成功"));
+    }
 }

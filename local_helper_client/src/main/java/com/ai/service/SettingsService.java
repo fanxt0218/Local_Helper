@@ -17,4 +17,6 @@ public interface SettingsService {
     void addMcp(McpDo mcpDo);
 
     void mcpStatus(McpDo mcpDo);
+
+    void deleteMcp(McpDo mcpDo);
 }

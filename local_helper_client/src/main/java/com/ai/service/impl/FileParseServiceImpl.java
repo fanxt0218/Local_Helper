@@ -1,9 +1,7 @@
 package com.ai.service.impl;
 
 import com.ai.service.FileParseService;
-import com.ai.utils.ExcelFileParser;
-import com.ai.utils.PDFFileParser;
-import com.ai.utils.TxtFileParser;
+import com.ai.utils.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,6 +28,18 @@ public class FileParseServiceImpl implements FileParseService {
             //Excel文件
             if (Objects.equals(file.getContentType(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")|| Objects.equals(file.getContentType(), "application/vnd.ms-excel")){
                 return new ExcelFileParser().parse(file);
+            }
+            //HTML文件
+            if (Objects.equals(file.getContentType(), "text/html")) {
+                return new HtmlFileParser().parse(file);
+            }
+            //CSS文件
+            if (Objects.equals(file.getContentType(), "text/css")){
+                return new CssFileParser().parse(file);
+            }
+            //JS文件
+            if (Objects.equals(file.getContentType(), "application/javascript") || Objects.equals(file.getContentType(),"text/javascript")){
+                return new JsFileParser().parse(file);
             }
             //不支持的文件类型
             throw new RuntimeException("不支持的文件类型");

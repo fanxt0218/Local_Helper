@@ -108,6 +108,14 @@ public class SettingsServiceImpl implements SettingsService {
         mcpDoMapper.updateById(mcpDo);
     }
 
+    @Override
+    public void deleteMcp(McpDo mcpDo) {
+        if (mcpDo.getId() == null){
+            return;
+        }
+        mcpDoMapper.deleteById(mcpDo);
+    }
+
 
     // 修改配置文件,
     // 加锁确保线程安全
@@ -133,7 +141,8 @@ public class SettingsServiceImpl implements SettingsService {
 
         for (SettingDO settingDO : settingDOS) {
             String itemName = settingDO.getItem();
-            String preConfigStr = settingDO.getSettingGroup() == "模型设置"?"spring.ai.ollama.chat.options.":"spring.ai.ollama.";
+            if (settingDO.getSettingGroup().equals("通用设置")){continue;}
+            String preConfigStr = settingDO.getSettingGroup().equals("模型设置")?"spring.ai.ollama.chat.options.":"spring.ai.ollama.";
             //判断设置名称，转换为对应的配置项
             String endConfigStr = switch (itemName) {
                 case "温度" -> "temperature";
