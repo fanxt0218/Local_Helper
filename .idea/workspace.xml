@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="增加删除MCP服务、支持上传html、css、js文件">
+    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="增加设置初始化sql">
+      <change afterPath="$PROJECT_DIR$/img_1.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,49 +66,49 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;HTTP 请求.LocalHelperApplication | #1.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP 请求.generated-requests | #3.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Local_Helper [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Local_Helper [compile].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Local_Helper [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.local_helper_client [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.local_helper_client [compile].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.local_helper_client [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.mcp-server [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.mcp-server [compile].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.mcp-server [install].executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.LocalHelperApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.MCPServerApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;local__helper-v2.0.0&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/86130/idea2024Projects/Local_Helper-2.0.0/local_helper_client/src/main/resources/static/js&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "HTTP 请求.LocalHelperApplication | #1.executor": "Run",
+    "HTTP 请求.generated-requests | #3.executor": "Run",
+    "Maven.Local_Helper [clean].executor": "Run",
+    "Maven.Local_Helper [compile].executor": "Run",
+    "Maven.Local_Helper [install].executor": "Run",
+    "Maven.local_helper_client [clean].executor": "Run",
+    "Maven.local_helper_client [compile].executor": "Run",
+    "Maven.local_helper_client [install].executor": "Run",
+    "Maven.mcp-server [clean].executor": "Run",
+    "Maven.mcp-server [compile].executor": "Run",
+    "Maven.mcp-server [install].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.LocalHelperApplication.executor": "Run",
+    "Spring Boot.MCPServerApplication.executor": "Run",
+    "git-widget-placeholder": "local__helper-v2.0.0",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/86130/idea2024Projects/enjoy-learning",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "模块",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -208,6 +210,8 @@
       <workItem from="1748394200343" duration="7492000" />
       <workItem from="1748480682129" duration="19817000" />
       <workItem from="1748586915811" duration="6630000" />
+      <workItem from="1748610850313" duration="1190000" />
+      <workItem from="1748760348770" duration="4755000" />
     </task>
     <task id="LOCAL-00001" summary="2.0.0版本项目工程">
       <option name="closed" value="true" />
@@ -305,7 +309,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748595738921</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="增加设置初始化sql">
+      <option name="closed" value="true" />
+      <created>1748611403576</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1748611403576</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -345,7 +357,8 @@
     <MESSAGE value="优化使用特性，新增MCP添加项" />
     <MESSAGE value="持久化、实时渲染、修改设置项" />
     <MESSAGE value="增加删除MCP服务、支持上传html、css、js文件" />
-    <option name="LAST_COMMIT_MESSAGE" value="增加删除MCP服务、支持上传html、css、js文件" />
+    <MESSAGE value="增加设置初始化sql" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加设置初始化sql" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
