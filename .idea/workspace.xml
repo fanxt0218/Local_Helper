@@ -4,10 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="增加设置初始化sql">
-      <change afterPath="$PROJECT_DIR$/img_1.png" afterDir="false" />
+    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="更新README.md">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/config/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/config/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/doc/local_helper_init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/doc/local_helper_init.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/AiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/AiController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/SettingsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/SettingsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/SettingsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/SettingsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/SettingsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/SettingsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/js/settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/js/settings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/update_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/update_log.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +64,7 @@
     </option>
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
@@ -89,7 +97,7 @@
     "Spring Boot.MCPServerApplication.executor": "Run",
     "git-widget-placeholder": "local__helper-v2.0.0",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/86130/idea2024Projects/enjoy-learning",
+    "last_opened_file_path": "C:/Users/86130/idea2024Projects/Local_Helper-2.0.0/local_helper_client/src/main/resources/static/js",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -211,7 +219,9 @@
       <workItem from="1748480682129" duration="19817000" />
       <workItem from="1748586915811" duration="6630000" />
       <workItem from="1748610850313" duration="1190000" />
-      <workItem from="1748760348770" duration="4755000" />
+      <workItem from="1748760348770" duration="5120000" />
+      <workItem from="1748786268321" duration="906000" />
+      <workItem from="1748843328793" duration="14489000" />
     </task>
     <task id="LOCAL-00001" summary="2.0.0版本项目工程">
       <option name="closed" value="true" />
@@ -317,7 +327,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748611403576</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="更新README.md">
+      <option name="closed" value="true" />
+      <created>1748786022034</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1748786022034</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -358,7 +376,8 @@
     <MESSAGE value="持久化、实时渲染、修改设置项" />
     <MESSAGE value="增加删除MCP服务、支持上传html、css、js文件" />
     <MESSAGE value="增加设置初始化sql" />
-    <option name="LAST_COMMIT_MESSAGE" value="增加设置初始化sql" />
+    <MESSAGE value="更新README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="更新README.md" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -377,11 +396,6 @@
           <url>jar://$MAVEN_REPOSITORY$/org/springframework/ai/spring-ai-autoconfigure-mcp-client/1.0.0-M7/spring-ai-autoconfigure-mcp-client-1.0.0-M7.jar!/org/springframework/ai/mcp/client/autoconfigure/McpClientAutoConfiguration.class</url>
           <line>107</line>
           <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>jar://$MAVEN_REPOSITORY$/org/springframework/ai/spring-ai-autoconfigure-mcp-client/1.0.0-M7/spring-ai-autoconfigure-mcp-client-1.0.0-M7.jar!/org/springframework/ai/mcp/client/autoconfigure/McpClientAutoConfiguration.class</url>
-          <line>108</line>
-          <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>jar://$MAVEN_REPOSITORY$/org/springframework/ai/spring-ai-autoconfigure-mcp-client/1.0.0-M7/spring-ai-autoconfigure-mcp-client-1.0.0-M7.jar!/org/springframework/ai/mcp/client/autoconfigure/McpClientAutoConfiguration.class</url>

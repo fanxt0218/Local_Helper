@@ -14,9 +14,9 @@ public interface SettingsService {
 
     List<McpDo> getMcp();
 
-    void addMcp(McpDo mcpDo);
+    String addMcp(McpDo mcpDo) throws IOException;
 
-    void mcpStatus(McpDo mcpDo);
+    void mcpStatus(McpDo mcpDo) throws IOException;
 
-    void deleteMcp(McpDo mcpDo);
+    void deleteMcp(McpDo mcpDo) throws IOException;
 }

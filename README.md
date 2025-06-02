@@ -13,7 +13,8 @@ github: https://github.com/fanxt0218/Local_Helper
 Java语言基于Springboot框架进行开发，软件集成Spring AI框架，持久层框架mybatis- plus
 #### 界面效果
 
-<img alt="img_2.png" height="350" src="img_2.png" width="600"/>
+<img alt="img_3.png" height="350" src="local_helper_client/src/main/resources/static/imgs/主界面.png" width="700"/>
+
 #### 安装教程〄
 
 1.  将项目克隆到本地
@@ -33,7 +34,7 @@ Java语言基于Springboot框架进行开发，软件集成Spring AI框架，持
 9. 在发送信息前，你同样可以选择是否启用某些功能，比如MCP，他决定是否使用为当前模型配置工具（不过要注意不支持工具的模型无法使用该功能）
 10. 目前我们还支持上传一些附件交给大模型进行分析，支持常见的文件格式
 11. 在左下角的设置中，可以为项目设置一些参数，比如字体大小、主题模式，以及一些控制模型输出相关的参数（比如温度、提示词、采样度等），同样的，你还可以手动引入外部的MCP服务加入到项目中
-    <img alt="img_1.png" height="350" src="img_1.png" width="500"/>
+    <img alt="img_1.png" height="350" src="local_helper_client/src/main/resources/static/imgs/模型设置.png" width="500"/>
 12. 在左侧的侧边栏中，记录了你的不同对话记录
   一些特性:
     应用支持在同一个会话中频繁切换模型，虽然侧边栏中记录的是创建时的模型名称，但是在聊天过程中切换模型新的模型会继承旧模型的记忆
@@ -43,6 +44,7 @@ Java语言基于Springboot框架进行开发，软件集成Spring AI框架，持
 如果要使用mcp服务请先在mcp-server模块中配置相关配置
 通过转发端口使用ollama服务速度可能较慢，尤其是参数较大的模型
 在启用mcp时，控制台可能会出现Bad Request错误，这是因为您使用的模型比较冷门并且不支持tools，关于这点您可以联系我们或者自行修改项目对应位置
+如果在使用过程中修改了服务地址，那么请先重启服务
 由于项目仍在初期阶段，许多功能仍未完善
 项目会不断改进和维护，希望大家多多支持♥
 
@@ -53,3 +55,4 @@ Java语言基于Springboot框架进行开发，软件集成Spring AI框架，持
 3.  想要参与对项目的开发和完善，请联系我
 4.  作者学生党,望大家多多支持
 5.  开发者CSDN账号：Fanxt_Ja
+    <img alt="img.png" height="400" src="local_helper_client/src/main/resources/static/imgs/关于我们.png" width="550"/>
