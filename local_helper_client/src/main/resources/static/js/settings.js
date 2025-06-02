@@ -2,31 +2,78 @@
 let activeCategory = null;
 
 document.addEventListener('DOMContentLoaded', () => {
-    initSettingsModal();
+    // 新增：立即应用本地存储中的设置
     const savedSize = localStorage.getItem('字体大小') || '中';
     applyFontSize(savedSize);
+    // 新增：应用主题模式
+    const savedTheme = localStorage.getItem('主题模式') || '浅色模式';
+    document.body.classList.toggle('dark-theme', savedTheme === '夜间模式');
 
+    initSettingsModal();
     // 添加评分初始化
     const savedRating = parseInt(localStorage.getItem('userRating')) || 0;
     document.querySelectorAll('.el-star').forEach((star, index) => {
         star.classList.toggle('active', index < savedRating);
     });
     initRatingSystem();
+    // 新增MCP列表初始化
+    fetchAndRenderMCPList();
 
-   
-
-    // 示例设置项（测试用）
+    // 添加设置分类
     addSettingsCategory('通用设置');
     addSettingsCategory('系统设置');
     addSettingsCategory('模型设置');
     addSettingsCategory('MCP设置');
     addSettingsCategory('关于我们');
-     // 添加加号按钮
+
+   
+    
     const mcpCategory = document.querySelector(`.category-content[data-category="MCP设置"]`);
+
+     // 创建头部容器
+    const header = document.createElement('div');
+    header.className = 'mcp-header';
+    header.innerHTML = `
+            <h3 class="mcp-title">MCP服务器配置</h3>
+            <div class="mcp-actions">
+                <el-button class="mcp-delete-btn" type="primary">
+                     <svg t="1748509350683" class="icon" viewBox="0 0 1024 1024" 
+                        width="20" height="20" style="vertical-align: middle;">
+                        <path d="M202.666667 256h-42.666667a32 32 0 0 1 0-64h704a32 32 0 0 1 0 64H266.666667v565.333333a53.333333 53.333333 0 0 0 53.333333 53.333334h384a53.333333 53.333333 0 0 0 53.333333-53.333334V352a32 32 0 0 1 64 0v469.333333c0 64.8-52.533333 117.333333-117.333333 117.333334H320c-64.8 0-117.333333-52.533333-117.333333-117.333334V256z m224-106.666667a32 32 0 0 1 0-64h170.666666a32 32 0 0 1 0 64H426.666667z m-32 288a32 32 0 0 1 64 0v256a32 32 0 0 1-64 0V437.333333z m170.666666 0a32 32 0 0 1 64 0v256a32 32 0 0 1-64 0V437.333333z">
+                        </path>
+                    </svg>
+                </el-button>
+            </div>
+    `;
+     // 插入到分类容器顶部
+    mcpCategory.insertBefore(header, mcpCategory.firstChild);
+
+    // 在MCP头部添加删除按钮事件监听
+    const deleteBtn = header.querySelector('.mcp-delete-btn');
+    deleteBtn.addEventListener('click', function() {
+        // 切换按钮激活状态
+        this.classList.toggle('active');
+
+        // 切换删除按钮显示状态
+        const deleteIcons = document.querySelectorAll('.mcp-delete-icon');
+        deleteIcons.forEach(icon => icon.style.display = icon.style.display === 'none' ? 'inline-block' : 'none');
+        
+        // 添加/移除全局点击事件处理
+        if(deleteIcons[0] && deleteIcons[0].style.display === 'inline-block') {
+            document.addEventListener('click', globalDeleteHandler);
+        } else {
+            this.classList.remove('active'); // 取消激活状态
+            document.removeEventListener('click', globalDeleteHandler);
+        }
+    });
+
+   
+
+    // 添加加号按钮
     const addBtn = document.createElement('div');
     addBtn.className = 'mcp-add-btn';
     addBtn.innerHTML = '<i class="codicon codicon-add"></i>';
-    mcpCategory.insertBefore(addBtn, mcpCategory.firstChild); // 插入到分类内容顶部
+    mcpCategory.insertBefore(addBtn, mcpCategory.firstChild);
     
     // 初始化MCP对话框
     const mcpDialog = document.createElement('div');
@@ -66,23 +113,46 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('.mcp-mask')?.remove();
         mcpDialog.style.display = 'none';
     });
+
     
     mcpDialog.querySelector('.mcp-add').addEventListener('click', () => {
+        document.querySelector('.mcp-mask')?.remove();
         const name = mcpDialog.querySelector('.service-name').value;
         const url = mcpDialog.querySelector('.service-url').value;
         const endpoint = mcpDialog.querySelector('.service-endpoint').value;
         
         if (!name || !url) return;
         
-        addMCPItem({
-            name,
-            url,
-            endpoint
+         // 发送POST请求
+        fetch('http://localhost:1618/ai/settings/addmcp', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: name,
+                url: url,
+                endPoint: endpoint
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.code === 200) {
+                // 添加成功后重新获取MCP列表
+                fetchAndRenderMCPList();
+                mcpDialog.style.display = 'none';
+                mcpDialog.querySelectorAll('input').forEach(input => input.value = '');
+            } else {
+                throw new Error(data.message || '服务器返回未知错误');
+            }
+        })
+        .catch(error => {
+            console.error('添加MCP失败:', error);
+            // 显示具体错误信息并保持对话框
+            alert(`添加失败：${error.message}`);
+            mcpDialog.style.display = 'block';
+            document.querySelector('.mcp-mask')?.remove();
         });
-        
-        mcpDialog.style.display = 'none';
-        // 清空输入
-        mcpDialog.querySelectorAll('input').forEach(input => input.value = '');
     });
 
     addSettingItem({
@@ -100,7 +170,6 @@ document.addEventListener('DOMContentLoaded', () => {
         default: '中'
     });
     
-
     addSettingItem({
         category: '系统设置',
         label: 'Ollama服务地址',
@@ -155,10 +224,6 @@ document.addEventListener('DOMContentLoaded', () => {
        tooltip: 'top-k 采样通过限制模型每次生成时考虑的候选词数量来控制输出的多样性。较高的 top-k 值会使输出更具创造性，较低的值则会使输出更具确定性。仅从概率最高的前 K 个词中采样，减少随机性，提高稳定性。'
     });
 
-
-
-
-
     addSettingItem({
     category: '关于我们',
     label:'关于我们',
@@ -167,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="about-container">
                 <header class="about-header">
                     <h1 class="gradient-title">关于我们</h1>
-                    <p class="version-tag">Version 2.1.2</p>
+                    <p class="version-tag">Version 2.2.4</p>
                 </header>
                 
                 <div class="info-grid">
@@ -238,11 +303,102 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
+// 获取设置数据并应用
+function fetchSettingsAndApply() {
+    fetch('http://localhost:1618/ai/settings/getsettings')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('获取设置失败');
+            }
+            return response.json();
+        })
+        .then(data => {
+            applySettingsData(data);
+            // 新增：记录初始值
+            recordInitialValues();
+        })
+        .catch(error => {
+            console.error('获取设置失败:', error);
+            // 即使失败也记录初始值
+            recordInitialValues();
+        });
+}
+
+// 应用设置数据到各个控件 - 修复匹配问题
+function applySettingsData(settingsData) {
+    settingsData.groupSettings.forEach(group => {
+        group.items.forEach(item => {
+            const itemName = item.itemName.trim();
+            const value = item.value.trim();
+            
+            // 查找对应的设置项控件 - 使用更可靠的匹配方法
+            let targetGroup = null;
+            let targetInput = null;
+            
+            // 遍历所有设置组查找匹配项
+            document.querySelectorAll('.setting-group').forEach(groupEl => {
+                const titleEl = groupEl.querySelector('.setting-title');
+                if (titleEl) {
+                    // 获取纯文本内容，忽略图标和工具提示
+                    const titleText = Array.from(titleEl.childNodes)
+                        .filter(node => node.nodeType === Node.TEXT_NODE)
+                        .map(node => node.textContent.trim())
+                        .join('')
+                        .trim();
+                    
+                    if (titleText === itemName) {
+                        targetGroup = groupEl;
+                        targetInput = groupEl.querySelector('.setting-input');
+                    }
+                }
+            });
+            
+            if (!targetGroup || !targetInput) {
+                console.warn(`未找到设置项: ${itemName}`);
+                return;
+            }
+            
+            // 根据控件类型设置值
+            switch (targetInput.tagName) {
+                case 'SELECT':
+                    targetInput.value = value;
+                    targetInput.dispatchEvent(new Event('change'));
+                    break;
+                case 'INPUT':
+                    if (targetInput.type === 'range') {
+                        targetInput.value = value;
+                        // 更新范围值显示
+                        const display = targetInput.nextElementSibling;
+                        if (display && display.classList.contains('range-value')) {
+                            display.textContent = value;
+                        }
+                        targetInput.dispatchEvent(new Event('input'));
+                    } else {
+                        targetInput.value = value;
+                        targetInput.dispatchEvent(new Event('input'));
+                    }
+                    break;
+                case 'TEXTAREA':
+                    targetInput.value = value;
+                    targetInput.dispatchEvent(new Event('input'));
+                    break;
+            }
+            
+            // 特殊处理主题和字体大小
+            if (itemName === '主题模式') {
+                document.body.classList.toggle('dark-theme', value === '夜间模式');
+            } else if (itemName === '字体大小') {
+                applyFontSize(value);
+            }
+        });
+    });
+}
+
 function initSettingsModal() {
     const modal = document.getElementById('settingsModal');
     const settingsBtn = document.querySelector('.settings-btn');
     const closeBtns = document.querySelectorAll('.btn-close');
-    const saveBtn = document.querySelector('.btn-save'); // 新增保存按钮引用
+    const saveBtn = document.querySelector('.btn-save');
     
     // 创建遮罩层
     const overlay = document.createElement('div');
@@ -253,20 +409,49 @@ function initSettingsModal() {
         document.body.appendChild(overlay);
         modal.style.display = 'block';
         if(!activeCategory) document.querySelector('.category-item').click();
+        
+        // 打开设置弹窗时获取设置数据
+        fetchSettingsAndApply();
+        // 获取MCP列表
+        fetchAndRenderMCPList();
     });
     
     // 保存按钮事件
     saveBtn.addEventListener('click', () => {
-        // 收集并保存所有设置项的值
-        document.querySelectorAll('.setting-input').forEach(input => {
-            if(input.type === 'select-one') {
-                localStorage.setItem(input.closest('.setting-group').querySelector('.setting-title').textContent, input.value);
-            } else {
-                localStorage.setItem(input.closest('.setting-group').querySelector('.setting-title').textContent, input.value);
+        // 收集变更的设置项
+        const changedSettings = collectChangedSettings();
+        
+        // 如果没有变更，直接关闭弹窗
+        if (changedSettings.groupSettings.length === 0) {
+            modal.style.display = 'none';
+            overlay.remove();
+            return;
+        }
+        
+        // 发送 POST 请求
+        fetch('http://localhost:1618/ai/settings/updatesettings', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(changedSettings)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('保存设置失败');
             }
+            return response.json();
+        })
+        .then(() => {
+            modal.style.display = 'none';
+            overlay.remove();
+            // 更新初始值记录
+            updateInitialValues();
+        })
+        .catch(error => {
+            console.error('保存设置失败:', error);
+            alert('保存失败，请重试');
         });
-        modal.style.display = 'none';
-        overlay.remove();
     });
 
     // 关闭按钮事件修改
@@ -276,20 +461,30 @@ function initSettingsModal() {
             overlay.remove();
             // 还原所有设置项的值和页面状态
             document.querySelectorAll('.setting-input').forEach(input => {
-                const key = input.closest('.setting-group').querySelector('.setting-title').textContent;
-                const savedValue = localStorage.getItem(key);
+                const group = input.closest('.setting-group');
+                if (group) {
+                    const titleEl = group.querySelector('.setting-title');
+                    if (titleEl) {
+                        const title = Array.from(titleEl.childNodes)
+                            .filter(node => node.nodeType === Node.TEXT_NODE)
+                            .map(node => node.textContent.trim())
+                            .join('')
+                            .trim();
+                        
+                        if (title) {
+                            const savedValue = localStorage.getItem(title);
+                            if (savedValue) {
+                                input.value = savedValue;
+                                const eventType = input.type === 'select-one' ? 'change' : 'input';
+                                input.dispatchEvent(new Event(eventType));
 
-                if (savedValue) {
-                    // 统一设置值并触发事件
-                    input.value = savedValue;
-                    const eventType = input.type === 'select-one' ? 'change' : 'input';
-                    input.dispatchEvent(new Event(eventType));
-
-                    // 特殊处理 range 类型的数值显示
-                    if (input.type === 'range') {
-                        const display = input.nextElementSibling;
-                        if (display && display.classList.contains('range-value')) {
-                            display.textContent = savedValue;
+                                if (input.type === 'range') {
+                                    const display = input.nextElementSibling;
+                                    if (display && display.classList.contains('range-value')) {
+                                        display.textContent = savedValue;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -318,11 +513,11 @@ function addSettingsCategory(name) {
     const contentSection = document.createElement('div');
     contentSection.className = 'category-content';
     contentSection.dataset.category = name;
-    contentSection.style.display = 'none'; // 新增初始化隐藏
+    contentSection.style.display = 'none';
     document.getElementById('settingsBody').appendChild(contentSection);
     
     if(!activeCategory) {
-        category.click(); // 触发点击时会自动显示对应内容
+        category.click();
     }
 }
 
@@ -333,7 +528,7 @@ function showCategoryContent(name) {
     });
 }
 
-// 完整的addSettingItem方法
+// addSettingItem方法
 function addSettingItem(config) {
     const category = config.category || '通用设置';
     const contentSection = document.querySelector(`.category-content[data-category="${category}"]`);
@@ -343,42 +538,41 @@ function addSettingItem(config) {
     
     const title = document.createElement('div');
     title.className = 'setting-title';
-    title.innerHTML = `
-        <i class="fas fa-sliders-h"></i>${config.label}
-        ${config.tooltip ? '<div class="tooltip-icon">i<div class="tooltip-text">' + config.tooltip + '</div></div>' : ''}
-    `;
+    
+    // 创建纯文本节点用于标题
+    const titleText = document.createTextNode(config.label);
+    title.appendChild(titleText);
+    
+    // 添加图标
+    const icon = document.createElement('i');
+    icon.className = 'fas fa-sliders-h';
+    title.insertBefore(icon, title.firstChild);
+    
+    // 添加工具提示
+    if(config.tooltip) {
+        const tooltip = document.createElement('div');
+        tooltip.className = 'tooltip-icon';
+        tooltip.innerHTML = 'i<div class="tooltip-text">' + config.tooltip + '</div>';
+        title.appendChild(tooltip);
+    }
     
     // 调用创建控件方法
     const control = createControlElement(config);
 
     // 主题切换逻辑
     if(config.label === '主题模式') {
-        // 移除原来的change事件
         control.select.addEventListener('change', function() {
-            // 仅临时改变预览，不实际保存
             document.body.classList.toggle('dark-theme', this.value === '夜间模式');
         });
-        
-        // 初始化时读取保存的值
-        const savedTheme = localStorage.getItem('主题模式') || '浅色模式';
-        control.select.value = savedTheme;
-        document.body.classList.toggle('dark-theme', savedTheme === '夜间模式');
     }
     // 字体大小处理
     if(config.label === '字体大小') {
-        // 初始化设置
-        const savedSize = localStorage.getItem('字体大小') || '中';
-        control.select.value = savedSize;
-        applyFontSize(savedSize);
-
-        // 添加事件监听
         control.select.addEventListener('change', function() {
             applyFontSize(this.value);
             localStorage.setItem('字体大小', this.value);
         });
     }
 
-    
     group.appendChild(title);
     group.appendChild(control.element);
     contentSection.appendChild(group);
@@ -401,20 +595,18 @@ function createControlElement(config) {
                 control.appendChild(option);
             });
             container.appendChild(control);
-            return { element: container, select: control }; // 返回包含select的复合对象
+            return { element: container, select: control };
             
         case 'number':
         case 'text':
             control = document.createElement('input');
             control.className = 'setting-input';
             control.type = config.type;
-            control.value = config.default || '';  // 修改这里，使用default字段
+            control.value = config.default || '';
             if(config.placeholder) control.placeholder = config.placeholder;
-            container.appendChild(control);  // 新增这行
+            container.appendChild(control);
             break;
             
-       
-
         case 'range':
             control = document.createElement('input');
             control.className = 'setting-input';
@@ -500,9 +692,8 @@ document.addEventListener('click', (e) => {
             if(index <= currentIndex) star.classList.add('active');
         });
         
-        // 修复文字反馈变量
         const texts = ['需要改进', '基本可用', '体验良好', '非常优秀', '完美体验'];
-        container.nextElementSibling.textContent = texts[currentIndex];  // 使用 currentIndex
+        container.nextElementSibling.textContent = texts[currentIndex];
         
         localStorage.setItem('userRating', currentIndex + 1);
     }
@@ -510,7 +701,6 @@ document.addEventListener('click', (e) => {
 
 
 function initRatingSystem() {
-    // 使用动态选择器监听动态创建的元素
     document.addEventListener('mouseover', (e) => {
         if(e.target.classList.contains('el-star')) {
             const container = e.target.closest('.el-rate-container');
@@ -538,23 +728,188 @@ function initRatingSystem() {
     });
 }
 
-// 添加MCP项函数
+// 获取和渲染MCP列表的方法
+function fetchAndRenderMCPList() {
+    fetch('http://localhost:1618/ai/settings/getmcp')
+        .then(response => response.json())
+        .then(data => {
+            // 清空现有MCP项（保留加号按钮）
+            const mcpCategory = document.querySelector('.category-content[data-category="MCP设置"]');
+            document.querySelectorAll('.mcp-item').forEach(item => item.remove());
+            
+            // 渲染新的MCP项
+            data.forEach(mcp => {
+                addMCPItem({
+                    id: mcp.id,
+                    name: mcp.name,
+                    url: mcp.url,
+                    endpoint: mcp.endPoint,
+                    status: Number(mcp.isEnable)
+                });
+            });
+        })
+        .catch(error => console.error('获取MCP列表失败:', error));
+}
+
+// addMCPItem函数支持状态显示
 function addMCPItem(config) {
     const contentSection = document.querySelector(`.category-content[data-category="MCP设置"]`);
     
     const group = document.createElement('div');
     group.className = 'setting-group mcp-item';
+
+    // 添加数据属性存储MCP信息
+    group.dataset.id = config.id;
+    group.dataset.url = config.url;
+    group.dataset.endpoint = config.endpoint || '';
     
     group.innerHTML = `
         <div class="setting-title">${config.name}</div>
-        <div class="setting-content">${config.url}${config.endpoint ? '/' + config.endpoint : ''}</div>
+         ${config.id !== 1 ? `
+            <svg class="mcp-delete-icon" style="display:none;cursor:pointer;margin-left:500px;width:30px;height:30px" viewBox="0 0 1024 1024">
+                <path d="M512 146.286a365.714 365.714 0 1 1 0 731.428 365.714 365.714 0 0 1 0-731.428z m0 62.025a303.69 303.69 0 1 0 0.073 607.451A303.69 303.69 0 0 0 512 208.311zM647.022 376.32a6.555 6.555 0 0 1 6.583 6.583 6.583 6.583 0 0 1-1.463 4.169L545.865 513.609l106.057 126.537a6.802 6.802 0 0 1 1.536 4.17 6.555 6.555 0 0 1-6.583 6.582l-53.833-0.292L512 553.984l-81.042 96.695-53.98 0.292a6.583 6.583 0 0 1-4.973-10.825l106.203-126.464-106.203-126.537a6.802 6.802 0 0 1-1.536-4.242 6.477 6.477 0 0 1 6.51-6.51l53.979 0.293L512 473.234l81.189-96.768z" fill="#ff4d4f"></path>
+            </svg>
+            ` : ''}
+        <div class="setting-content">${config.url}${config.endpoint ? config.endpoint : ''}</div>
         <label class="mcp-switch">
-            <input type="checkbox">
+            <input type="checkbox" ${config.status == 1 ? 'checked' : ''}>  // 修改为松散比较
             <span class="mcp-slider"></span>
         </label>
     `;
+
+     // 添加状态变更事件监听
+    const checkbox = group.querySelector('input[type="checkbox"]');
+    checkbox.addEventListener('change', () => {
+        const mcpData = {
+            id: group.dataset.id,
+            name: config.name,
+            url: group.dataset.url,
+            endPoint: group.dataset.endpoint,
+            isEnable: checkbox.checked ? 1 : 0
+        };
+
+        fetch('http://localhost:1618/ai/settings/mcpstatus', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(mcpData)
+        })
+        .then(response => {
+            if (!response.ok) throw new Error('状态更新失败');
+            return response.json();
+        })
+        .catch(error => {
+            console.error('更新MCP状态失败:', error);
+            checkbox.checked = !checkbox.checked; // 回滚状态变更
+            alert('状态更新失败，请检查服务是否可用');
+        });
+    });
+
+     // 添加删除按钮点击事件
+     if (config.id !== 1) { 
+        const deleteIcon = group.querySelector('.mcp-delete-icon');
+        deleteIcon.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if(confirm('确定要删除该MCP配置吗？')) {
+                fetch(`http://localhost:1618/ai/settings/deletemcp?id=${config.id}`, {
+                    method: 'DELETE'
+                })
+                .then(response => {
+                    if(response.ok) {
+                        // 清除激活状态
+                        const deleteBtn = document.querySelector('.mcp-delete-btn');
+                        deleteBtn.classList.remove('active');
+                        document.querySelectorAll('.mcp-delete-icon').forEach(icon => icon.style.display = 'none');
+                        
+                        fetchAndRenderMCPList();
+                    }
+                });
+            }
+        });
+    }
     
-    contentSection.insertBefore(group, contentSection.lastElementChild); // 插入到加号按钮前
+    contentSection.insertBefore(group, contentSection.lastElementChild);
 }
 
+// 全局点击处理函数
+function globalDeleteHandler(e) {
+    const deleteBtn = document.querySelector('.mcp-delete-btn');
+    if(!e.target.closest('.mcp-delete-icon') && !e.target.closest('.mcp-delete-btn')) {
+        document.querySelectorAll('.mcp-delete-icon').forEach(icon => icon.style.display = 'none');
+        deleteBtn.classList.remove('active'); // 移除激活状态
+        document.removeEventListener('click', globalDeleteHandler);
+    }
+}
 
+// 添加新函数：收集变更的设置项
+function collectChangedSettings() {
+    const result = {
+        groupSettings: []
+    };
+    
+    // 只关注这三个分类
+    const targetCategories = ['通用设置', '系统设置', '模型设置'];
+    
+    targetCategories.forEach(category => {
+        const categoryEl = document.querySelector(`.category-content[data-category="${category}"]`);
+        if (!categoryEl) return;
+        
+        const categoryChanges = {
+            settingGroup: category,
+            items: []
+        };
+        
+        categoryEl.querySelectorAll('.setting-group').forEach(group => {
+            const input = group.querySelector('.setting-input');
+            if (!input) return;
+            
+            const titleEl = group.querySelector('.setting-title');
+            if (!titleEl) return;
+            
+            // 获取纯文本标题
+            const title = Array.from(titleEl.childNodes)
+                .filter(node => node.nodeType === Node.TEXT_NODE)
+                .map(node => node.textContent.trim())
+                .join('')
+                .trim();
+            
+            if (!title) return;
+            
+            // 获取当前值和初始值
+            const currentValue = input.value;
+            const initialValue = input.dataset.initialValue;
+            
+            // 检查值是否变更
+            if (currentValue !== initialValue) {
+                categoryChanges.items.push({
+                    itemName: title,
+                    value: currentValue
+                });
+            }
+        });
+        
+        // 如果该分类有变更项，添加到结果中
+        if (categoryChanges.items.length > 0) {
+            result.groupSettings.push(categoryChanges);
+        }
+    });
+    
+    return result;
+}
+
+// 记录设置初始值
+function recordInitialValues() {
+    document.querySelectorAll('.setting-input').forEach(input => {
+        // 记录初始值到 data 属性
+        input.dataset.initialValue = input.value;
+    });
+}
+
+// 更新设置初始值
+function updateInitialValues() {
+    document.querySelectorAll('.setting-input').forEach(input => {
+        // 更新初始值为当前值
+        input.dataset.initialValue = input.value;
+    });
+}

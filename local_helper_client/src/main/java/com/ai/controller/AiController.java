@@ -3,9 +3,11 @@ package com.ai.controller;
 //import com.ai.mapper.ChatDetailMapper;
 //import com.ai.mapper.ChatMapper;
 import com.ai.mapper.ChatDetailMapper;
+import com.ai.mapper.SettingsMapper;
 import com.ai.model.dto.ButtonStatusDto;
 import com.ai.model.po.ChatDetail;
 import com.ai.model.po.GetRequest;
+import com.ai.model.po.SettingDO;
 import com.ai.model.vo.ChatDetailVo;
 import com.ai.service.ChatHistoryService;
 import com.ai.service.ModelMessageService;
@@ -61,6 +63,8 @@ public class AiController {
     private ChatHistoryService  chatHistoryService;
     @Autowired
     private ChatDetailMapper chatDetailMapper;
+    @Autowired
+    private SettingsMapper settingsMapper;
 
 //    需要构造器注入
 //    public AiController(ChatClient.Builder chatClient, List<McpAsyncClient> mcpASyncClients) {
@@ -104,6 +108,10 @@ public class AiController {
         //文件内容->将用户消息和文件内容进行拼接
         if (request.getFileIds() != null){
             userMessage = formatFile(request.getFileIds()) + "【用户消息】:\n"+userMessage;
+        }
+        String defaultPrompt = settingsMapper.selectOne(new LambdaQueryWrapper<>(SettingDO.class).eq(SettingDO::getItem, "系统提示词")).getValue();
+        if (!defaultPrompt.isBlank()){
+            System_Prompt = defaultPrompt + System_Prompt;
         }
         //保存会话id
         chatHistoryService.save("chat",request.getChatId(),request.getSid());

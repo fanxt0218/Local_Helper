@@ -30,8 +30,9 @@ public class SettingsController {
 
     //更新设置信息
     @PostMapping("/updatesettings")
-    public void updateSettings(@RequestBody Settings settings) throws IOException {
+    public String updateSettings(@RequestBody Settings settings) throws IOException {
         settingsService.updateSettings(settings);
+        return objectMapper.writeValueAsString(new HashMap<Integer,String>().put(200,"更新成功"));
     }
 
     //获取MCP服务器信息
@@ -42,9 +43,8 @@ public class SettingsController {
 
     //添加MCP服务器信息
     @PostMapping("/addmcp")
-    public String addMcp(@RequestBody McpDo mcpDo) throws JsonProcessingException {
-        settingsService.addMcp(mcpDo);
-        return objectMapper.writeValueAsString(new HashMap<Integer,String>().put(200,"添加成功"));
+    public String addMcp(@RequestBody McpDo mcpDo) throws IOException {
+        return settingsService.addMcp(mcpDo);
     }
 
     //启用/禁用MCP服务器

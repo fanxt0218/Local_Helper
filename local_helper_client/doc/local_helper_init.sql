@@ -46,7 +46,7 @@ create table mcp_settings(
     name varchar(128) not null comment '服务名称',
     url varchar(128) not null comment '服务地址',
     end_point varchar(128) comment '服务端点',
-    is_enable int not null default 1 comment '是否启用(0:禁用,1:启用)'
+    is_enable int not null default 0 comment '是否启用(0:禁用,1:启用)'
 );
 
 -- 插入初始设置数据
