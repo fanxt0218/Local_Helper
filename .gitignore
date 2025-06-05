@@ -1,7 +1,6 @@
-/local_helper_client/config/
 
 # 忽略外部配置文件
-/local_helper_client/config
+./local_helper_client/config
 # ========== 编译目录 ==========
 # 通用构建目录（递归所有层级）
 **/target/
@@ -24,4 +23,3 @@
 
 # ========== 本地配置 ==========
 # 忽略所有模块的本地配置目录
-**/config/

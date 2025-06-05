@@ -1067,3 +1067,42 @@ body {
     right: 100%;  /* 改为从右侧延伸 */
 }
 
+/* 复制按钮样式 */
+.copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    cursor: pointer;
+    opacity: 0.4;
+    transition: opacity 0.2s;
+    padding: 4px;
+}
+
+.copy-btn:hover {
+    opacity: 0.8;
+}
+
+.copy-tip {
+    position: absolute;
+    right: -10px;
+    top: -50%;
+    background: #666;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    transform: translateY(-50%);
+    white-space: nowrap; 
+    opacity: 1;
+    transition: opacity 2s ease;
+}
+.copy-tip.hide {
+    opacity: 0;
+    right: -25px; /* 产生微小位移增强动感 */
+}
+
+.message.ai-message {
+    position: relative; /* 为绝对定位按钮提供参照 */
+    padding-right: 30px; /* 为按钮留出空间 */
+}
+
