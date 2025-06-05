@@ -57,10 +57,6 @@
             <artifactId>lombok</artifactId>
             <version>${org.projectlombok.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-websocket</artifactId>
-        </dependency>
         <!-- 确保包含reactor-core -->
         <dependency>
             <groupId>io.projectreactor</groupId>
