@@ -6,9 +6,16 @@ import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.ai.tool.annotation.ToolParam;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.ai.mcpserver.util.getOperatingSystemType.getOperatingSystem;
 
 @Service
 public class ToolsService {
@@ -50,5 +57,90 @@ public class ToolsService {
         //获取当前时间
         LocalDateTime now = LocalDateTime.now();
         return now.toString();
+    }
+
+    @Tool(description = "创建一个文件,需要传入文件名和文件路径")
+    public String createFile(@ToolParam(description = "文件名") String fileName,
+                             @ToolParam(description = "文件路径，需要是具体的路径，如果用户要求在桌面创建，则直接传入“桌面”二字") String filePath) {
+        System.err.println("调用到了创建文件工具，文件名："+fileName+"，文件路径："+filePath);
+        try {
+            String targetPathStr = filePath;
+            // Windows 系统路径转换
+            if (targetPathStr.contains("桌面")) {
+                String osType = getOperatingSystem();
+                if (osType.equals("Windows")) {
+                    targetPathStr  =  System.getProperty("user.home") + File.separator + "Desktop";
+                } else if (osType.equals("MacOS")) {
+                    targetPathStr =  System.getProperty("user.home") + "/Desktop";
+                } else {
+                    targetPathStr = targetPathStr.replace("~", System.getProperty("user.home"));
+                }
+            }
+            // 创建目标路径
+            Path targetPath = Paths.get(targetPathStr);
+
+            //  创建文件夹
+            if (Files.notExists(targetPath)) {
+                Files.createDirectories(targetPath);
+            }
+
+            // 创建空文件
+            if (fileName.isEmpty()){
+                return "创建文件夹成功";
+            }
+            Path newFile = targetPath.resolve(fileName);
+            if (Files.notExists(newFile)) {
+                Files.createFile(newFile);
+                return "文件创建成功：" + newFile.toAbsolutePath().toString();
+            }
+            return "文件已存在：" + newFile.toAbsolutePath().toString();
+        } catch (IOException e) {
+            return "文件创建失败：" + e.getMessage();
+        }
+    }
+
+    @Tool(description = "写入文件内容")
+    public String writeFile(
+            @ToolParam(description = "文件路径，若为桌面，则直接传入“桌面”二字") String filePath,
+            @ToolParam(description = "是否覆盖原文件内容，0表示追加，1表示覆盖。不传入则表示追加") String is_cover,
+            @ToolParam(description = "文件内容") String content
+    ){
+        System.err.println("调用到了写入文件工具，文件路径："+filePath+"，是否覆盖："+is_cover+"，内容："+content);
+
+        //路径转换
+        if (filePath.contains("桌面")) {
+            String osType = getOperatingSystem();
+            if (osType.equals("Windows")) {
+                filePath  =  System.getProperty("user.home") + File.separator + "Desktop";
+            } else if (osType.equals("MacOS")) {
+                filePath =  System.getProperty("user.home") + "/Desktop";
+            } else {
+                filePath = filePath.replace("~", System.getProperty("user.home"));
+            }
+        }
+
+        //目标文件
+        File file = new File(filePath);
+        if (!file.exists()){
+            return "文件不存在";
+        }
+        //判断是否覆盖
+        if (is_cover != null && is_cover.equals("1")){
+            //覆盖文件
+            try {
+                Files.write(file.toPath(), content.getBytes());
+                return "文件内容已覆盖";
+            } catch (IOException e) {
+                return "文件内容覆盖失败：" + e.getMessage();
+            }
+        }else{
+            //追加文件
+            try {
+                Files.write(file.toPath(), content.getBytes(), java.nio.file.StandardOpenOption.APPEND);
+                return "文件内容已追加";
+            } catch (IOException e) {
+                return "文件内容追加失败：" + e.getMessage();
+            }
+        }
     }
 }
