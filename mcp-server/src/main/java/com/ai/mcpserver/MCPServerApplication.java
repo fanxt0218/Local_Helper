@@ -1,9 +1,6 @@
 package com.ai.mcpserver;
 
-import com.ai.mcpserver.tools.LocationTool;
-import com.ai.mcpserver.tools.ToolsService;
-import com.ai.mcpserver.tools.WeatherTool;
-import com.ai.mcpserver.tools.WebSearchTool;
+import com.ai.mcpserver.tools.*;
 import org.springframework.ai.tool.ToolCallback;
 import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.ai.tool.method.MethodToolCallbackProvider;
@@ -23,7 +20,8 @@ public class MCPServerApplication {
             ToolsService toolsService,
             WebSearchTool webSearchTool,
             WeatherTool weatherTool,
-            LocationTool locationTool){
-        return MethodToolCallbackProvider.builder().toolObjects(toolsService,weatherTool,locationTool).build();
+            LocationTool locationTool,
+            SystemTool systemTool){
+        return MethodToolCallbackProvider.builder().toolObjects(toolsService,weatherTool,locationTool,systemTool).build();
     }
 }

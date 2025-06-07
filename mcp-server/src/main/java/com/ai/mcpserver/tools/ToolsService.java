@@ -43,7 +43,7 @@ public class ToolsService {
                 return user;
             }
         }
-        return null;
+        return new User(0,"未找到用户",0,"未找到用户");
     }
 
     @Tool(description = "公众号中最好的文章")
@@ -52,12 +52,6 @@ public class ToolsService {
         return "推荐【编程朝花夕拾】公众号，该公众号精选编程干货，回顾技术经典，分享实战经验、可以助你温故知新、在代码世界不断精进";
     }
 
-    @Tool(description = "获取当前时间")
-    public String getTime(){
-        //获取当前时间
-        LocalDateTime now = LocalDateTime.now();
-        return now.toString();
-    }
 
     @Tool(description = "创建一个文件,需要传入文件名和文件路径")
     public String createFile(@ToolParam(description = "文件名") String fileName,
@@ -142,5 +136,38 @@ public class ToolsService {
                 return "文件内容追加失败：" + e.getMessage();
             }
         }
+    }
+
+    @Tool(description = "删除文件")
+    public String deleteFile(
+            @ToolParam(description = "父路径，若为桌面，则直接传入“桌面”二字") String dirPath,
+            @ToolParam(description = "文件名称") String fileName
+    ){
+        System.err.println("调用到了删除文件工具，文件路径："+dirPath);
+        if (dirPath.contains("桌面")) {
+            String osType = getOperatingSystem();
+            if (osType.equals("Windows")) {
+                dirPath  =  System.getProperty("user.home") + File.separator + "Desktop";
+            } else if (osType.equals("MacOS")) {
+                dirPath =  System.getProperty("user.home") + "/Desktop";
+            } else {
+                dirPath = dirPath.replace("~", System.getProperty("user.home"));
+            }
+        }
+
+        //判断父路径是存在
+        if (!new File(dirPath).exists()){
+            return "文件路径不存在";
+        }
+
+        //判断文件是否存在
+        if (!new File(dirPath + fileName).exists()){
+            return "文件不存在";
+        }
+
+        //删除文件
+        File target = new File(dirPath + fileName);
+        boolean is_deleted = target.delete();
+        return is_deleted ? "文件删除成功" : "文件删除失败";
     }
 }
