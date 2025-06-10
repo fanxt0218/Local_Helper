@@ -41,6 +41,10 @@ public class FileParseServiceImpl implements FileParseService {
             if (Objects.equals(file.getContentType(), "application/javascript") || Objects.equals(file.getContentType(),"text/javascript")){
                 return new JsFileParser().parse(file);
             }
+            //图片文件
+            if (Objects.equals(file.getContentType(), "image/jpeg") || Objects.equals(file.getContentType(), "image/png") || Objects.equals(file.getContentType(), "image/gif")){
+                return new ImageFileParser().parse(file);
+            }
             //不支持的文件类型
             throw new RuntimeException("不支持的文件类型");
         } catch (Exception e) {

@@ -23,14 +23,21 @@ import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.InMemoryChatMemoryRepository;
 import org.springframework.ai.chat.memory.MessageWindowChatMemory;
 import org.springframework.ai.chat.messages.*;
+import org.springframework.ai.chat.prompt.Prompt;
+import org.springframework.ai.content.Media;
 import org.springframework.ai.mcp.AsyncMcpToolCallbackProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.MimeType;
+import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
+import java.net.URI;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -105,6 +112,10 @@ public class AiController {
     public Flux<String> chat(@RequestBody GetRequest request) {
         //用户消息
         String userMessage = request.getMessage();
+        //是否开启深度思考
+        if (request.getDeepThinkButtonStatus().equals("1")){
+            userMessage = userMessage + "/no_think";       //暂时硬编码，等待Spring AI更新支持配置
+        }
         //文件内容->将用户消息和文件内容进行拼接
         if (request.getFileIds() != null){
             userMessage = formatFile(request.getFileIds()) + "【用户消息】:\n"+userMessage;
@@ -121,9 +132,15 @@ public class AiController {
         StringBuilder assistantResponse = new StringBuilder();
         System.out.println("调用"+modelName+"模型进行响应");
         Flux<String> response;
+        //多模态文件
+        Prompt multiModalFile = new Prompt();
+        //检查模型是否支持多模态
+        if (checkMultiModal(modelName)){
+            multiModalFile = getMultiModalFile(request.getFileIds());
+        }
         //如果请求中使用工具，则配置工具
         if (request.getMcpButtonStatus().equals("1")||request.getWebButtonStatus().equals("1")) {
-            response = chatClient.prompt()
+            response = chatClient.prompt(multiModalFile)
                     .system(System_Prompt) // 设置系统提示词
                     .user(userMessage)   // 设置用户提示词
                     .toolCallbacks(new AsyncMcpToolCallbackProvider(mcpASyncClients))
@@ -131,7 +148,7 @@ public class AiController {
                     .stream()        //流式响应
                     .content();  //获取响应内容
         }else {
-            response = chatClient.prompt()
+            response = chatClient.prompt(multiModalFile)
                     .system(System_Prompt) // 设置系统提示词
                     .user(userMessage)   // 设置用户提示词
                     .advisors(a -> a.param(ChatMemory.CONVERSATION_ID, request.getChatId()))  //  设置会话ID
@@ -262,5 +279,38 @@ public class AiController {
             fileContent.append(content).append("\n");
         }
         return fileContent.toString();
+    }
+
+    //获取多模态文件
+    public Prompt getMultiModalFile(List<String> fileIds){
+        if (fileIds == null){
+            return new Prompt();
+        }
+        List<Media> media = new ArrayList<>();
+        for (String fileId : fileIds){
+            String content = memoryStorage.get(fileId);
+            //TODO 采用更安全的校验方式
+            if (content != null && content.contains("type=") && content.contains("&path=")){
+                String[] split = content.split("&");
+                String type = split[0].split("=")[1];
+                String path = split[1].split("=")[1];
+                switch (type){
+                    case "image/jpeg":
+                        media.add(new Media(MimeTypeUtils.IMAGE_JPEG,  new ClassPathResource(path)));
+                        break;
+                    case "image/png":
+                        media.add(new Media(MimeTypeUtils.IMAGE_PNG,  new ClassPathResource(path)));
+                        break;
+                    default:
+                        throw new RuntimeException("不支持的文件类型");
+                }
+            }
+        }
+       return new Prompt(UserMessage.builder().media(media).text("识别图片").build());
+    }
+
+    //检查模型是否支持多模态
+    public boolean checkMultiModal(String modelName){
+        return modelMessageService.checkMultiModal(modelName);
     }
 }

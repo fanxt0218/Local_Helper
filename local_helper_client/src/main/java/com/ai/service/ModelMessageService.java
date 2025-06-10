@@ -11,4 +11,6 @@ public interface ModelMessageService {
 
 
     String checkButton(ButtonStatusDto buttonStatusDto, String modelName);
+
+    Boolean checkMultiModal(String modelName);
 }

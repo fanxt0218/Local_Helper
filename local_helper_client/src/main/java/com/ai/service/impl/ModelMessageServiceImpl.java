@@ -96,4 +96,15 @@ public class ModelMessageServiceImpl implements ModelMessageService {
         return "OK";
     }
 
+    ArrayList<String> SupportMultiModalModelNames = new ArrayList<>(List.of("llama4","gemma3","qwen2.5vl","mistral-small3.1","llava","llama3.2-vision","minicpm-v","moondream","vision"));
+    @Override
+    public Boolean checkMultiModal(String modelName) {
+        for (String e : SupportMultiModalModelNames){
+            if (modelName.contains(e)){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
