@@ -113,7 +113,7 @@ public class AiController {
         //用户消息
         String userMessage = request.getMessage();
         //是否开启深度思考
-        if (request.getDeepThinkButtonStatus().equals("1")){
+        if (!request.getDeepThinkButtonStatus().equals("1")){
             userMessage = userMessage + "/no_think";       //暂时硬编码，等待Spring AI更新支持配置
         }
         //文件内容->将用户消息和文件内容进行拼接
