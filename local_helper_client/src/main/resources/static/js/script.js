@@ -933,7 +933,7 @@ function initFileUpload() {
     // 创建隐藏的文件输入
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
-    fileInput.accept = '.txt, .xlsx, .xls, .pdf, .html, .htm, .css, .js, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/pdf, text/html, text/css, application/javascript,text/javascript';    
+    fileInput.accept = '.txt, .xlsx, .xls, .pdf, .html, .htm, .css, .js, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/pdf, text/html, text/css, application/javascript,text/javascript, image/png, image/jpeg';    
     fileInput.style.display = 'none';
     document.body.appendChild(fileInput);
 
@@ -948,7 +948,7 @@ function initFileUpload() {
         if (!file) return;
 
         // 扩展文件类型验证
-        const allowedExtensions = /(\.txt|\.xlsx?|\.pdf|\.html?|\.css|\.js)$/i;
+        const allowedExtensions = /(\.txt|\.xlsx?|\.pdf|\.html?|\.css|\.js|\.png|\.jpg|\.jpeg)$/i;
         const allowedMimeTypes = [
             'text/plain',
             'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
@@ -957,11 +957,13 @@ function initFileUpload() {
             'text/html',
             'text/css',
             'application/javascript',
-            'text/javascript'
+            'text/javascript',
+            'image/png',
+            'image/jpeg'
         ];
 
         if (!allowedExtensions.exec(file.name) || !allowedMimeTypes.includes(file.type)) {
-            alert('仅支持上传 txt、xlsx、pdf、html、css、js 文件'); // 修改提示信息
+            alert('仅支持上传 txt、xlsx、pdf、html、css、js、图片文件'); // 修改提示信息
             return;
         }
         if (file.size > 10 * 1024 * 1024) {
@@ -988,6 +990,72 @@ function initFileUpload() {
         } catch (error) {
             console.error('上传失败:', error);
             alert(`上传失败: ${error.message}`);
+        }
+    });
+
+     // 新增粘贴事件处理
+    document.addEventListener('paste', async (e) => {
+        const items = e.clipboardData.items;
+        for (const item of items) {
+            if (item.kind === 'file') {
+                const file = item.getAsFile();
+                if (!file) continue;
+
+                // 检查文件类型和大小（复用原有验证逻辑）
+                const allowedExtensions = /(\.txt|\.xlsx?|\.pdf|\.html?|\.css|\.js|\.png|\.jpg|\.jpeg)$/i;
+                const allowedMimeTypes = [
+                    'text/plain',
+                    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                    'application/vnd.ms-excel',
+                    'application/pdf',
+                    'text/html',
+                    'text/css',
+                    'application/javascript',
+                    'text/javascript',
+                    'image/png',
+                    'image/jpeg'
+                ];
+
+                if (!allowedExtensions.exec(file.name) || !allowedMimeTypes.includes(file.type)) {
+                    showButtonAlert(document.querySelector('.attachment-trigger'), '不支持此文件类型');
+                    continue;
+                }
+
+                if (file.size > 10 * 1024 * 1024) {
+                    showButtonAlert(document.querySelector('.attachment-trigger'), '文件大小超过10MB');
+                    continue;
+                }
+
+                // // 处理图片文件（添加预览功能）
+                // if (file.type.startsWith('image/')) {
+                //     const reader = new FileReader();
+                //     reader.onload = (e) => {
+                //         const img = document.createElement('img');
+                //         img.src = e.target.result;
+                //         img.style.maxWidth = '200px';
+                //         img.style.maxHeight = '200px';
+                //         chatMessages.appendChild(img);
+                //     };
+                //     reader.readAsDataURL(file);
+                // }
+
+                // 上传文件（复用原有上传逻辑）
+                try {
+                    const formData = new FormData();
+                    formData.append('filedata', file);
+
+                    const response = await fetch('http://localhost:1618/files/upload', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const result = await response.json();
+                    showUploadedFile(file.name, result.fileId);
+                } catch (error) {
+                    console.error('上传失败:', error);
+                    showButtonAlert(document.querySelector('.attachment-trigger'), '上传失败');
+                }
+            }
         }
     });
 }
@@ -1077,7 +1145,7 @@ function getFileIcon(fileName) {
             </svg>`;
     }
 }
-createNewMessageContainer
+
 // 复制功能相关函数
 function addCopyButton(container) {
     const copyBtn = document.createElement('div');

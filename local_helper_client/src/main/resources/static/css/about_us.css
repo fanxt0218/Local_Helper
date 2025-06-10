@@ -2,7 +2,7 @@
 .about-container {
     max-width: 1200px;
     margin: 2rem auto;
-    padding: 2rem;
+    /* padding: 2rem; */
 }
 
 /* 标题区域 */
@@ -205,4 +205,85 @@
     color: rgba(255, 255, 255, 0.9) !important; /* 保持白色但增加不透明度 */
     background: rgba(64, 158, 255, 0.2);
 }
+
+
+/* 在原有样式基础上添加以下内容 */
+
+/* 联系信息容器 */
+.contact-info {
+    padding: 15px;
+    line-height: 1.6;
+}
+
+.contact-info p {
+    color: #666;
+    margin-bottom: 12px;
+    font-size: 0.95em;
+}
+
+.contact-info ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 8px;
+}
+
+.contact-info li {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.contact-info li:last-child {
+    border-bottom: none;
+}
+
+.contact-info span {
+    display: inline-block;
+    width: 60px;
+    color: #7c4dff;
+    font-weight: 500;
+    margin-right: 15px;
+}
+
+/* 邮箱链接效果 */
+.contact-info a {
+    color: #9e7ff5;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+.contact-info a:hover {
+    color: #409EFF;
+    text-decoration: underline;
+}
+
+/* 图标装饰 */
+.contact-info li::before {
+    font-family: 'codicon';
+    color: #7c4dff;
+    margin-right: 10px;
+    font-size: 0.9em;
+}
+
+.contact-info a::after {
+    font-family: 'codicon';
+    margin-left: 6px;
+    font-size: 0.8em;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .contact-info li {
+        flex-wrap: wrap;
+    }
+    
+    .contact-info span {
+        width: 100%;
+        margin-bottom: 4px;
+    }
+}
+
 

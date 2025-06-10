@@ -4,19 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="移除冗余js文件">
+    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="更新版本号">
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/UserController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/mapper/UserMapper.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/UserService.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/UserServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/ImageFileParser.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/mapper/UserMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/doc/local_helper_init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/doc/local_helper_init.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/AiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/AiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/ModelMessageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/ModelMessageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/FileParseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/FileParseServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/ModelMessageServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/ModelMessageServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/css/about_us.css" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/css/about_us.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/js/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/update_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/update_log.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,49 +73,49 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;HTTP 请求.LocalHelperApplication | #1.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP 请求.generated-requests | #3.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Local_Helper [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Local_Helper [compile].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Local_Helper [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.local_helper_client [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.local_helper_client [compile].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.local_helper_client [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.mcp-server [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.mcp-server [compile].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.mcp-server [install].executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.LocalHelperApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.MCPServerApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;local__helper-v2.0.0&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/86130/idea2024Projects/Local_Helper-2.0.0/local_helper_client/src/main/resources/static/css&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "HTTP 请求.LocalHelperApplication | #1.executor": "Run",
+    "HTTP 请求.generated-requests | #3.executor": "Run",
+    "Maven.Local_Helper [clean].executor": "Run",
+    "Maven.Local_Helper [compile].executor": "Run",
+    "Maven.Local_Helper [install].executor": "Run",
+    "Maven.local_helper_client [clean].executor": "Run",
+    "Maven.local_helper_client [compile].executor": "Run",
+    "Maven.local_helper_client [install].executor": "Run",
+    "Maven.mcp-server [clean].executor": "Run",
+    "Maven.mcp-server [compile].executor": "Run",
+    "Maven.mcp-server [install].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.LocalHelperApplication.executor": "Run",
+    "Spring Boot.MCPServerApplication.executor": "Run",
+    "git-widget-placeholder": "local__helper-v2.0.0",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/86130/idea2024Projects/Local_Helper-2.0.0/local_helper_client/src/main/resources/static/css",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "模块",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -233,7 +231,7 @@
       <workItem from="1749218211018" duration="622000" />
       <workItem from="1749276236213" duration="5261000" />
       <workItem from="1749383940390" duration="2872000" />
-      <workItem from="1749522751746" duration="3468000" />
+      <workItem from="1749522751746" duration="6764000" />
     </task>
     <task id="LOCAL-00001" summary="2.0.0版本项目工程">
       <option name="closed" value="true" />
@@ -387,7 +385,23 @@
       <option name="project" value="LOCAL" />
       <updated>1749304658686</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="移除冗余js文件">
+      <option name="closed" value="true" />
+      <created>1749534747782</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1749534747782</updated>
+    </task>
+    <task id="LOCAL-00021" summary="更新版本号">
+      <option name="closed" value="true" />
+      <created>1749534998990</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1749534998990</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -434,7 +448,8 @@
     <MESSAGE value="增加创建文件以及修改内容MCP工具" />
     <MESSAGE value="新增删除文件工具以及一系列获取系统信息的工具" />
     <MESSAGE value="移除冗余js文件" />
-    <option name="LAST_COMMIT_MESSAGE" value="移除冗余js文件" />
+    <MESSAGE value="更新版本号" />
+    <option name="LAST_COMMIT_MESSAGE" value="更新版本号" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
