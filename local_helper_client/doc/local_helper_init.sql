@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS chat (
 CREATE TABLE IF NOT EXISTS chatdetail (
     id INT AUTO_INCREMENT PRIMARY KEY COMMENT '详情ID',
     chat_id char(32) NOT NULL COMMENT '会话ID（逻辑关联chat.id）',
-    message_type ENUM('user', 'assistant', 'system','tool') NOT NULL COMMENT '内容类型',
+    message_type ENUM('user', 'assistant', 'system','tool','media') NOT NULL COMMENT '内容类型',
     content TEXT NOT NULL COMMENT '会话内容'
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
