@@ -9,14 +9,7 @@
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/mapper/UserMapper.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/UserService.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/UserServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/ImageFileParser.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/mapper/UserMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/doc/local_helper_init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/doc/local_helper_init.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/AiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/AiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/ModelMessageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/ModelMessageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/FileParseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/FileParseServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/ModelMessageServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/ModelMessageServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -233,7 +226,7 @@
       <workItem from="1749218211018" duration="622000" />
       <workItem from="1749276236213" duration="5261000" />
       <workItem from="1749383940390" duration="2872000" />
-      <workItem from="1749522751746" duration="3468000" />
+      <workItem from="1749522751746" duration="5762000" />
     </task>
     <task id="LOCAL-00001" summary="2.0.0版本项目工程">
       <option name="closed" value="true" />
@@ -387,7 +380,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749304658686</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="移除冗余js文件">
+      <option name="closed" value="true" />
+      <created>1749534747782</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1749534747782</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
