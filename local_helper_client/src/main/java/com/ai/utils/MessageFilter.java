@@ -27,7 +27,11 @@ public class MessageFilter {
 
             if (index != -1) {
                 // 截取标识符后的内容（包含处理换行符）
-                return input.substring(index + MARKER.length()).trim();
+                input = input.substring(index + MARKER.length()).trim();
+                if (input.contains("/no_think")){
+                    input  = input.replace("/no_think", "");
+                }
+                return input;
             }
             return input;
         }

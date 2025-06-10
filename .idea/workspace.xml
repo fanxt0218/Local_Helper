@@ -4,16 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="更新版本号">
+    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="修复部分样式失效问题">
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/UserController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/mapper/UserMapper.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/UserService.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/UserServiceImpl.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/mapper/UserMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/css/about_us.css" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/css/about_us.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/js/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/AiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/AiController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/MessageFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/MessageFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/js/settings1.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/js/settings2.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/update_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/update_log.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -231,7 +232,7 @@
       <workItem from="1749218211018" duration="622000" />
       <workItem from="1749276236213" duration="5261000" />
       <workItem from="1749383940390" duration="2872000" />
-      <workItem from="1749522751746" duration="6764000" />
+      <workItem from="1749522751746" duration="13810000" />
     </task>
     <task id="LOCAL-00001" summary="2.0.0版本项目工程">
       <option name="closed" value="true" />
@@ -401,7 +402,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749534998990</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="修复部分样式失效问题">
+      <option name="closed" value="true" />
+      <created>1749535998713</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1749535998713</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -449,7 +458,8 @@
     <MESSAGE value="新增删除文件工具以及一系列获取系统信息的工具" />
     <MESSAGE value="移除冗余js文件" />
     <MESSAGE value="更新版本号" />
-    <option name="LAST_COMMIT_MESSAGE" value="更新版本号" />
+    <MESSAGE value="修复部分样式失效问题" />
+    <option name="LAST_COMMIT_MESSAGE" value="修复部分样式失效问题" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
