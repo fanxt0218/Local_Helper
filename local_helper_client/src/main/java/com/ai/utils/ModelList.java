@@ -4,13 +4,17 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.ai.model.dto.OllamaModel;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.ai.ollama.api.OllamaApi;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.client.RestClient;
 
 public class ModelList {
 
@@ -18,12 +22,19 @@ public class ModelList {
 
     private static final ObjectMapper mapper = new ObjectMapper();
 
+    private static final RestClient restClient = RestClient.builder().baseUrl("http://localhost:11434").build();
+
+//    public ModelList(RestClient.Builder restClient){
+//        ModelList.restClient = restClient.baseUrl("http://localhost/11434").build();
+//    }
+
     public static List<String> getModels() {
-        List models = null;
+        List<String> models = null;
         try {
-            models = fetchOllamaModels();
-            System.out.println("可用模型名称:");
-            models.forEach(System.out::println);
+//            models = fetchOllamaModels();
+            models = listModels();
+//            System.out.println("可用模型名称:");
+//            models.forEach(System.out::println);
         } catch (Exception e) {
             System.err.println("Error fetching models: " + e.getMessage());
         }
@@ -69,5 +80,22 @@ public class ModelList {
             .collect(Collectors.toList());
 
 
+    }
+
+    //获取ollama模型列表（最新方法）
+    public static List<String> listModels() {
+        OllamaApi.ListModelResponse response = restClient.get().uri("/api/tags").retrieve().body(OllamaApi.ListModelResponse.class);
+        if (response == null){
+            System.out.println("可用模型为空");
+            return null;
+        }
+        ArrayList<String> modelList = new ArrayList<>();
+        List<OllamaApi.Model> models = response.models();
+        System.out.println("可用模型名称:");
+        for (OllamaApi.Model model : models) {
+            modelList.add(model.name());
+            System.out.println("• "+model.name());
+        }
+        return modelList;
     }
 }
