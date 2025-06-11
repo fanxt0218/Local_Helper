@@ -96,6 +96,7 @@ public class ToolsService {
     @Tool(description = "写入文件内容")
     public String writeFile(
             @ToolParam(description = "文件路径，若为桌面，则直接传入“桌面”二字") String filePath,
+            @ToolParam(description = "文件名") String fileName,
             @ToolParam(description = "是否覆盖原文件内容，0表示追加，1表示覆盖。不传入则表示追加") String is_cover,
             @ToolParam(description = "文件内容") String content
     ){
@@ -114,7 +115,7 @@ public class ToolsService {
         }
 
         //目标文件
-        File file = new File(filePath);
+        File file = new File(filePath+fileName);
         if (!file.exists()){
             return "文件不存在";
         }

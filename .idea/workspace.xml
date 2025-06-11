@@ -4,17 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="修复部分样式失效问题">
+    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="修复深度思考模式启/禁用bug,增强对“no_think”过滤。删除了一些冗余的js文件">
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/UserController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/mapper/UserMapper.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/UserService.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/UserServiceImpl.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/mapper/UserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/AiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/AiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/MessageFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/MessageFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/js/settings1.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/js/settings2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/ModelList.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/ModelList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mcp-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/mcp-server/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mcp-server/src/main/java/com/ai/mcpserver/tools/ToolsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/mcp-server/src/main/java/com/ai/mcpserver/tools/ToolsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/update_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/update_log.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -77,7 +79,9 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "HTTP 请求.LocalHelperApplication | #1.executor": "Run",
+    "HTTP 请求.LocalHelperApplication | #2.executor": "Run",
     "HTTP 请求.generated-requests | #3.executor": "Run",
+    "HTTP 请求.generated-requests | #5.executor": "Run",
     "Maven.Local_Helper [clean].executor": "Run",
     "Maven.Local_Helper [compile].executor": "Run",
     "Maven.Local_Helper [install].executor": "Run",
@@ -147,11 +151,17 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="HTTP 请求.generated-requests | #3">
+  <component name="RunManager" selected="HTTP 请求.LocalHelperApplication | #2">
     <configuration name="LocalHelperApplication | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/LocalHelperApplication.http" requestIdentifier="#1" runType="运行单个请求">
       <method v="2" />
     </configuration>
+    <configuration name="LocalHelperApplication | #2" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/LocalHelperApplication.http" index="2" requestIdentifier="#2" runType="运行单个请求">
+      <method v="2" />
+    </configuration>
     <configuration name="generated-requests | #3" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="3" requestIdentifier="#3" runType="运行单个请求">
+      <method v="2" />
+    </configuration>
+    <configuration name="generated-requests | #5" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="5" requestIdentifier="#5" runType="运行单个请求">
       <method v="2" />
     </configuration>
     <configuration name="LocalHelperApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
@@ -175,6 +185,8 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="HTTP 请求.LocalHelperApplication | #2" />
+      <item itemvalue="HTTP 请求.generated-requests | #5" />
       <item itemvalue="HTTP 请求.LocalHelperApplication | #1" />
       <item itemvalue="HTTP 请求.generated-requests | #3" />
       <item itemvalue="Spring Boot.MCPServerApplication" />
@@ -183,6 +195,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.LocalHelperApplication" />
+        <item itemvalue="HTTP 请求.LocalHelperApplication | #2" />
+        <item itemvalue="HTTP 请求.generated-requests | #5" />
         <item itemvalue="HTTP 请求.generated-requests | #3" />
         <item itemvalue="HTTP 请求.LocalHelperApplication | #1" />
       </list>
@@ -232,7 +246,8 @@
       <workItem from="1749218211018" duration="622000" />
       <workItem from="1749276236213" duration="5261000" />
       <workItem from="1749383940390" duration="2872000" />
-      <workItem from="1749522751746" duration="13810000" />
+      <workItem from="1749522751746" duration="14099000" />
+      <workItem from="1749607725403" duration="11387000" />
     </task>
     <task id="LOCAL-00001" summary="2.0.0版本项目工程">
       <option name="closed" value="true" />
@@ -410,7 +425,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749535998713</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="修复深度思考模式启/禁用bug,增强对“no_think”过滤。删除了一些冗余的js文件">
+      <option name="closed" value="true" />
+      <created>1749561828045</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1749561828045</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -459,7 +482,8 @@
     <MESSAGE value="移除冗余js文件" />
     <MESSAGE value="更新版本号" />
     <MESSAGE value="修复部分样式失效问题" />
-    <option name="LAST_COMMIT_MESSAGE" value="修复部分样式失效问题" />
+    <MESSAGE value="修复深度思考模式启/禁用bug,增强对“no_think”过滤。删除了一些冗余的js文件" />
+    <option name="LAST_COMMIT_MESSAGE" value="修复深度思考模式启/禁用bug,增强对“no_think”过滤。删除了一些冗余的js文件" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -493,6 +517,21 @@
           <url>jar://$MAVEN_REPOSITORY$/org/springframework/ai/spring-ai-autoconfigure-mcp-client/1.0.0-M7/spring-ai-autoconfigure-mcp-client-1.0.0-M7.jar!/org/springframework/ai/mcp/client/autoconfigure/McpClientAutoConfiguration.class</url>
           <line>115</line>
           <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/ModelList.java</url>
+          <line>34</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/ModelList.java</url>
+          <line>86</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/ModelList.java</url>
+          <line>87</line>
+          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
