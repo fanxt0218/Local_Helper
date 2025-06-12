@@ -933,7 +933,7 @@ function initFileUpload() {
     // 创建隐藏的文件输入
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
-    fileInput.accept = '.txt, .xlsx, .xls, .pdf, .html, .htm, .css, .js, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/pdf, text/html, text/css, application/javascript,text/javascript, image/png, image/jpeg';    
+    fileInput.accept = '.txt, .xlsx, .xls, .pdf, .html, .htm, .css, .js, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/pdf, text/html, text/css, application/javascript,text/javascript, image/png, image/jpeg,.mp3, .wav, .ogg, audio/*';    
     fileInput.style.display = 'none';
     document.body.appendChild(fileInput);
 
@@ -948,7 +948,7 @@ function initFileUpload() {
         if (!file) return;
 
         // 扩展文件类型验证
-        const allowedExtensions = /(\.txt|\.xlsx?|\.pdf|\.html?|\.css|\.js|\.png|\.jpg|\.jpeg)$/i;
+        const allowedExtensions = /(\.txt|\.xlsx?|\.pdf|\.html?|\.css|\.js|\.png|\.jpg|\.jpeg|\.mp3|\.wav|\.ogg|\.m4a)$/i;
         const allowedMimeTypes = [
             'text/plain',
             'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
@@ -959,11 +959,15 @@ function initFileUpload() {
             'application/javascript',
             'text/javascript',
             'image/png',
-            'image/jpeg'
+            'image/jpeg',
+            'audio/mpeg', // MP3
+            'audio/wav',  // WAV
+            'audio/ogg',  // OGG
+            'audio/m4a'
         ];
 
         if (!allowedExtensions.exec(file.name) || !allowedMimeTypes.includes(file.type)) {
-            alert('仅支持上传 txt、xlsx、pdf、html、css、js、图片文件'); // 修改提示信息
+            alert('仅支持上传 txt、xlsx、pdf、html、css、js、图片、音频文件'); // 修改提示信息
             return;
         }
         if (file.size > 10 * 1024 * 1024) {
@@ -1002,7 +1006,7 @@ function initFileUpload() {
                 if (!file) continue;
 
                 // 检查文件类型和大小（复用原有验证逻辑）
-                const allowedExtensions = /(\.txt|\.xlsx?|\.pdf|\.html?|\.css|\.js|\.png|\.jpg|\.jpeg)$/i;
+                const allowedExtensions = /(\.txt|\.xlsx?|\.pdf|\.html?|\.css|\.js|\.png|\.jpg|\.jpeg|\.mp3|\.wav|\.ogg|\.m4a)$/i;
                 const allowedMimeTypes = [
                     'text/plain',
                     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
@@ -1013,7 +1017,11 @@ function initFileUpload() {
                     'application/javascript',
                     'text/javascript',
                     'image/png',
-                    'image/jpeg'
+                    'image/jpeg',
+                    'audio/mpeg', // MP3
+                    'audio/wav',  // WAV
+                    'audio/ogg',   // OGG
+                    'audio/m4a'
                 ];
 
                 if (!allowedExtensions.exec(file.name) || !allowedMimeTypes.includes(file.type)) {
@@ -1109,6 +1117,21 @@ function showUploadedFile(fileName, fileId) {
         }
     });
 
+    // // 添加音频播放功能
+    // if (fileName.match(/\.(mp3|wav|ogg|m4a)$/i)) {
+    //     const audioPlayer = document.createElement('audio');
+    //     audioPlayer.controls = true;
+    //     audioPlayer.style.width = '50%';
+        
+    //     // 获取音频文件 URL（假设后端返回了文件访问地址）
+    //     const source = document.createElement('source');
+    //     source.src = `http://localhost:1618/files/${fileId}`;
+    //     source.type = `audio/${fileName.split('.').pop().toLowerCase()}`;
+        
+    //     audioPlayer.appendChild(source);
+    //     fileItem.appendChild(audioPlayer);
+    // }
+
     uploadedFileIds.push(fileId); // 将fileId添加到列表
 
 }
@@ -1138,6 +1161,10 @@ function getFileIcon(fileName) {
         case 'xlsx': case 'xls':
             return `<svg class="file-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="18">
             <path d="M170.666667 0h568.888889l227.555555 227.555556v796.444444H170.666667z" fill="#BFC3C7" p-id="8552"></path><path d="M227.555556 56.888889v910.222222h682.666666V251.107556L716.003556 56.888889z" fill="#FFFFFF" p-id="8553"></path><path d="M682.666667 284.444444m28.444444 0l113.777778 0q28.444444 0 28.444444 28.444445l0 0q0 28.444444-28.444444 28.444444l-113.777778 0q-28.444444 0-28.444444-28.444444l0 0q0-28.444444 28.444444-28.444445Z" fill="#E6E8EB" p-id="8554"></path><path d="M682.666667 455.111111m28.444444 0l113.777778 0q28.444444 0 28.444444 28.444445l0 0q0 28.444444-28.444444 28.444444l-113.777778 0q-28.444444 0-28.444444-28.444444l0 0q0-28.444444 28.444444-28.444445Z" fill="#E6E8EB" p-id="8555"></path><path d="M682.666667 625.777778m28.444444 0l113.777778 0q28.444444 0 28.444444 28.444444l0 0q0 28.444444-28.444444 28.444445l-113.777778 0q-28.444444 0-28.444444-28.444445l0 0q0-28.444444 28.444444-28.444444Z" fill="#E6E8EB" p-id="8556"></path><path d="M284.444444 796.444444m28.444445 0l512 0q28.444444 0 28.444444 28.444445l0 0q0 28.444444-28.444444 28.444444l-512 0q-28.444444 0-28.444445-28.444444l0 0q0-28.444444 28.444445-28.444445Z" fill="#E6E8EB" p-id="8557"></path><path d="M56.888889 227.555556m56.888889 0l455.111111 0q56.888889 0 56.888889 56.888888l0 398.222223q0 56.888889-56.888889 56.888889l-455.111111 0q-56.888889 0-56.888889-56.888889l0-398.222223q0-56.888889 56.888889-56.888888Z" fill="#0CC0C9" p-id="8558"></path><path d="M305.493333 476.785778l-91.591111-135.395556h72.476445l55.751111 90.794667 57.742222-90.794667h68.494222L377.173333 477.184l99.157334 148.536889H401.863111L339.740444 527.36l-63.317333 98.360889H206.336z" fill="#FFFFFF" p-id="8559"></path>
+            </svg>`;
+         case 'mp3': case 'wav': case 'ogg':
+            return `<svg class="file-icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="16" height="18">
+                <path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372zm-32-232h64c4.4 0 8-3.6 8-8V360c0-4.4-3.6-8-8-8h-64c-4.4 0-8 3.6-8 8v304c0 4.4 3.6 8 8 8zm224 0h64c4.4 0 8-3.6 8-8V360c0-4.4-3.6-8-8-8h-64c-4.4 0-8 3.6-8 8v304c0 4.4 3.6 8 8 8zm-448 0h64c4.4 0 8-3.6 8-8V360c0-4.4-3.6-8-8-8h-64c-4.4 0-8 3.6-8 8v304c0 4.4 3.6 8 8 8z"/>
             </svg>`;
         default:
             return `<svg class="file-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="18">

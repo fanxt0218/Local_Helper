@@ -4,13 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="更新版本号">
+    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="升级MCP Server至1.1.0-SNAPSHOT">
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/UserController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/mapper/UserMapper.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/UserService.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/AudioFileParser.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/mapper/UserMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/AiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/AiController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/FileParseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/FileParseServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/js/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/js/settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/js/settings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/update_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/update_log.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +101,7 @@
     "Spring Boot.MCPServerApplication.executor": "Run",
     "git-widget-placeholder": "local__helper-v2.0.0",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/86130/idea2024Projects/Local_Helper-2.0.0/local_helper_client/src/main/resources/static/css",
+    "last_opened_file_path": "C:/Users/86130/idea2024Projects/Local_Helper-2.0.0/local_helper_client/src/main/resources/static/js",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -119,8 +126,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0\local_helper_client\src\main\resources\static\css" />
       <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0\local_helper_client\src\main\resources\static\js" />
+      <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0\local_helper_client\src\main\resources\static\css" />
       <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0\local_helper\src\main\resources\static\js" />
       <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0\local_helper\src\main\resources\static\css" />
     </key>
@@ -240,7 +247,8 @@
       <workItem from="1749276236213" duration="5261000" />
       <workItem from="1749383940390" duration="2872000" />
       <workItem from="1749522751746" duration="14099000" />
-      <workItem from="1749607725403" duration="13789000" />
+      <workItem from="1749607725403" duration="17098000" />
+      <workItem from="1749709894711" duration="7041000" />
     </task>
     <task id="LOCAL-00001" summary="2.0.0版本项目工程">
       <option name="closed" value="true" />
@@ -442,7 +450,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749631556910</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="升级MCP Server至1.1.0-SNAPSHOT">
+      <option name="closed" value="true" />
+      <created>1749638241663</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1749638241663</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -493,7 +509,8 @@
     <MESSAGE value="修复深度思考模式启/禁用bug,增强对“no_think”过滤。删除了一些冗余的js文件" />
     <MESSAGE value="修复模型调用工具时空指针异常，升级Spring AI至快照版(1.0.0-SNAPSHOT),和一些小改动" />
     <MESSAGE value="更新版本号" />
-    <option name="LAST_COMMIT_MESSAGE" value="更新版本号" />
+    <MESSAGE value="升级MCP Server至1.1.0-SNAPSHOT" />
+    <option name="LAST_COMMIT_MESSAGE" value="升级MCP Server至1.1.0-SNAPSHOT" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
