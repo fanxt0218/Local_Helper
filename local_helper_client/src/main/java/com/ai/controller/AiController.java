@@ -26,6 +26,7 @@ import org.springframework.ai.chat.messages.*;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.content.Media;
 import org.springframework.ai.mcp.AsyncMcpToolCallbackProvider;
+import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -294,19 +295,20 @@ public class AiController {
                 String[] split = content.split("&");
                 String type = split[0].split("=")[1];
                 String path = split[1].split("=")[1];
-                switch (type){
-                    case "image/jpeg":
-                        media.add(new Media(MimeTypeUtils.IMAGE_JPEG,  new ClassPathResource(path)));
-                        break;
-                    case "image/png":
-                        media.add(new Media(MimeTypeUtils.IMAGE_PNG,  new ClassPathResource(path)));
-                        break;
-                    default:
-                        throw new RuntimeException("不支持的文件类型");
+                if (MimeTypeUtils.IMAGE_JPEG_VALUE.equals(type)) {
+                    media.add(new Media(MimeTypeUtils.IMAGE_JPEG, new ClassPathResource(path)));     //图片文件jpeg
+                } else if (MimeTypeUtils.IMAGE_PNG_VALUE.equals(type)) {
+                    media.add(new Media(MimeTypeUtils.IMAGE_PNG, new ClassPathResource(path)));      //图片文件png
+                } else if (MimeTypeUtils.IMAGE_GIF_VALUE.equals(type)) {
+                    media.add(new Media(MimeTypeUtils.IMAGE_GIF, new ClassPathResource(path)));      //图片文件gif
+                } else if (MimeTypeUtils.parseMimeType(type).toString().startsWith("audio")) {
+                    media.add(new Media(MimeTypeUtils.parseMimeType(type), new ClassPathResource(path))); //音频文件
+                }else {
+                    throw new RuntimeException("不支持的文件类型");
                 }
             }
         }
-       return new Prompt(UserMessage.builder().media(media).text("识别图片").build());
+       return new Prompt(UserMessage.builder().media(media).text("识别这个文件").build());
     }
 
     //检查模型是否支持多模态

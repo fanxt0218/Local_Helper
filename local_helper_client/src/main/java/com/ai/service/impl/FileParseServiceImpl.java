@@ -45,6 +45,10 @@ public class FileParseServiceImpl implements FileParseService {
             if (Objects.equals(file.getContentType(), "image/jpeg") || Objects.equals(file.getContentType(), "image/png") || Objects.equals(file.getContentType(), "image/gif")){
                 return new ImageFileParser().parse(file);
             }
+            //音频文件
+            if (file.getContentType().startsWith("audio/")) {
+                return new AudioFileParser().parse(file); // 需实现音频解析器
+            }
             //不支持的文件类型
             throw new RuntimeException("不支持的文件类型");
         } catch (Exception e) {
