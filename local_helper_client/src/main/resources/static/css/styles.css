@@ -1106,3 +1106,168 @@ body {
     padding-right: 30px; /* 为按钮留出空间 */
 }
 
+
+/* --------------------------文件预览侧边栏----------------- */
+.preview-sidebar {
+    position: fixed;
+    top: 0;
+    right: -800px;
+    width: 800px; /* 默认宽度 */
+    height: 100%;
+    background: white;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+    transition: right 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.preview-sidebar.active {
+  right: 0;
+}
+
+.preview-header {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.preview-content {
+    flex: 1;
+    overflow: auto;
+    padding: 20px;
+    min-width: 300px; /* 最小宽度限制 */
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.preview-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 999;
+  display: none;
+}
+
+.preview-overlay.active {
+  display: block;
+}
+
+/* 新增可拖动边框 */
+.resize-handle {
+    position: absolute;
+    left: -800px;
+    top: 0;
+    bottom: 0;
+    width: 10px;
+    cursor: col-resize;
+    z-index: 1001;
+    /* 添加悬停状态 */
+    transition: background 0.2s;
+}
+
+/* 添加悬停效果 */
+.resize-handle:hover {
+    background: rgba(77, 107, 254, 0.1);
+}
+
+.preview-sidebar {
+    transition: right 0.3s ease, width 0.3s ease; /* 添加宽度过渡动画 */
+}
+
+/* 预览内容的样式 */
+.text-preview {
+  white-space: pre-wrap;
+  font-family: monospace;
+  max-height: 80vh;
+  overflow: auto;
+}
+
+.image-preview {
+  max-width: 100%;
+  max-height: 80vh;
+  display: block;
+  margin: 0 auto;
+}
+
+.audio-preview {
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* PDF查看器样式 */
+.pdf-container {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.pdf-controls {
+    text-align: center;
+    margin-top: 15px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+}
+
+.pdf-controls button {
+    padding: 8px 20px;
+    background: #4D6BFE;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.pdf-controls button:hover {
+    background: #3b5bdb;
+}
+
+.page-info {
+    color: #666;
+    min-width: 120px;
+    display: inline-block;
+    text-align: center;
+}
+
+/* 错误提示样式 */
+.error-message {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.error-message h4 {
+    color: #ff4d4f;
+    margin-bottom: 15px;
+}
+
+.error-message p {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.download-btn {
+    background: #4D6BFE;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.download-btn:hover {
+    background: #3b5bdb;
+}

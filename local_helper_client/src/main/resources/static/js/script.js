@@ -14,7 +14,7 @@ let isInThink = false; // 是否在思考块中
 let thinkContainer = null; // 当前思考内容容器
 let isResponsePending = false; // 新增响应状态标志
 let sid = null; // 用户id
-
+let currentPreviewFileId = null;
 
 // 建立 WebSocket 连接
 function connectWebSocket(sid) {
@@ -312,6 +312,67 @@ document.addEventListener('DOMContentLoaded', () => {
         userInfoDiv.textContent = `用户：${sid}`;
         userAvatar.textContent = String(sid).charAt(0).toUpperCase();
     }
+
+    // 初始化预览侧栏
+    const previewSidebar = document.createElement('div');
+    previewSidebar.id = 'previewSidebar';
+    previewSidebar.className = 'preview-sidebar';
+    previewSidebar.innerHTML = `
+        <div class="preview-header">
+        <h3>文件预览</h3>
+        <button id="previewCloseBtn" class="close-btn">&times;</button>
+        </div>
+        <div class="preview-content"></div>
+    `;
+    
+    const previewOverlay = document.createElement('div');
+    previewOverlay.className = 'preview-overlay';
+    
+    document.body.appendChild(previewOverlay);
+    document.body.appendChild(previewSidebar);
+
+    // 创建可调整大小的句柄
+    const resizeHandle = document.createElement('div');
+    resizeHandle.className = 'resize-handle';
+    previewSidebar.appendChild(resizeHandle);
+
+    // 添加调整大小功能
+    let isResizing = false;
+    let startX = 0;
+    let startWidth = 800;
+
+    resizeHandle.addEventListener('mousedown', (e) => {
+        if (!previewSidebar.classList.contains('active')) return; // 只在侧边栏可见时允许调整
+        isResizing = true;
+        startX = e.clientX;
+        startWidth = previewSidebar.offsetWidth;
+        document.body.style.cursor = 'col-resize'; // 修改鼠标样式
+        document.body.style.userSelect = 'none';
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (!isResizing) return;
+        const deltaX = e.clientX - startX;
+        const newWidth = Math.min(Math.max(startWidth + deltaX, 300), 800);
+        
+        // 实时更新宽度
+        previewSidebar.style.width = `${newWidth}px`;
+        previewSidebar.style.right = `-${newWidth}px`; 
+    });
+
+    document.addEventListener('mouseup', () => {
+        if (!isResizing) return;
+        isResizing = false;
+        document.body.style.cursor = '';
+        document.body.style.userSelect = '';
+    });   
+  
+    // 修复事件绑定：使用事件委托
+    document.body.addEventListener('click', e => {
+        if (e.target.closest('#previewCloseBtn') || e.target.classList.contains('preview-overlay')) {
+            closePreview();
+        }
+    });
 
     connectWebSocket(sid);
     fetchModelName();
@@ -1117,20 +1178,10 @@ function showUploadedFile(fileName, fileId) {
         }
     });
 
-    // // 添加音频播放功能
-    // if (fileName.match(/\.(mp3|wav|ogg|m4a)$/i)) {
-    //     const audioPlayer = document.createElement('audio');
-    //     audioPlayer.controls = true;
-    //     audioPlayer.style.width = '50%';
-        
-    //     // 获取音频文件 URL（假设后端返回了文件访问地址）
-    //     const source = document.createElement('source');
-    //     source.src = `http://localhost:1618/files/${fileId}`;
-    //     source.type = `audio/${fileName.split('.').pop().toLowerCase()}`;
-        
-    //     audioPlayer.appendChild(source);
-    //     fileItem.appendChild(audioPlayer);
-    // }
+    // 修改这部分：为文件名添加点击事件
+    const fileNameSpan = fileItem.querySelector('.file-name');
+    fileNameSpan.style.cursor = 'pointer';
+    fileNameSpan.addEventListener('click', () => previewFile(fileId, fileName));
 
     uploadedFileIds.push(fileId); // 将fileId添加到列表
 
@@ -1213,4 +1264,195 @@ function showCopySuccess(btn) {
     setTimeout(() => {
         tip.remove();
     }, 1000);
+}
+
+
+// 预览文件函数
+function previewFile(fileId, fileName) {
+  const extension = fileName.split('.').pop().toLowerCase();
+  const previewContent = document.querySelector('.preview-content');
+  previewContent.innerHTML = '<div class="loading-text">加载中...</div>';
+  
+  // 显示侧栏
+  document.getElementById('previewSidebar').classList.add('active');
+  document.querySelector('.preview-overlay').classList.add('active');
+
+  // 保存当前预览的文件ID
+  currentPreviewFileId = fileId;
+  
+  // 根据文件类型显示预览
+    if (['png', 'jpg', 'jpeg', 'gif'].includes(extension)) {
+        // 图片文件 - 使用下载接口返回原始文件
+        previewContent.innerHTML = `
+            <h4>${fileName}</h4>
+            <img src="http://localhost:1618/files/download/${fileId}" 
+                 class="image-preview" 
+                 alt="${fileName}"
+                 onerror="handlePreviewError('图片加载失败')">
+        `;
+    }
+    else if (['mp3', 'wav', 'ogg', 'm4a'].includes(extension)) {
+        // 音频文件 - 使用下载接口返回原始文件
+        previewContent.innerHTML = `
+            <h4>${fileName}</h4>
+            <audio controls class="audio-preview">
+                <source src="http://localhost:1618/files/download/${fileId}" 
+                        type="${getAudioMimeType(extension)}">
+                您的浏览器不支持音频播放
+            </audio>
+        `;
+    }
+    else if (['pdf'].includes(extension)) {
+        // 创建PDF容器
+        previewContent.innerHTML = `
+            <h4>${fileName}</h4>
+            <div class="pdf-container" style="width: 100%; height: 600px; overflow: auto">
+                <canvas id="pdf-canvas"></canvas>
+            </div>
+            <div class="pdf-controls">
+                <button class="page-prev">上一页</button>
+                <span class="page-info">第 <span id="page_num">1</span> 页 / 共 <span id="page_count">1</span> 页</span>
+                <button class="page-next">下一页</button>
+            </div>
+        `;
+
+        // 初始化PDF.js
+        const loadingTask = pdfjsLib.getDocument(`http://localhost:1618/files/download/${fileId}`);
+        let pdfDoc = null, pageNum = 1, pageRendering = false;
+
+        function renderPage(num) {
+            pageRendering = true;
+            pdfDoc.getPage(num).then(page => {
+                const canvas = document.getElementById('pdf-canvas');
+                const ctx = canvas.getContext('2d');
+                const viewport = page.getViewport({ scale: 1.5 });
+                
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                page.render({
+                    canvasContext: ctx,
+                    viewport: viewport
+                }).promise.then(() => {
+                    pageRendering = false;
+                    document.getElementById('page_num').textContent = num;
+                });
+            });
+        }
+
+        loadingTask.promise.then(pdf => {
+            pdfDoc = pdf;
+            document.getElementById('page_count').textContent = pdf.numPages;
+            renderPage(pageNum);
+
+            // 添加翻页控制
+            document.querySelector('.page-prev').addEventListener('click', () => {
+                if (pageNum <= 1) return;
+                pageNum--;
+                renderPage(pageNum);
+            });
+
+            document.querySelector('.page-next').addEventListener('click', () => {
+                if (pageNum >= pdfDoc.numPages) return;
+                pageNum++;
+                renderPage(pageNum);
+            });
+        }).catch(error => {
+            console.error('PDF加载失败:', error);
+            previewContent.innerHTML = `<p>PDF加载失败: ${error.message}</p>`;
+        });
+    }
+    else if (['txt', 'html', 'css', 'js', 'json'].includes(extension)) {
+        // 文本文件 - 使用预览接口返回解析内容
+        fetch(`http://localhost:1618/files/preview/${fileId}`)
+            .then(response => response.text())
+            .then(text => {
+                previewContent.innerHTML = `
+                    <h4>${fileName}</h4>
+                    <pre class="text-preview">${escapeHtml(text)}</pre>
+                `;
+            })
+            .catch(error => {
+                previewContent.innerHTML = `<p>加载失败: ${error.message}</p>`;
+            });
+    }
+    else if (['xlsx', 'xls'].includes(extension)) {
+        previewContent.innerHTML = `
+            <div class="error-message">
+                <h4>${fileName}</h4>
+                <p>该文件类型不支持在线预览</p>
+                <button class="download-btn">下载文件</button>
+            </div>
+        `;
+        
+        previewContent.querySelector('.download-btn').addEventListener('click', () => {
+            downloadOriginalFile(fileId);
+        });
+    }
+    else {
+        previewContent.innerHTML = `<p>不支持预览此文件类型: ${extension}</p>`;
+    }
+}
+
+// 关闭预览
+function closePreview() {
+  const sidebar = document.getElementById('previewSidebar');
+  const overlay = document.querySelector('.preview-overlay');
+  
+  if (sidebar) sidebar.classList.remove('active');
+  if (overlay) overlay.classList.remove('active');
+  
+  // 清理资源
+  const previewContent = document.querySelector('.preview-content');
+  if (previewContent) {
+    previewContent.querySelectorAll('img, audio, iframe').forEach(element => {
+      if (element.src) URL.revokeObjectURL(element.src);
+    });
+  }
+  
+  // 重置当前预览文件ID
+  currentPreviewFileId = null;
+}
+
+// HTML转义函数
+function escapeHtml(text) {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+// 辅助函数：获取音频MIME类型
+function getAudioMimeType(extension) {
+    switch(extension) {
+        case 'mp3': return 'audio/mpeg';
+        case 'wav': return 'audio/wav';
+        case 'ogg': return 'audio/ogg';
+        case 'm4a': return 'audio/mp4';
+        default: return 'audio/*';
+    }
+}
+
+// 错误处理函数
+function handlePreviewError(message) {
+    const previewContent = document.querySelector('.preview-content');
+    previewContent.innerHTML = `<p>${message}</p>
+    <button class="download-btn">下载原始文件</button>`;
+    
+    previewContent.querySelector('.download-btn').addEventListener('click', () => {
+        downloadOriginalFile(currentPreviewFileId);
+    });
+}
+
+// 下载原始文件
+function downloadOriginalFile(fileId) {
+    const link = document.createElement('a');
+    link.href = `http://localhost:1618/files/download/${fileId}`;
+    link.download = '';
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }
