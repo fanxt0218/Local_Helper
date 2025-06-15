@@ -10,6 +10,8 @@ public class MemoryStorage {
 
     //文件存储
     private static final ConcurrentHashMap<String,String> storage = new ConcurrentHashMap<>();
+    //原始文件
+    private static final ConcurrentHashMap<String,String> originalFile = new ConcurrentHashMap<>();
 
     //存储文件
     public void save(String fileId, String content) {
@@ -33,5 +35,22 @@ public class MemoryStorage {
     public void clear() {
         storage.clear();
         System.out.println("文件清空成功");
+    }
+
+    //存储原始文件
+    public void saveOriginalFile(String fileId, String path) {
+        originalFile.put(fileId, path);
+        System.out.println("原始文件存储成功"+fileId);
+        System.out.println("原始文件路径"+path);
+    }
+
+    //获取原始文件
+    public String getOriginalFile(String fileId) {
+        return originalFile.get(fileId);
+    }
+
+    //删除原始文件
+    public void removeOriginalFile(String fileId) {
+        originalFile.remove(fileId);
     }
 }
