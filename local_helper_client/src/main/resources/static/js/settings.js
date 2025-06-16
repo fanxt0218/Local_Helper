@@ -169,6 +169,12 @@ document.addEventListener('DOMContentLoaded', () => {
         options: ['小', '中', '大'],
         default: '中'
     });
+    addSettingItem({
+        category: '通用设置',
+        label: '清理缓存',
+        type: "button",
+        tooltip: '清空缓存内容，包括上传的文件等临时内容，不会清理会话历史。'
+    })
     
     addSettingItem({
         category: '系统设置',
@@ -232,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="about-container">
                 <header class="about-header">
                     <h1 class="gradient-title">关于我们</h1>
-                    <p class="version-tag">Version 2.2.13</p>
+                    <p class="version-tag">Version 2.2.14</p>
                 </header>
                 
                 <div class="info-grid">
@@ -642,7 +648,30 @@ function createControlElement(config) {
         case 'custom':  
             container.innerHTML = config.content;
             return { element: container };
-            
+         
+        case 'button':
+            control = document.createElement('button');
+            control.className = 'setting-input btn-clear-cache';
+            control.textContent = '立即清理';
+            // 添加点击事件
+            control.addEventListener('click', () => {
+                fetch('http://localhost:1618/files/clearMemory', {
+                    method: 'POST'
+                })
+                .then(response => {
+                    if (!response.ok) throw new Error('清理失败');
+                    return response.json();
+                })
+                .then(data => {
+                    alert(data.message || '缓存清理成功');
+                })
+                .catch(error => {
+                    console.error('清理失败:', error);
+                    alert(error.message);
+                });
+            });
+            container.appendChild(control);
+            break;
         default:
             control = document.createElement('input');
             control.className = 'setting-input';
@@ -913,3 +942,4 @@ function updateInitialValues() {
         input.dataset.initialValue = input.value;
     });
 }
+

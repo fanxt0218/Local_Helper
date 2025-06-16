@@ -297,6 +297,12 @@ messageInput.addEventListener('keydown', (event) => {
 
 // 页面加载时连接 WebSocket
 document.addEventListener('DOMContentLoaded', () => {
+    // 新增：应用主题和字体设置
+    const savedTheme = localStorage.getItem('主题模式') || '浅色模式';
+    document.body.classList.toggle('dark-theme', savedTheme === '夜间模式');
+    const savedSize = localStorage.getItem('字体大小') || '中';
+    applyFontSize(savedSize);
+
     const fontAwesome = document.createElement('link');
     fontAwesome.rel = 'stylesheet';
     fontAwesome.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css';
@@ -337,35 +343,35 @@ document.addEventListener('DOMContentLoaded', () => {
     previewSidebar.appendChild(resizeHandle);
 
     // 添加调整大小功能
-    let isResizing = false;
-    let startX = 0;
-    let startWidth = 800;
+    // let isResizing = false;
+    // let startX = 0;
+    // let startWidth = 800;
 
-    resizeHandle.addEventListener('mousedown', (e) => {
-        if (!previewSidebar.classList.contains('active')) return; // 只在侧边栏可见时允许调整
-        isResizing = true;
-        startX = e.clientX;
-        startWidth = previewSidebar.offsetWidth;
-        document.body.style.cursor = 'col-resize'; // 修改鼠标样式
-        document.body.style.userSelect = 'none';
-    });
+    // resizeHandle.addEventListener('mousedown', (e) => {
+    //     if (!previewSidebar.classList.contains('active')) return; // 只在侧边栏可见时允许调整
+    //     isResizing = true;
+    //     startX = e.clientX;
+    //     startWidth = previewSidebar.offsetWidth;
+    //     document.body.style.cursor = 'col-resize'; // 修改鼠标样式
+    //     document.body.style.userSelect = 'none';
+    // });
 
-    document.addEventListener('mousemove', (e) => {
-        if (!isResizing) return;
-        const deltaX = e.clientX - startX;
-        const newWidth = Math.min(Math.max(startWidth + deltaX, 300), 800);
+    // document.addEventListener('mousemove', (e) => {
+    //     if (!isResizing) return;
+    //     const deltaX = e.clientX - startX;
+    //     const newWidth = Math.min(Math.max(startWidth + deltaX, 300), 800);
         
-        // 实时更新宽度
-        previewSidebar.style.width = `${newWidth}px`;
-        previewSidebar.style.right = `-${newWidth}px`; 
-    });
+    //     // 实时更新宽度
+    //     previewSidebar.style.width = `${newWidth}px`;
+    //     previewSidebar.style.right = `-${newWidth}px`; 
+    // });
 
-    document.addEventListener('mouseup', () => {
-        if (!isResizing) return;
-        isResizing = false;
-        document.body.style.cursor = '';
-        document.body.style.userSelect = '';
-    });   
+    // document.addEventListener('mouseup', () => {
+    //     if (!isResizing) return;
+    //     isResizing = false;
+    //     document.body.style.cursor = '';
+    //     document.body.style.userSelect = '';
+    // });   
   
     // 修复事件绑定：使用事件委托
     document.body.addEventListener('click', e => {
