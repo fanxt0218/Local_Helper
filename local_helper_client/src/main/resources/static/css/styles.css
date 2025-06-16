@@ -898,6 +898,10 @@ body {
     transform: translateY(-27%); /* 保持垂直居中 */
 }
 
+.dark-theme .attachment-trigger {
+    color: #fff;
+}
+
 .attachment-trigger:hover {
     color: #3b5bdb;
     transform: translateY(-27%) scale(1.05); /* 缩小缩放比例 */
@@ -1138,7 +1142,20 @@ body {
     flex: 1;
     overflow: auto;
     padding: 20px;
-    min-width: 300px; /* 最小宽度限制 */
+    min-width: 300px;
+    /* 新增图片预览布局 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 垂直居中 */
+    align-items: center;     /* 水平居中 */
+}
+
+/* 新增图片容器样式 */
+.image-preview {
+    max-width: 90%;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 4px;
 }
 
 .close-btn {
@@ -1161,24 +1178,6 @@ body {
 
 .preview-overlay.active {
   display: block;
-}
-
-/* 新增可拖动边框 */
-.resize-handle {
-    position: absolute;
-    left: -800px;
-    top: 0;
-    bottom: 0;
-    width: 10px;
-    cursor: col-resize;
-    z-index: 1001;
-    /* 添加悬停状态 */
-    transition: background 0.2s;
-}
-
-/* 添加悬停效果 */
-.resize-handle:hover {
-    background: rgba(77, 107, 254, 0.1);
 }
 
 .preview-sidebar {

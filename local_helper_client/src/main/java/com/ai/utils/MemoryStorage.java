@@ -34,7 +34,8 @@ public class MemoryStorage {
     //清空所有文件
     public void clear() {
         storage.clear();
-        System.out.println("文件清空成功");
+        originalFile.clear();
+        System.out.println("文件缓存清空成功");
     }
 
     //存储原始文件
@@ -52,5 +53,6 @@ public class MemoryStorage {
     //删除原始文件
     public void removeOriginalFile(String fileId) {
         originalFile.remove(fileId);
+        System.out.println("原始文件删除成功"+fileId);
     }
 }

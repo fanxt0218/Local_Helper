@@ -103,6 +103,7 @@ public class FilesController {
                 .body(fileSystemResource);
     }
 
+    //获取解析内容
     @GetMapping("/preview/{fileId}")
     public ResponseEntity<String> getParsedContent(@PathVariable String fileId) {
         // 从存储中获取解析内容
@@ -114,5 +115,12 @@ public class FilesController {
         return ResponseEntity.ok()
                 .contentType(MediaType.TEXT_PLAIN)
                 .body(content);
+    }
+
+    //清理缓存
+    @PostMapping("/clearMemory")
+    public ResponseEntity<String> clearMemory() {
+        memoryStorage.clear();
+        return ResponseEntity.ok("{\"message\":\"缓存清理成功\"}");
     }
 }
