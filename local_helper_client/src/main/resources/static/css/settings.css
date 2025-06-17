@@ -982,7 +982,8 @@ input:checked + .mcp-slider:before {
 }
 
 .dark-theme .mcp-delete-btn svg {
-    fill: #b7b6b6;  /*
+    fill: #b7b6b6;  
+}
 
 .mcp-delete-btn:hover svg {
     fill: #ff4d4f;  /* 悬停时变为亮红色 */
