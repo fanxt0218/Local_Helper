@@ -52,6 +52,17 @@ public class ToolsService {
         return "推荐【编程朝花夕拾】公众号，该公众号精选编程干货，回顾技术经典，分享实战经验、可以助你温故知新、在代码世界不断精进";
     }
 
+    @Tool(description = "获取项目仓库地址")
+    public String getProjectRepo(@ToolParam(description = "根据用户不同的需求，传入github或者gitee")String repoType){
+        System.err.println("调用到了获取项目仓库地址工具");
+        if (repoType.equals("github")){
+            return "https://github.com/fanxt0218/Local_Helper";
+        }else if (repoType.equals("gitee")){
+            return "https://gitee.com/fan_xt/local_helper";
+        }
+        return "https://gitee.com/fan_xt/local_helper";
+    }
+
 
     @Tool(description = "创建一个文件,需要传入文件名和文件路径")
     public String createFile(@ToolParam(description = "文件名") String fileName,

@@ -8,25 +8,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.ai.mapper.SettingsMapper;
 import com.ai.model.dto.OllamaModel;
+import com.ai.model.po.SettingDO;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.ai.ollama.api.OllamaApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
+//@Component
 public class ModelList {
 
     private static final String OLLAMA_API_URL = "http://localhost:11434/api/tags";
 
     private static final ObjectMapper mapper = new ObjectMapper();
 
-    private static final RestClient restClient = RestClient.builder().baseUrl("http://localhost:11434").build();
+    @Autowired
+    private SettingsMapper settingsMapper;
 
-//    public ModelList(RestClient.Builder restClient){
-//        ModelList.restClient = restClient.baseUrl("http://localhost/11434").build();
-//    }
+    private static RestClient restClient;
+
+    public ModelList(RestClient.Builder restClient){
+        String URL = settingsMapper.selectOne(new LambdaQueryWrapper<SettingDO>().eq(SettingDO::getItem, "Ollama服务地址")).getValue();
+        ModelList.restClient = restClient.baseUrl(URL).build();
+    }
 
     public static List<String> getModels() {
         List<String> models = null;
