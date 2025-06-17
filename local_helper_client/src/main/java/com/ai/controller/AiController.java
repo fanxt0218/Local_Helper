@@ -109,6 +109,7 @@ public class AiController {
         //是否开启深度思考
         if (!request.getDeepThinkButtonStatus().equals("1")){
             userMessage = userMessage + "/no_think";       //暂时硬编码，等待Spring AI更新支持配置
+            System_Prompt = "【重要】不要输出<think>等思考标签，省略思考过程，直接进行响应" + System_Prompt;
         }
         //文件内容->将用户消息和文件内容进行拼接
         if (request.getFileIds() != null){
@@ -139,7 +140,7 @@ public class AiController {
                     .user(userMessage)   // 设置用户提示词
                     .toolCallbacks(new AsyncMcpToolCallbackProvider(mcpASyncClients))
                     .advisors(a -> a.param(ChatMemory.CONVERSATION_ID, request.getChatId()))  //  设置会话ID
-                    .stream()        //流式响应
+                    .stream() //流式响应
                     .content();  //获取响应内容
         }else {
             response = chatClient.prompt(multiModalFile)
