@@ -4,15 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="更新版本号">
+    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="新增清理缓存功能，修复部分显示问题">
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/UserController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/mapper/UserMapper.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/UserService.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/UserServiceImpl.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/mapper/UserMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/FilesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/FilesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/MemoryStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/MemoryStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/AiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/AiController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/ModelMessageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/ModelMessageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/css/settings.css" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/css/settings.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/js/settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/js/settings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mcp-server/src/main/java/com/ai/mcpserver/tools/ToolsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/mcp-server/src/main/java/com/ai/mcpserver/tools/ToolsService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/update_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/update_log.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -247,7 +251,8 @@
       <workItem from="1749709894711" duration="7900000" />
       <workItem from="1749802913445" duration="1303000" />
       <workItem from="1749973164646" duration="11982000" />
-      <workItem from="1750056059281" duration="4808000" />
+      <workItem from="1750056059281" duration="7023000" />
+      <workItem from="1750143704475" duration="5646000" />
     </task>
     <task id="LOCAL-00001" summary="2.0.0版本项目工程">
       <option name="closed" value="true" />
@@ -481,7 +486,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749994704322</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="新增清理缓存功能，修复部分显示问题">
+      <option name="closed" value="true" />
+      <created>1750061189579</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1750061189579</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -535,7 +548,8 @@
     <MESSAGE value="新增支持音频文件上传(多模态)" />
     <MESSAGE value="支持文件预览和下载" />
     <MESSAGE value="更新版本号" />
-    <option name="LAST_COMMIT_MESSAGE" value="更新版本号" />
+    <MESSAGE value="新增清理缓存功能，修复部分显示问题" />
+    <option name="LAST_COMMIT_MESSAGE" value="新增清理缓存功能，修复部分显示问题" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -121,7 +121,7 @@ public class ModelMessageController {
         modelMessageService.asyncRefreshConfig1();
         //更改工具配置
 //        aiController.updateToolConfig(model.getModelName());
-        return "切换成功";
+        return "{\"data\":\"切换成功\"}";
     }
 
 }

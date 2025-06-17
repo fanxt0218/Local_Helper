@@ -144,7 +144,7 @@ public class ToolsService {
             @ToolParam(description = "父路径，若为桌面，则直接传入“桌面”二字") String dirPath,
             @ToolParam(description = "文件名称") String fileName
     ){
-        System.err.println("调用到了删除文件工具，文件路径："+dirPath);
+        System.err.println("调用到了删除文件工具，文件路径："+dirPath+",文件名称"+fileName);
         if (dirPath.contains("桌面")) {
             String osType = getOperatingSystem();
             if (osType.equals("Windows")) {
@@ -155,20 +155,22 @@ public class ToolsService {
                 dirPath = dirPath.replace("~", System.getProperty("user.home"));
             }
         }
-
         //判断父路径是存在
         if (!new File(dirPath).exists()){
+            System.out.println("文件路径不存在");
             return "文件路径不存在";
         }
 
         //判断文件是否存在
-        if (!new File(dirPath + fileName).exists()){
+        if (!new File(dirPath +"\\"+ fileName).exists()){
+            System.out.println("文件不存在");
             return "文件不存在";
         }
 
         //删除文件
-        File target = new File(dirPath + fileName);
+        File target = new File(dirPath +"\\"+ fileName);
         boolean is_deleted = target.delete();
+        System.out.println(dirPath+"\\"+fileName+" 文件删除结果：" + is_deleted);
         return is_deleted ? "文件删除成功" : "文件删除失败";
     }
 }

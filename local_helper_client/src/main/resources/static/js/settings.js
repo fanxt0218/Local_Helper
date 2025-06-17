@@ -238,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="about-container">
                 <header class="about-header">
                     <h1 class="gradient-title">关于我们</h1>
-                    <p class="version-tag">Version 2.2.14</p>
+                    <p class="version-tag">Version 2.2.15</p>
                 </header>
                 
                 <div class="info-grid">
@@ -664,6 +664,12 @@ function createControlElement(config) {
                 })
                 .then(data => {
                     alert(data.message || '缓存清理成功');
+                    //清空文件列表
+                    if (window.uploadedFiles) window.uploadedFiles = [];
+                    if (window.uploadedFileIds) window.uploadedFileIds = [];
+                    const fileList = document.getElementById('fileList');
+                    if (fileList) fileList.innerHTML = '';
+
                 })
                 .catch(error => {
                     console.error('清理失败:', error);
@@ -672,6 +678,7 @@ function createControlElement(config) {
             });
             container.appendChild(control);
             break;
+
         default:
             control = document.createElement('input');
             control.className = 'setting-input';
