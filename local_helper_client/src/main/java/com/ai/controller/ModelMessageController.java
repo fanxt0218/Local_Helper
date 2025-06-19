@@ -45,6 +45,8 @@ public class ModelMessageController {
     private ModelMessageService modelMessageService;  // 模型服务层
     @Autowired
     private AiController aiController;
+    @Autowired
+    private ModelList modelList;
 
     //获取模型名称
     @GetMapping("/getmodelname")
@@ -70,7 +72,7 @@ public class ModelMessageController {
     public String getModelList() {
         String models = null;
         try {
-            models = mapper.writeValueAsString(ModelList.getModels());
+            models = mapper.writeValueAsString(modelList.getModels());
             System.out.println("当前模型列表:"+models);
         }catch (Exception e){
             throw new RuntimeException("获取模型列表失败");

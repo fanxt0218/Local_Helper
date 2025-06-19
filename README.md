@@ -1,13 +1,40 @@
-# Local_Helper
+<div align="center">
+
+# ✨Local_Helper
+
+</div>
+
 🎉欢迎下载项目！！！🎉
+<div align="center">
+
+![Github](https://img.shields.io/badge/_GitHub-blue?logo=github&labelColor=grey&link=https://github.com/fanxt0218/Local_Helper)
+![Gitee](https://img.shields.io/badge/_Gitee-blue?logo=gitee&labelColor=grey&link=https://gitee.com/fan_xt/Local_Helper)
+<br>
+<br>
+
+![license](https://img.shields.io/github/license/fanxt0218/Local_Helper?color=)
+![code_size](https://img.shields.io/github/languages/code-size/fanxt0218/Local_Helper)
+![code_size](https://img.shields.io/github/repo-size/fanxt0218/Local_Helper)
+![version](https://img.shields.io/github/v/release/fanxt0218/Local_Helper)
+![last_commit](https://img.shields.io/github/last-commit/fanxt0218/Local_Helper)
+
+<hr>
+</div>
+
 #### 介绍
 🎉支持本地大模型的可视化应用
 我们在将大模型部署到本地后，是否会因为命令行界面而感到不方便呢？💻本项目作为一个轻量级本地大模型调用框架搭建的可视化本地对话应用，
 🚀从此大家只需要拉取模型，或者将训练后的模型导入到ollama，直接使用该应用即可实现本地模型的调用，从此告别排队！
-🍰项目已经开源至gitee、github👇
-github: https://github.com/fanxt0218/Local_Helper
-如果您觉得该开源项目对您有帮助，请给作者点个star，谢谢！🌟
+🍰项目已经开源至gitee、github👇<br>
+![Github](https://img.shields.io/badge/_GitHub-blue?logo=github&labelColor=grey&link=https://gitee.com/fan_xt/Local_Helper)
+<span font-size="40px">
+https://github.com/fanxt0218/Local_Helper
+</span><br>
+如果您觉得该开源项目对您有帮助，请给该项目点个star，谢谢！🌟
 更详细的发开介绍 -->👉 https://blog.csdn.net/2402_84949062?spm=1011.2266.3001.5343  <--请访问我的主页
+
+#### 更新日志
+请关注更新日志: <span src="https://gitee.com/fan_xt/local_helper/blob/local_helper-v2.0.0/update_log.txt">Local_Helper更新日志</span>
 
 #### 软件架构◪
 Java语言基于Springboot框架进行开发，软件集成Spring AI框架，持久层框架mybatis- plus
@@ -39,6 +66,16 @@ Java语言基于Springboot框架进行开发，软件集成Spring AI框架，持
   一些特性:
     应用支持在同一个会话中频繁切换模型，虽然侧边栏中记录的是创建时的模型名称，但是在聊天过程中切换模型新的模型会继承旧模型的记忆
 
+#### 快速演示 ⚡
+<div align="center">
+
+![功能演示](local_helper_client/src/main/resources/static/imgs/local_helper使用教程1.gif)
+![功能演示](local_helper_client/src/main/resources/static/imgs/local_helper使用教程2.gif)
+
+
+</div>
+
+
 ### 注意 📍
 
 如果要使用mcp服务请先在mcp-server模块中配置相关配置
@@ -54,7 +91,12 @@ Java语言基于Springboot框架进行开发，软件集成Spring AI框架，持
 
 1.  该项目由gitee快乐哦呜所属
 2.  如若在使用过程中遇到bug，请在gitee或github提出您的建议
-3.  想要参与对项目的开发和完善，请联系我
+3.  想要参与对项目的开发和完善，请联系我，或以PR的方式贡献代码
 4.  作者学生党,望大家多多支持
 5.  开发者CSDN账号：Fanxt_Ja
-    <img alt="img.png" height="400" src="local_helper_client/src/main/resources/static/imgs/关于我们.png" width="550"/>
+<div align="center">
+
+![CSDN](https://img.shields.io/badge/_CSDN-blue?logo=csdn&labelColor=black&link=https://blog.csdn.net/2402_84949062?type=blog)
+</div>
+
+<img alt="img.png" height="400" src="local_helper_client/src/main/resources/static/imgs/关于我们.png" width="550"/>
