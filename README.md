@@ -7,12 +7,15 @@
 🎉欢迎下载项目！！！🎉
 <div align="center">
 
-![Github](https://img.shields.io/badge/_GitHub-blue?logo=github&labelColor=grey&link=https://github.com/fanxt0218/Local_Helper)
-![Gitee](https://img.shields.io/badge/_Gitee-blue?logo=gitee&labelColor=grey&link=https://gitee.com/fan_xt/Local_Helper)
-<br>
+<a href="https://github.com/fanxt0218/Local_Helper">
+  <img height="23" src="https://img.shields.io/badge/_-GitHub-blue?logo=github&labelColor=grey" alt="GitHub">
+</a>
+<a href="https://gitee.com/fan_xt/Local_Helper">
+  <img height="23" src="https://img.shields.io/badge/_-Gitee-red?logo=gitee&labelColor=grey" alt="Gitee">
+</a>
 <br>
 
-![license](https://img.shields.io/github/license/fanxt0218/Local_Helper?color=)
+![license](https://img.shields.io/github/license/fanxt0218/Local_Helper?)
 ![code_size](https://img.shields.io/github/languages/code-size/fanxt0218/Local_Helper)
 ![code_size](https://img.shields.io/github/repo-size/fanxt0218/Local_Helper)
 ![version](https://img.shields.io/github/v/release/fanxt0218/Local_Helper)
@@ -34,7 +37,7 @@ https://github.com/fanxt0218/Local_Helper
 更详细的发开介绍 -->👉 https://blog.csdn.net/2402_84949062?spm=1011.2266.3001.5343  <--请访问我的主页
 
 #### 更新日志
-请关注更新日志: <span src="https://gitee.com/fan_xt/local_helper/blob/local_helper-v2.0.0/update_log.txt">Local_Helper更新日志</span>
+请关注更新日志: <a src="https://gitee.com/fan_xt/local_helper/blob/local_helper-v2.0.0/update_log.txt">Local_Helper更新日志</span>
 
 #### 软件架构◪
 Java语言基于Springboot框架进行开发，软件集成Spring AI框架，持久层框架mybatis- plus
@@ -91,12 +94,19 @@ Java语言基于Springboot框架进行开发，软件集成Spring AI框架，持
 
 1.  该项目由gitee快乐哦呜所属
 2.  如若在使用过程中遇到bug，请在gitee或github提出您的建议
-3.  想要参与对项目的开发和完善，请联系我，或以PR的方式贡献代码
+3.  想要参与对项目的开发和完善，请联系我，或以PR的方式贡献代码 ![git](https://img.shields.io/badge/_-Git-blue?logo=git&labelColor=grey&link=https://gitee.com/fan_)
 4.  作者学生党,望大家多多支持
 5.  开发者CSDN账号：Fanxt_Ja
 <div align="center">
-
-![CSDN](https://img.shields.io/badge/_CSDN-blue?logo=csdn&labelColor=black&link=https://blog.csdn.net/2402_84949062?type=blog)
+<a href="https://blog.csdn.net/2402_84949062?type=blog">
+  <img height="23" src="https://img.shields.io/badge/_CSDN-blue?logo=csdn&labelColor=black&link=https://blog.csdn.net/2402_84949062?type=blog" alt="GitHub">
+</a>
+<a href="https://github.com/fanxt0218/Local_Helper">
+  <img height="23" src="https://img.shields.io/badge/_-GitHub-blue?logo=github&labelColor=grey" alt="GitHub">
+</a>
+<a href="https://gitee.com/fan_xt/Local_Helper">
+  <img height="23" src="https://img.shields.io/badge/_-Gitee-red?logo=gitee&labelColor=grey" alt="Gitee">
+</a>
 </div>
 
 <img alt="img.png" height="400" src="local_helper_client/src/main/resources/static/imgs/关于我们.png" width="550"/>
