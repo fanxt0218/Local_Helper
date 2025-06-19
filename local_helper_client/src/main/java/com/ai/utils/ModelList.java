@@ -20,7 +20,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
-//@Component
+@Component
 public class ModelList {
 
     private static final String OLLAMA_API_URL = "http://localhost:11434/api/tags";
@@ -32,12 +32,7 @@ public class ModelList {
 
     private static RestClient restClient;
 
-    public ModelList(RestClient.Builder restClient){
-        String URL = settingsMapper.selectOne(new LambdaQueryWrapper<SettingDO>().eq(SettingDO::getItem, "Ollama服务地址")).getValue();
-        ModelList.restClient = restClient.baseUrl(URL).build();
-    }
-
-    public static List<String> getModels() {
+    public List<String> getModels() {
         List<String> models = null;
         try {
 //            models = fetchOllamaModels();
@@ -92,7 +87,10 @@ public class ModelList {
     }
 
     //获取ollama模型列表（最新方法）
-    public static List<String> listModels() {
+    public List<String> listModels() {
+        String URL = settingsMapper.selectOne(new LambdaQueryWrapper<SettingDO>().eq(SettingDO::getItem, "Ollama服务地址")).getValue();
+        restClient = RestClient.builder().baseUrl(URL).build();
+
         OllamaApi.ListModelResponse response = restClient.get().uri("/api/tags").retrieve().body(OllamaApi.ListModelResponse.class);
         if (response == null){
             System.out.println("可用模型为空");

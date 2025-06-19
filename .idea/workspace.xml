@@ -4,16 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="修复一些bug(更换模型日志，删除工具失效，样式问题)">
+    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="优化think软标识、增加服务器Ollama地址同步修改,增加获取仓库地址工具">
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/UserController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/mapper/UserMapper.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/UserService.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/UserServiceImpl.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/mapper/UserMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/imgs/local_helper使用教程1.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/imgs/local_helper使用教程2.gif" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/AiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/AiController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/ModelMessageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/ModelMessageController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/ModelList.java" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/utils/ModelList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcp-server/src/main/java/com/ai/mcpserver/tools/ToolsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/mcp-server/src/main/java/com/ai/mcpserver/tools/ToolsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/imgs/关于我们.png" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/static/imgs/关于我们.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/update_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/update_log.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -79,6 +82,7 @@
     "HTTP 请求.LocalHelperApplication | #2.executor": "Run",
     "HTTP 请求.generated-requests | #3.executor": "Run",
     "HTTP 请求.generated-requests | #5.executor": "Run",
+    "HTTP 请求.generated-requests | #7.executor": "Run",
     "Maven.Local_Helper [clean].executor": "Run",
     "Maven.Local_Helper [compile].executor": "Run",
     "Maven.Local_Helper [install].executor": "Run",
@@ -98,7 +102,7 @@
     "Spring Boot.MCPServerApplication.executor": "Run",
     "git-widget-placeholder": "local__helper-v2.0.0",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/86130/idea2024Projects/Local_Helper-2.0.0/local_helper_client/src/main/resources/static/js",
+    "last_opened_file_path": "C:/Users/86130/idea2024Projects/Local_Helper-2.0.0/local_helper_client/src/main/resources/static/videos",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -123,6 +127,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0\local_helper_client\src\main\resources\static\videos" />
       <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0\local_helper_client\src\main\resources\static\js" />
       <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0\local_helper_client\src\main\resources\static\css" />
       <recent name="C:\Users\86130\idea2024Projects\Local_Helper-2.0.0\local_helper\src\main\resources\static\js" />
@@ -149,9 +154,6 @@
     </option>
   </component>
   <component name="RunManager" selected="HTTP 请求.LocalHelperApplication | #2">
-    <configuration name="LocalHelperApplication | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/LocalHelperApplication.http" requestIdentifier="#1" runType="运行单个请求">
-      <method v="2" />
-    </configuration>
     <configuration name="LocalHelperApplication | #2" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/LocalHelperApplication.http" index="2" requestIdentifier="#2" runType="运行单个请求">
       <method v="2" />
     </configuration>
@@ -159,6 +161,9 @@
       <method v="2" />
     </configuration>
     <configuration name="generated-requests | #5" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="5" requestIdentifier="#5" runType="运行单个请求">
+      <method v="2" />
+    </configuration>
+    <configuration name="generated-requests | #7" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="7" requestIdentifier="#7" runType="运行单个请求">
       <method v="2" />
     </configuration>
     <configuration name="LocalHelperApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
@@ -182,9 +187,9 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="HTTP 请求.generated-requests | #7" />
       <item itemvalue="HTTP 请求.LocalHelperApplication | #2" />
       <item itemvalue="HTTP 请求.generated-requests | #5" />
-      <item itemvalue="HTTP 请求.LocalHelperApplication | #1" />
       <item itemvalue="HTTP 请求.generated-requests | #3" />
       <item itemvalue="Spring Boot.MCPServerApplication" />
       <item itemvalue="Spring Boot.LocalHelperApplication" />
@@ -193,9 +198,9 @@
       <list>
         <item itemvalue="Spring Boot.LocalHelperApplication" />
         <item itemvalue="HTTP 请求.LocalHelperApplication | #2" />
+        <item itemvalue="HTTP 请求.generated-requests | #7" />
         <item itemvalue="HTTP 请求.generated-requests | #5" />
         <item itemvalue="HTTP 请求.generated-requests | #3" />
-        <item itemvalue="HTTP 请求.LocalHelperApplication | #1" />
       </list>
     </recent_temporary>
   </component>
@@ -249,7 +254,10 @@
       <workItem from="1749802913445" duration="1303000" />
       <workItem from="1749973164646" duration="11982000" />
       <workItem from="1750056059281" duration="7023000" />
-      <workItem from="1750143704475" duration="11595000" />
+      <workItem from="1750143704475" duration="12863000" />
+      <workItem from="1750217794856" duration="215000" />
+      <workItem from="1750228180667" duration="1016000" />
+      <workItem from="1750311590277" duration="9091000" />
     </task>
     <task id="LOCAL-00001" summary="2.0.0版本项目工程">
       <option name="closed" value="true" />
@@ -499,7 +507,15 @@
       <option name="project" value="LOCAL" />
       <updated>1750149696418</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="优化think软标识、增加服务器Ollama地址同步修改,增加获取仓库地址工具">
+      <option name="closed" value="true" />
+      <created>1750163174589</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1750163174589</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -529,7 +545,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="新增不支持工具模型名称列表" />
     <MESSAGE value="新增一批样式和设置项" />
     <MESSAGE value="新增添加附件功能、新增设置项、优化了界面显示效果" />
     <MESSAGE value="支持对Excel、PDF文件的上传、优化布局、UI、解决了一些bug" />
@@ -554,7 +569,8 @@
     <MESSAGE value="更新版本号" />
     <MESSAGE value="新增清理缓存功能，修复部分显示问题" />
     <MESSAGE value="修复一些bug(更换模型日志，删除工具失效，样式问题)" />
-    <option name="LAST_COMMIT_MESSAGE" value="修复一些bug(更换模型日志，删除工具失效，样式问题)" />
+    <MESSAGE value="优化think软标识、增加服务器Ollama地址同步修改,增加获取仓库地址工具" />
+    <option name="LAST_COMMIT_MESSAGE" value="优化think软标识、增加服务器Ollama地址同步修改,增加获取仓库地址工具" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
