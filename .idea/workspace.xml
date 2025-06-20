@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="修复无法获取模型列表为空的bug，更新README.md">
+    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="更新README.md">
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/UserController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/mapper/UserMapper.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/UserService.java" afterDir="false" />
@@ -71,52 +71,52 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "HTTP 请求.LocalHelperApplication | #1.executor": "Run",
-    "HTTP 请求.LocalHelperApplication | #2.executor": "Run",
-    "HTTP 请求.generated-requests | #3.executor": "Run",
-    "HTTP 请求.generated-requests | #5.executor": "Run",
-    "HTTP 请求.generated-requests | #7.executor": "Run",
-    "Maven.Local_Helper [clean].executor": "Run",
-    "Maven.Local_Helper [compile].executor": "Run",
-    "Maven.Local_Helper [install].executor": "Run",
-    "Maven.local_helper_client [clean].executor": "Run",
-    "Maven.local_helper_client [compile].executor": "Run",
-    "Maven.local_helper_client [install].executor": "Run",
-    "Maven.mcp-server [clean].executor": "Run",
-    "Maven.mcp-server [compile].executor": "Run",
-    "Maven.mcp-server [install].executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.LocalHelperApplication.executor": "Run",
-    "Spring Boot.MCPServerApplication.executor": "Run",
-    "git-widget-placeholder": "local__helper-v2.0.0",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/86130/idea2024Projects/Local_Helper-2.0.0/local_helper_client/src/main/resources/static/videos",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "模块",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;HTTP 请求.LocalHelperApplication | #1.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP 请求.LocalHelperApplication | #2.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP 请求.generated-requests | #3.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP 请求.generated-requests | #5.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP 请求.generated-requests | #7.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Local_Helper [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Local_Helper [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Local_Helper [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.local_helper_client [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.local_helper_client [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.local_helper_client [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.mcp-server [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.mcp-server [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.mcp-server [install].executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.LocalHelperApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.MCPServerApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;local__helper-v2.0.0&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/86130/idea2024Projects/Local_Helper-2.0.0/local_helper_client/src/main/resources/static/videos&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -252,7 +252,8 @@
       <workItem from="1750143704475" duration="12863000" />
       <workItem from="1750217794856" duration="215000" />
       <workItem from="1750228180667" duration="1016000" />
-      <workItem from="1750311590277" duration="11542000" />
+      <workItem from="1750311590277" duration="14063000" />
+      <workItem from="1750403327893" duration="5530000" />
     </task>
     <task id="LOCAL-00001" summary="2.0.0版本项目工程">
       <option name="closed" value="true" />
@@ -518,7 +519,15 @@
       <option name="project" value="LOCAL" />
       <updated>1750321337515</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="更新README.md">
+      <option name="closed" value="true" />
+      <created>1750324031385</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1750324031385</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -556,7 +565,6 @@
     <MESSAGE value="持久化、实时渲染、修改设置项" />
     <MESSAGE value="增加删除MCP服务、支持上传html、css、js文件" />
     <MESSAGE value="增加设置初始化sql" />
-    <MESSAGE value="更新README.md" />
     <MESSAGE value="设置项同步配置文件修改、更改文件icon" />
     <MESSAGE value="增加复制功能" />
     <MESSAGE value="增加创建文件以及修改内容MCP工具" />
@@ -573,7 +581,8 @@
     <MESSAGE value="修复一些bug(更换模型日志，删除工具失效，样式问题)" />
     <MESSAGE value="优化think软标识、增加服务器Ollama地址同步修改,增加获取仓库地址工具" />
     <MESSAGE value="修复无法获取模型列表为空的bug，更新README.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="修复无法获取模型列表为空的bug，更新README.md" />
+    <MESSAGE value="更新README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="更新README.md" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
