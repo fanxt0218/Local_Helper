@@ -1,10 +1,12 @@
 <div align="center">
 
-# ✨Local_Helper
+<h1>✨Local_Helper</h1>
 
 </div>
+<span align="center">
+  <h2>🎉 欢迎下载项目 🎉</h2>
+</span>
 
-<h2 align="center">🎉 欢迎下载项目 🎉</h2>
 <div align="center">
 
 <a href="https://github.com/fanxt0218/Local_Helper" style="text-decoration: none">
@@ -35,9 +37,9 @@
 <span font-size="40px">
 https://github.com/fanxt0218/Local_Helper
 </span><br>
-<hr>
+<hr style="border: none; height: 0.2px">
 <h5>● 如果您觉得该开源项目对您有帮助，请给该项目点个star，谢谢！🌟</h5>
-<hr>
+<hr style="border: none; height: 0.2px">
 
 更详细的发开介绍 -->👉 <a href="https://blog.csdn.net/2402_84949062?spm=1011.2266.3001.5343">CSDN:Fanxt_Ja</a>  <--请访问我的主页
 
@@ -59,6 +61,15 @@ Java语言基于Springboot框架进行开发，软件集成Spring AI框架，持
     `ollama serve #默认启动`
 3.  <h6>点击启动即可</h6>
     <span color="red">须确保JDK版本>=17.0.5</span>
+
+#### 快速演示 ⚡
+<div align="center">
+
+![功能演示](local_helper_client/src/main/resources/static/imgs/local_helper使用教程1.gif)
+![功能演示](local_helper_client/src/main/resources/static/imgs/local_helper使用教程2.gif)
+
+
+</div>
 
 #### 使用说明☼🎁
 
@@ -165,14 +176,6 @@ Java语言基于Springboot框架进行开发，软件集成Spring AI框架，持
   * 在单个会话中你可以频繁地切换不同的模型，新的模型会继承该会话历史
 
 [//]: # (    <img alt="img_1.png" height="350" src="local_helper_client/src/main/resources/static/imgs/模型设置.png" width="500"/>)
-#### 快速演示 ⚡
-<div align="center">
-
-![功能演示](local_helper_client/src/main/resources/static/imgs/local_helper使用教程1.gif)
-![功能演示](local_helper_client/src/main/resources/static/imgs/local_helper使用教程2.gif)
-
-
-</div>
 
 
 ### 注意 📍
@@ -184,9 +187,9 @@ Java语言基于Springboot框架进行开发，软件集成Spring AI框架，持
 <h5>● 如果在使用过程中修改了服务地址，那么请先重启服务</h5>
 <h5>● 模型参数设置等能够在客户端进行修改的设置项，请尽量不要直接在配置文件中进行修改，以免造成数据不一致的情况</h5>
 <h5>● 由于项目仍在初期阶段，许多功能仍未完善</h5>
-<hr>
+<hr style="border: none; height: 0.2px">
 ♥项目会不断改进和维护，希望大家多多支持♥
-<hr>
+<hr style="border: none; height: 0.2px">
 
 #### 🤝参与贡献✉
 
