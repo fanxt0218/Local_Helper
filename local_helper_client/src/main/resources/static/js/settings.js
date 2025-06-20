@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
         min: 512,
         max: 4096,
         step: 1,
-        default: 4096,
+        default: 2048,
         tooltip: '模型一次生成的最大长度，单位为 token，一个中文字符对应 2 个 token。'
     });
     addSettingItem({
@@ -238,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="about-container">
                 <header class="about-header">
                     <h1 class="gradient-title">关于我们</h1>
-                    <p class="version-tag">Version 2.2.16</p>
+                    <p class="version-tag">Version 2.3.0</p>
                 </header>
                 
                 <div class="info-grid">
