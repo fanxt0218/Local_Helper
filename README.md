@@ -12,7 +12,7 @@
 <a href="https://github.com/fanxt0218/Local_Helper" style="text-decoration: none">
   <img height="23" src="https://img.shields.io/badge/_-GitHub-blue?logo=github&labelColor=grey" alt="GitHub">
 </a>
-<a href="https://gitee.com/fan_xt/Local_Helper" style="text-decoration: none">
+<a href="https://gitee.com/fan_xt/local_helper" style="text-decoration: none">
   <img height="23" src="https://img.shields.io/badge/_-Gitee-red?logo=gitee&labelColor=grey" alt="Gitee">
 </a>
 <br>
