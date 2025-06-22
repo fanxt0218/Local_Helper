@@ -4,7 +4,7 @@
 
 </div>
 <span align="center">
-  <h2>🎉 欢迎下载项目 🎉</h2>
+  <h2 align="center">🎉 欢迎下载项目 🎉</h2>
 </span>
 
 <div align="center">

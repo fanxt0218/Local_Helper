@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="更新README.md">
+    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="更新版本至2.3.0">
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/UserController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/mapper/UserMapper.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/UserService.java" afterDir="false" />
@@ -12,6 +12,7 @@
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/mapper/UserMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/update_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/update_log.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -253,7 +254,8 @@
       <workItem from="1750217794856" duration="215000" />
       <workItem from="1750228180667" duration="1016000" />
       <workItem from="1750311590277" duration="14063000" />
-      <workItem from="1750403327893" duration="6281000" />
+      <workItem from="1750403327893" duration="10771000" />
+      <workItem from="1750484881989" duration="5541000" />
     </task>
     <task id="LOCAL-00001" summary="2.0.0版本项目工程">
       <option name="closed" value="true" />
@@ -535,7 +537,23 @@
       <option name="project" value="LOCAL" />
       <updated>1750409029589</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="更新README.md">
+      <option name="closed" value="true" />
+      <created>1750409761259</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1750409761259</updated>
+    </task>
+    <task id="LOCAL-00037" summary="更新版本至2.3.0">
+      <option name="closed" value="true" />
+      <created>1750410441518</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1750410441518</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -565,7 +583,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="新增添加附件功能、新增设置项、优化了界面显示效果" />
     <MESSAGE value="支持对Excel、PDF文件的上传、优化布局、UI、解决了一些bug" />
     <MESSAGE value=" 修复文件上传错误,修复Excel文件解析问题,新增“关于我们”" />
     <MESSAGE value="更新Spring AI版本至1.0.0并修改适配。" />
@@ -590,7 +607,8 @@
     <MESSAGE value="优化think软标识、增加服务器Ollama地址同步修改,增加获取仓库地址工具" />
     <MESSAGE value="修复无法获取模型列表为空的bug，更新README.md" />
     <MESSAGE value="更新README.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="更新README.md" />
+    <MESSAGE value="更新版本至2.3.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="更新版本至2.3.0" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
