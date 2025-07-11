@@ -4,15 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="更新版本至2.3.0">
+    <list default="true" id="76965183-ec04-4793-8abc-924fd4bdbe23" name="更改" comment="更新README.md">
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/controller/UserController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/mapper/UserMapper.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/UserService.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/java/com/ai/service/impl/UserServiceImpl.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/local_helper_client/src/main/resources/mapper/UserMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/update_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/update_log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local_helper_client/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/local_helper_client/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,7 +148,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="HTTP 请求.LocalHelperApplication | #2">
+  <component name="RunManager" selected="Spring Boot.LocalHelperApplication">
     <configuration name="LocalHelperApplication | #2" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/LocalHelperApplication.http" index="2" requestIdentifier="#2" runType="运行单个请求">
       <method v="2" />
     </configuration>
@@ -256,6 +255,15 @@
       <workItem from="1750311590277" duration="14063000" />
       <workItem from="1750403327893" duration="10771000" />
       <workItem from="1750484881989" duration="5541000" />
+      <workItem from="1750556295384" duration="6131000" />
+      <workItem from="1750899123155" duration="288000" />
+      <workItem from="1750900727356" duration="722000" />
+      <workItem from="1751354912976" duration="4848000" />
+      <workItem from="1751432899995" duration="2589000" />
+      <workItem from="1751605776584" duration="7117000" />
+      <workItem from="1751959865849" duration="3977000" />
+      <workItem from="1752123142736" duration="4366000" />
+      <workItem from="1752199221710" duration="3499000" />
     </task>
     <task id="LOCAL-00001" summary="2.0.0版本项目工程">
       <option name="closed" value="true" />
@@ -553,7 +561,31 @@
       <option name="project" value="LOCAL" />
       <updated>1750410441518</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="更新README.md">
+      <option name="closed" value="true" />
+      <created>1750556379888</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1750556379889</updated>
+    </task>
+    <task id="LOCAL-00039" summary="修复Gitee访问404的问题">
+      <option name="closed" value="true" />
+      <created>1750561545317</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1750561545317</updated>
+    </task>
+    <task id="LOCAL-00040" summary="更新README.md">
+      <option name="closed" value="true" />
+      <created>1750899344764</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1750899344764</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -583,7 +615,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="支持对Excel、PDF文件的上传、优化布局、UI、解决了一些bug" />
     <MESSAGE value=" 修复文件上传错误,修复Excel文件解析问题,新增“关于我们”" />
     <MESSAGE value="更新Spring AI版本至1.0.0并修改适配。" />
     <MESSAGE value="优化使用特性，新增MCP添加项" />
@@ -606,9 +637,10 @@
     <MESSAGE value="修复一些bug(更换模型日志，删除工具失效，样式问题)" />
     <MESSAGE value="优化think软标识、增加服务器Ollama地址同步修改,增加获取仓库地址工具" />
     <MESSAGE value="修复无法获取模型列表为空的bug，更新README.md" />
-    <MESSAGE value="更新README.md" />
     <MESSAGE value="更新版本至2.3.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="更新版本至2.3.0" />
+    <MESSAGE value="修复Gitee访问404的问题" />
+    <MESSAGE value="更新README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="更新README.md" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
