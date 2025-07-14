@@ -238,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="about-container">
                 <header class="about-header">
                     <h1 class="gradient-title">关于我们</h1>
-                    <p class="version-tag">Version 2.3.2</p>
+                    <p class="version-tag">Version 2.3.3</p>
                 </header>
                 
                 <div class="info-grid">
