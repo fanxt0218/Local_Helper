@@ -205,7 +205,7 @@ async function sendMessage() {
         await fetch(`http://localhost:1618/ai/history/chat/${currentChatId}/${sid}`, {
             method: 'POST'
         });
-        loadChatHistory(); // 刷新会话列表
+        await loadChatHistory(); // 刷新会话列表
     }
     if (isSending) return;
     
@@ -248,7 +248,7 @@ async function sendMessage() {
         }
         //立即检测并显示警告
         const contextWarning = document.getElementById('contextWarning');
-        if (totalMessages >= 50 || totalChars >= 4000) {
+        if (totalMessages >= 50 || totalChars >= 8000) {
             contextWarning.style.display = 'flex';
         }
     } catch (error) {
@@ -652,7 +652,7 @@ function initSidebar() {
             const unusedSession = await findUnusedSession();
             if (unusedSession) {
                 // alert('存在未使用的会话，已自动跳转');
-                loadChatDetails(unusedSession);
+                await loadChatDetails(unusedSession);
                 return;
             }
 
@@ -672,7 +672,7 @@ function initSidebar() {
             chatMessages.innerHTML = '';
             // 加载历史记录并自动选中新会话
             await loadChatHistory(chatId); // 新增参数传递新会话ID
-            loadChatDetails(chatId); // 新增调用确保选中状态更新
+            await loadChatDetails(chatId); // 新增调用确保选中状态更新
 
             // 新增延时防止重复
             setTimeout(() => isCreating = false, 1000);
@@ -812,11 +812,13 @@ async function loadChatDetails(chatId) {
             });
 
         // 新增上下文长度检测
+        totalMessages = 0;  //使用前先刷新(保险起见)
+        totalChars = 0;
         const contextWarning = document.getElementById('contextWarning');
         totalMessages = messages.length;
         totalChars = messages.reduce((sum, msg) => sum + (msg.content?.length || 0), 0);
-        
-        if (totalMessages >= 50 || totalChars >= 4000) {
+
+        if (totalMessages >= 50 || totalChars >= 8000) {
             contextWarning.style.display = 'flex';
         } else {
             contextWarning.style.display = 'none';
