@@ -99,7 +99,7 @@ public class ModelMessageController {
         // 如果外部配置文件不存在则创建
         if (!Files.exists(configPath)) {
             Files.createDirectories(configPath.getParent());
-            try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("application.properties");) {
+            try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("application.properties")) {
                 Files.copy(inputStream, configPath);
             }
         }

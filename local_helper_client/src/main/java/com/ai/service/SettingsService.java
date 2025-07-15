@@ -1,6 +1,7 @@
 package com.ai.service;
 
 import com.ai.model.po.McpDo;
+import com.ai.model.po.SettingDO;
 import com.ai.model.po.Settings;
 
 import java.io.IOException;
@@ -19,4 +20,6 @@ public interface SettingsService {
     void mcpStatus(McpDo mcpDo) throws IOException;
 
     void deleteMcp(McpDo mcpDo) throws IOException;
+
+    List<SettingDO> getSettingList();
 }
