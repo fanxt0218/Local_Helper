@@ -104,6 +104,11 @@ public class SettingsServiceImpl implements SettingsService {
     }
 
     @Override
+    public List<SettingDO> getSettingList() {
+        return settingsMapper.selectList(null);
+    }
+
+    @Override
     public String addMcp(McpDo mcpDo) throws IOException {
         HashMap<String, Object> result = new HashMap<>();
 

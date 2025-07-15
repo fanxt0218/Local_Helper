@@ -26,6 +26,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
@@ -289,14 +291,17 @@ public class AiController {
                 String[] split = content.split("&");
                 String type = split[0].split("=")[1];
                 String path = split[1].split("=")[1];
+                //获取文件资源
+                Resource resource = new FileSystemResource(path);
+
                 if (MimeTypeUtils.IMAGE_JPEG_VALUE.equals(type)) {
-                    media.add(new Media(MimeTypeUtils.IMAGE_JPEG, new ClassPathResource(path)));     //图片文件jpeg
+                    media.add(new Media(MimeTypeUtils.IMAGE_JPEG, resource));     //图片文件jpeg
                 } else if (MimeTypeUtils.IMAGE_PNG_VALUE.equals(type)) {
-                    media.add(new Media(MimeTypeUtils.IMAGE_PNG, new ClassPathResource(path)));      //图片文件png
+                    media.add(new Media(MimeTypeUtils.IMAGE_PNG, resource));      //图片文件png
                 } else if (MimeTypeUtils.IMAGE_GIF_VALUE.equals(type)) {
-                    media.add(new Media(MimeTypeUtils.IMAGE_GIF, new ClassPathResource(path)));      //图片文件gif
+                    media.add(new Media(MimeTypeUtils.IMAGE_GIF, resource));      //图片文件gif
                 } else if (MimeTypeUtils.parseMimeType(type).toString().startsWith("audio")) {
-                    media.add(new Media(MimeTypeUtils.parseMimeType(type), new ClassPathResource(path))); //音频文件
+                    media.add(new Media(MimeTypeUtils.parseMimeType(type), resource)); //音频文件
                 }else {
                     throw new RuntimeException("不支持的文件类型");
                 }
