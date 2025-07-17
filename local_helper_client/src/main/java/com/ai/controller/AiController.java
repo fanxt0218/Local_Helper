@@ -9,6 +9,7 @@ import com.ai.model.po.SettingDO;
 import com.ai.model.vo.ChatDetailVo;
 import com.ai.service.ChatHistoryService;
 import com.ai.service.ModelMessageService;
+import com.ai.utils.MemoryFilter;
 import com.ai.utils.MessageFilter;
 import com.ai.utils.MemoryStorage;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -179,15 +180,7 @@ public class AiController {
         List<ChatDetail> chatDetails;
         LambdaQueryWrapper<ChatDetail> wrapper = new LambdaQueryWrapper<ChatDetail>().eq(ChatDetail::getChatId, chatId);
         //深度思考模型做出限制
-        if (modelName.contains("deepseek")){
-                wrapper
-                 .orderByDesc(ChatDetail::getId)
-                 .last("LIMIT 50");
-            chatDetails = chatDetailMapper.selectList(wrapper);
-            Collections.reverse(chatDetails);
-        }else {
-            chatDetails = chatDetailMapper.selectList(wrapper);
-        }
+        chatDetails = MemoryFilter.filterMemory(chatDetailMapper, wrapper, modelName);
         //将当前会话的信息保存到模型记忆上下文
         //清除其他会话记忆
         chatHistoryService.getChatIds(type).forEach(chat->chatMemory.clear(chat.getChatId()));
