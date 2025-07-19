@@ -11,6 +11,8 @@ import com.ai.utils.MessageFilter;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
+import org.springframework.ai.chat.messages.Message;
+import org.springframework.ai.chat.messages.ToolResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -101,6 +103,13 @@ public class InMemoryChatHistoryServiceImpl implements ChatHistoryService {
     }
 
     @Override
+    public ChatListVo getChatId(String chatId) {
+        Chat chat = chatMapper.selectById(chatId);
+        if (chat == null){return null;}
+        return new ChatListVo(chat.getId(),"",chat.getCreateTime(),chat.getModelName());
+    }
+
+    @Override
     public void deleteChatId(String type, String chatId) {
 //        if (chatHistory.containsKey(type)){
 //            List<String> chatIds = chatHistory.get(type);
@@ -133,5 +142,26 @@ public class InMemoryChatHistoryServiceImpl implements ChatHistoryService {
             chat.setCreateTime(chatListVo.getCreateTime());
             chatMapper.updateById(chat);
         }
+    }
+
+    @Override
+    public void saveChatDetail(String chatId, String type, Message content) {
+        if (content == null){
+            return;
+        }
+        ChatDetail chatDetail = new ChatDetail();
+        //判断类型-非工具类型
+        if (!type.equals("tool")){
+            chatDetail.setChatId(chatId);
+            chatDetail.setMessageType(type);
+            chatDetail.setContent(content.getText());
+            chatDetailMapper.insert(chatDetail);
+            return;
+        }
+        //工具类型特殊处理
+        //判断是否存在
+        List<ChatDetail> chatDetails = chatDetailMapper.selectList(new LambdaQueryWrapper<ChatDetail>().eq(ChatDetail::getChatId, chatId).eq(ChatDetail::getMessageType, type));
+        ToolResponseMessage toolResponseMessage = (ToolResponseMessage) content;
+//        new ToolResponseMessage(new ToolResponseMessage.ToolResponse())
     }
 }

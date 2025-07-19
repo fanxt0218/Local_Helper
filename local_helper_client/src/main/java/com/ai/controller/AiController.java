@@ -3,10 +3,9 @@ package com.ai.controller;
 import com.ai.mapper.ChatDetailMapper;
 import com.ai.mapper.SettingsMapper;
 import com.ai.model.dto.ButtonStatusDto;
-import com.ai.model.po.ChatDetail;
-import com.ai.model.po.GetRequest;
-import com.ai.model.po.SettingDO;
+import com.ai.model.po.*;
 import com.ai.model.vo.ChatDetailVo;
+import com.ai.model.vo.ChatListVo;
 import com.ai.service.ChatHistoryService;
 import com.ai.service.ModelMessageService;
 import com.ai.utils.MemoryFilter;
@@ -129,6 +128,12 @@ public class AiController {
         // 创建响应收集器,不断加载响应内容，用于在中断时保存已生成内容
         StringBuilder assistantResponse = new StringBuilder();
         System.out.println("调用"+modelName+"模型进行响应");
+        //更新会话模型名称
+        ChatListVo chatVo = chatHistoryService.getChatId(request.getChatId());
+        if (!chatVo.getModelName().equals(modelName)){
+            chatVo.setModelName(modelName);
+            chatHistoryService.updateChatId(chatVo);
+        }
         Flux<String> response;
         //多模态文件
         Prompt multiModalFile = new Prompt();
