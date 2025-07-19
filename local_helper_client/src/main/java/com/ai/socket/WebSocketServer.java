@@ -10,6 +10,7 @@ import jakarta.websocket.OnOpen;
 import jakarta.websocket.Session;
 import jakarta.websocket.server.PathParam;
 import jakarta.websocket.server.ServerEndpoint;
+import org.springframework.ai.chat.messages.AssistantMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -102,7 +103,7 @@ public class WebSocketServer {
                                 session.getBasicRemote().sendText("{\"chat\":\"服务繁忙,请稍后再试\"}");
                                 session.getBasicRemote().sendText("<end>");
                                 //每次响应完成后，调用方法将消息保存到数据库中
-                                aiController.saveChatHistory(request.getChatId(), "assistant", "服务繁忙,请稍后再试");
+                                aiController.saveChatHistory(request.getChatId(), "assistant", new AssistantMessage("服务繁忙,请稍后再试"));
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }

@@ -13,12 +13,16 @@ import com.ai.utils.MessageFilter;
 import com.ai.utils.MemoryStorage;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.modelcontextprotocol.client.McpAsyncClient;
+import org.apache.poi.ss.formula.functions.T;
 import org.reactivestreams.Subscription;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.ChatClientResponse;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.MessageWindowChatMemory;
 import org.springframework.ai.chat.messages.*;
+import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.ai.chat.model.Generation;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.content.Media;
 import org.springframework.ai.mcp.AsyncMcpToolCallbackProvider;
@@ -32,11 +36,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 //import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY;
 
@@ -164,12 +171,17 @@ public class AiController {
         return response.doOnNext(assistantResponse::append) // 追加到响应收集器中
 //                .doOnSubscribe(sub -> activeSubscriptions.put(request.getChatId(), sub)) // 直接存储Subscription
                 .doFinally(Message->{
+                    //TODO 从响应中获取AssistantMessage以及ToolResponseMessage并存储
                     //将响应信息存储到数据库
                     String type = "assistant"; //后续寻找如何获取响应类型
                     //将用户信息保存到数据库
-                    saveChatHistory(request.getChatId(),"user", finalUserMessage);
+                    saveChatHistory(request.getChatId(),"user", new UserMessage(finalUserMessage));
                     //将响应信息存储到数据库
-                    saveChatHistory(request.getChatId(),type, assistantResponse.toString());
+                    saveChatHistory(request.getChatId(),type, new AssistantMessage(assistantResponse.toString()));
+//                    List<ToolResponseMessage> toolMessage = chatMemory.get(request.getChatId()).stream().filter(message -> message.getMessageType().equals(MessageType.TOOL)).filter(message -> message instanceof ToolResponseMessage).map(message -> (ToolResponseMessage)message).toList();
+//                    saveChatHistory(request.getChatId(),"tool", toolMessage);
+//                    Flux<AssistantMessage> assistantMessageFlux = chatClient.prompt().stream().chatClientResponse().map(chatClientResponse -> chatClientResponse.chatResponse().getResult().getOutput());
+//                    Mono<List<AssistantMessage>> listMono = assistantMessageFlux.collectList();
                 });
     }
 
@@ -235,14 +247,15 @@ public class AiController {
 
 
     //将会话信息存储到数据库
-    public void saveChatHistory(String chatId, String type,  String content) {
-        ChatDetail chatDetail = new ChatDetail();
-        chatDetail.setChatId(chatId);
-        chatDetail.setMessageType(type);
-        chatDetail.setContent(content);
-        chatDetailMapper.insert(chatDetail);
+    public void saveChatHistory(String chatId, String type, Message content) {
+        chatHistoryService.saveChatDetail(chatId, type, content);
     }
 
+    public void saveChatHistory(String chatId, String type,  List<? extends Message> content) {
+        for (Message message : content) {
+            this.saveChatHistory(chatId, type, message);
+        }
+    }
 
     @Autowired
     private ModelMessageService modelMessageService;
