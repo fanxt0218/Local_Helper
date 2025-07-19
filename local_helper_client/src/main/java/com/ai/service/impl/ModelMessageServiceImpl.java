@@ -3,6 +3,7 @@ package com.ai.service.impl;
 import com.ai.config.ActuatorConfig;
 import com.ai.model.dto.ButtonStatusDto;
 import com.ai.service.ModelMessageService;
+import com.ai.utils.ModelTypeLists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.actuate.health.Health;
@@ -73,8 +74,7 @@ public class ModelMessageServiceImpl implements ModelMessageService {
 
     }
 
-    //TODO 扩展不支持工具的模型列表
-    ArrayList<String> UnSupportToolsModelNames = new ArrayList<>(List.of("deepseek-v3","qwen2.5vl","phi4","nomic-embed-text","llama2","codellama","gemma"));
+
     @Override
     public String checkButton(ButtonStatusDto buttonStatusDto,String modelName) {
         //按钮状态
@@ -82,7 +82,7 @@ public class ModelMessageServiceImpl implements ModelMessageService {
         String webButtonStatus = buttonStatusDto.getWebButtonStatus();
         String mcpButtonStatus = buttonStatusDto.getMcpButtonStatus();
         //判断是否支持工具
-        for (String e : UnSupportToolsModelNames) {
+        for (String e : ModelTypeLists.UnSupportToolsModelNames) {
             if (modelName.contains(e)){
                 //判断按钮状态
                 if (webButtonStatus.equals("1")){
@@ -96,10 +96,9 @@ public class ModelMessageServiceImpl implements ModelMessageService {
         return "OK";
     }
 
-    ArrayList<String> SupportMultiModalModelNames = new ArrayList<>(List.of("llama4","gemma3","qwen2.5vl","mistral-small3.1","llava","llama3.2-vision","minicpm-v","moondream","vision"));
     @Override
     public Boolean checkMultiModal(String modelName) {
-        for (String e : SupportMultiModalModelNames){
+        for (String e : ModelTypeLists.SupportMultiModalModelNames){
             if (modelName.contains(e)){
                 return true;
             }
