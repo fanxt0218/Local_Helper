@@ -171,11 +171,6 @@ public class AiController {
     //获取会话详情
     @GetMapping("/ai/history/{type}/{chatId}")
     public List<ChatDetailVo> getChatHistory(@PathVariable("type") String type, @PathVariable("chatId") String chatId){
-//        List<Message> messages = chatMemory.get(chatId, Integer.MAX_VALUE);
-//        if (messages == null){
-//            return null;
-//        }
-//        return messages.stream().map(ChatHistoryMessage::new).toList();
         //从数据库中查询会话详情
         List<ChatDetail> chatDetails;
         LambdaQueryWrapper<ChatDetail> wrapper = new LambdaQueryWrapper<ChatDetail>().eq(ChatDetail::getChatId, chatId);
