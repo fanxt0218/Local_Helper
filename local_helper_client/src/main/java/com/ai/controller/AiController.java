@@ -80,7 +80,7 @@ public class AiController {
 //    public AiController(ChatClient.Builder chatClient, List<McpAsyncClient> mcpASyncClients) {
 //        this.chatClient = chatClient
 //                .defaultAdvisors()
-////                .defaultTools(new AsyncMcpToolCallbackProvider(mcpASyncClients))
+//                .defaultTools(new AsyncMcpToolCallbackProvider(mcpASyncClients))
 //                .build();
 //        this.mcpASyncClients  = mcpASyncClients;
 //    }

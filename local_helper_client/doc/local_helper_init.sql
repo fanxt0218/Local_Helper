@@ -1,4 +1,5 @@
 /*该执行脚本用于初始化项目*/
+DROP DATABASE IF EXISTS local_helper;
 -- 创建数据库
 CREATE DATABASE IF NOT EXISTS local_helper
     DEFAULT CHARACTER SET utf8mb4
