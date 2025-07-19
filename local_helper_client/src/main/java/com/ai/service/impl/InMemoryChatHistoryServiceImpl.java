@@ -11,8 +11,10 @@ import com.ai.utils.MessageFilter;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
+import org.springframework.ai.chat.messages.AssistantMessage;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.ToolResponseMessage;
+import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -160,8 +162,8 @@ public class InMemoryChatHistoryServiceImpl implements ChatHistoryService {
         }
         //工具类型特殊处理
         //判断是否存在
-        List<ChatDetail> chatDetails = chatDetailMapper.selectList(new LambdaQueryWrapper<ChatDetail>().eq(ChatDetail::getChatId, chatId).eq(ChatDetail::getMessageType, type));
-        ToolResponseMessage toolResponseMessage = (ToolResponseMessage) content;
+//        List<ChatDetail> chatDetails = chatDetailMapper.selectList(new LambdaQueryWrapper<ChatDetail>().eq(ChatDetail::getChatId, chatId).eq(ChatDetail::getMessageType, type));
+//        ToolResponseMessage toolResponseMessage = (ToolResponseMessage) content;
 //        new ToolResponseMessage(new ToolResponseMessage.ToolResponse())
     }
 }
