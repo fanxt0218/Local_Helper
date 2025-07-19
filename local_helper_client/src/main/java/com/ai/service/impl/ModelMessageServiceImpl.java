@@ -82,15 +82,9 @@ public class ModelMessageServiceImpl implements ModelMessageService {
         String webButtonStatus = buttonStatusDto.getWebButtonStatus();
         String mcpButtonStatus = buttonStatusDto.getMcpButtonStatus();
         //判断是否支持工具
-        for (String e : ModelTypeLists.UnSupportToolsModelNames) {
-            if (modelName.contains(e)){
-                //判断按钮状态
-                if (webButtonStatus.equals("1")){
-                    return "当前模型暂不支持联网搜索";
-                }
-                if (mcpButtonStatus.equals("1")){
-                    return "当前模型暂不支持工具调用";
-                }
+        if (webButtonStatus.equals("1") || mcpButtonStatus.equals("1")) {
+            if (!ModelTypeLists.SupportToolsModelNames.contains(modelName)){
+                return webButtonStatus.equals("1") ? "该模型不支持联网搜索" : "该模型不支持工具调用";
             }
         }
         return "OK";

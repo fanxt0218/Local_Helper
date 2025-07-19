@@ -6,6 +6,7 @@ import com.ai.model.dto.ButtonStatusDto;
 import com.ai.model.po.*;
 import com.ai.model.vo.ChatDetailVo;
 import com.ai.model.vo.ChatListVo;
+import com.ai.service.AIService;
 import com.ai.service.ChatHistoryService;
 import com.ai.service.ModelMessageService;
 import com.ai.utils.MemoryFilter;
@@ -75,6 +76,8 @@ public class AiController {
     private ChatDetailMapper chatDetailMapper;
     @Autowired
     private SettingsMapper settingsMapper;
+    @Autowired
+    private AIService aiService;
 
 //    需要构造器注入
 //    public AiController(ChatClient.Builder chatClient, List<McpAsyncClient> mcpASyncClients) {
@@ -85,36 +88,11 @@ public class AiController {
 //        this.mcpASyncClients  = mcpASyncClients;
 //    }
 
-
-    String System_Prompt =
-            "你是一个AI助手，善于帮助用户回答问题，你需要按照以下要求进行响应" +
-            "【响应格式】" +
-            "1. 根据回答的内容，在合适的位置进行换行，保证格式的美观" +
-            "2. 以简体中文进行回答" +
-            "3. 在不得输出无意义的标签或符号" +
-            "4. 避免Markdown格式" +
-            "5. 流式响应时保持语义连贯" +
-            "【响应内容】" +
-            "1. 严格按照用户的问题进行输出，不得回答不相关的问题" +
-            "2. 禁止输出乱码内容，保证输出内容的合理性、合法性，符合常规语言的构成" +
-            "3. 如果用户以中文进行提问，在正常对话中请保持中文回复,需要用到其他语言场景时除外" +
-            "4. 如果用户提交了文件，例如输入中包含‘文件【xxx】’的字样，你需要首先分析文件内容,如果用户对文件有特殊要求，按照用户的需求进行分析" +
-            "【工具调用要求】" +
-            "1. 当需要多工具协作时，你需要首先思考并构建工具的调用流程，确保A工具的输出中包含B工具的输入" +
-            "2. 你可以尝试通过使用工具来帮助用户回答问题，请求时请严格按照json格式请求，如果工具响应为json格式，则进行解析" +
-            "3. 当用户的问题涉及到实时性信息时，你可以尝试调用联网搜索工具" +
-            "4. 对调用工具后的响应结果进行处理，处理为规范的格式和语言回复给用户" +
-            "5. 当调用查询天气的工具时，如果用户未提供地理位置，你需要先调用获取地理位置的工具，再选择使用哪一个天气查询工具，不同的天气查询工具需要的参数和格式不一致，你需要严格遵守" +
-            "【历史对话处理要求】" +
-            "1. 若发现上一次提问只有用户提问而没有回答，这表示回答被中断" +
-            "2. 遇到中断情况时：" +
-            "- 不主动延续未完成内容" +
-            "- 等待用户明确续问需求" +
-            "- 新回答需保持独立完整性";
-
     public Flux<String> chat(@RequestBody GetRequest request) {
         //用户消息
         String userMessage = request.getMessage();
+        //系统提示词
+        String System_Prompt = aiService.getSystemPrompt(modelName);
         //是否开启深度思考
         if (!request.getDeepThinkButtonStatus().equals("1")){
             userMessage = userMessage + "/no_think";       //暂时硬编码，等待Spring AI更新支持配置

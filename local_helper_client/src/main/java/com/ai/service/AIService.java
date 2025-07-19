@@ -7,4 +7,5 @@ public interface AIService {
     void sendToUser(String message);
 
 
+    String getSystemPrompt(String modelName);
 }
