@@ -94,7 +94,6 @@ public class FilesController {
         }
 
         // 创建Resource对象
-//        Resource resource =
         FileSystemResource fileSystemResource = new FileSystemResource(file);
         // 设置响应头
         return ResponseEntity.ok()

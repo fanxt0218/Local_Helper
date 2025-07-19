@@ -20,8 +20,6 @@ public class AIServiceImpl implements AIService {
     @Autowired
     private WebSocketServer webSocketServer;
 
-//    @Autowired
-//    private ChatDetailMapper chatDetailMapper;
 
     @Override
     public void sendToUser(String message) {
@@ -34,7 +32,4 @@ public class AIServiceImpl implements AIService {
         }
     }
 
-//    public void saveChatHistory(ChatDetail chat) {
-//        chatDetailMapper.saveChatHistory(chat);
-//    }
 }
