@@ -1,5 +1,7 @@
 package com.ai.service.impl;
 
+import com.ai.exception.CommonError;
+import com.ai.exception.LocalHelperException;
 import com.ai.service.FileParseService;
 import com.ai.utils.*;
 import org.springframework.stereotype.Service;
@@ -50,7 +52,9 @@ public class FileParseServiceImpl implements FileParseService {
                 return new AudioFileParser().parse(file); // 需实现音频解析器
             }
             //不支持的文件类型
-            throw new RuntimeException("不支持的文件类型");
+            throw new LocalHelperException(CommonError.FILETYPE_UNSUPPORT_ERROR.getErrMessage());
+        } catch (LocalHelperException e){
+            throw e;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
