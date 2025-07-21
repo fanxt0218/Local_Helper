@@ -34,7 +34,8 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public RestErrorResponse exception(Exception e){
         log.error("【系统异常】",e);
-        new Error(e.getMessage(), CommonError.RUNTIME_ERROR);
+        Error error = new Error(e.getMessage(), CommonError.RUNTIME_ERROR);
+        errorMapper.insert(error);
         return new RestErrorResponse(CommonError.UNKNOWN_ERROR.getErrMessage());
     }
 
