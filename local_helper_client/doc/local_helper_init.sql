@@ -50,6 +50,14 @@ create table mcp_settings(
     is_enable int not null default 0 comment '是否启用(0:禁用,1:启用)'
 );
 
+-- 创建错误日志表
+create table error_log(
+    id bigint not null auto_increment primary key comment '错误ID',
+    error_message varchar(1024) comment '错误信息',
+    error_type varchar(64) default 'UnDesign' comment '错误类型',
+    error_time datetime default current_timestamp comment '错误时间'
+);
+
 -- 插入初始设置数据
 insert into settings(setting_group,item,value) values
     ('通用设置','主题','浅色模式'),
