@@ -1,5 +1,9 @@
 package com.ai.factory;
 
+import com.ai.factory.util.ExpandPromptPack;
+
+import java.nio.file.Path;
+
 public class SystemPromptFactory {
 
     public final String defaultPrompt =
@@ -35,4 +39,10 @@ public class SystemPromptFactory {
     public String getDefaultPrompt() {
         return defaultPrompt;
     }
+
+    public String useExternalPrompt(String path, Boolean isSplicing) {
+        String externalPrompt = ExpandPromptPack.loadExpandPrompt(path);
+        return isSplicing ? externalPrompt + "\n" + defaultPrompt : externalPrompt;
+    }
+
 }
