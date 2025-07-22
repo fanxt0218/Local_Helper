@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
     addSettingItem({
         category: '通用设置',
         label: '清理缓存',
-        type: "button",
+        type: "bufferButton",
         tooltip: '清空缓存内容，包括上传的文件等临时内容，不会清理会话历史。'
     })
     
@@ -181,6 +181,12 @@ document.addEventListener('DOMContentLoaded', () => {
         label: 'Ollama服务地址',
         type: "text",
         default: 'http://127.0.0.1:11434'
+    });
+    addSettingItem({
+        category: '系统设置',
+        label: '错误日志',
+        type: "errLogButton",
+        tooltip: '导出应用在执行时的错误日志，用于排查和反馈问题。'
     });
 
     addSettingItem({
@@ -238,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="about-container">
                 <header class="about-header">
                     <h1 class="gradient-title">关于我们</h1>
-                    <p class="version-tag">Version 2.3.8</p>
+                    <p class="version-tag">Version 2.4.0</p>
                 </header>
                 
                 <div class="info-grid">
@@ -649,7 +655,7 @@ function createControlElement(config) {
             container.innerHTML = config.content;
             return { element: container };
          
-        case 'button':
+        case 'bufferButton':
             control = document.createElement('button');
             control.className = 'setting-input btn-clear-cache';
             control.textContent = '立即清理';
@@ -679,6 +685,16 @@ function createControlElement(config) {
             container.appendChild(control);
             break;
 
+        case 'errLogButton':
+            control = document.createElement('button');
+            control.className = 'setting-input btn-clear-cache';
+            control.textContent = '导出错误日志';
+            // 添加点击事件
+            control.addEventListener('click', () => {
+                exportErrorLog();
+            });
+            container.appendChild(control);
+            break;
         default:
             control = document.createElement('input');
             control.className = 'setting-input';
@@ -950,3 +966,42 @@ function updateInitialValues() {
     });
 }
 
+function exportErrorLog() {
+    fetch('http://localhost:1618/log/download/errLog')
+        .then(response => {
+            // 从响应头中获取文件名
+            const contentDisposition = response.headers.get('Content-Disposition');
+            let filename = 'users_export.txt'; // 默认文件名
+
+            // 尝试解析响应头中的文件名
+            if (contentDisposition) {
+                const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                const matches = filenameRegex.exec(contentDisposition);
+                if (matches && matches[1]) {
+                    // 移除文件名两端的引号
+                    filename = matches[1].replace(/['"]/g, '');
+                }
+            }
+
+            return response.blob().then(blob => ({ blob, filename }));
+        })
+        .then(({ blob, filename }) => {
+            // 创建下载链接
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;  // 使用服务端指定的文件名
+            document.body.appendChild(a);
+            a.click();
+
+            // 清理资源
+            setTimeout(() => {
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, 100);
+        })
+        .catch(error => {
+            console.error('导出错误日志失败:', error);
+            alert('导出错误日志失败，请检查控制台');
+        });
+}
