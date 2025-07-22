@@ -24,13 +24,13 @@ public class LogServiceImpl implements LogService {
         List<Error> errorsLogs = errorMapper.selectList(null);
         //错误日志
         StringBuilder errLogs = new StringBuilder();
-        errLogs.append("  Time         Type          Message"+"\n");
-        errLogs.append("==========================================="+"\n");
+        errLogs.append("          Time                                 Type                         Message"+"\n");
+        errLogs.append("=========================================================================================="+"\n");
         for (Error error : errorsLogs) {
             errLogs.append(error.getErrorTime()).append("         ").append(error.getErrorType()).append("          ").append(error.getErrorMessage()).append("\n");
         }
         //创建临时文件
-        File tempFile = File.createTempFile("errLogs_" + new Date().getTime(), ".txt");
+        File tempFile = File.createTempFile("errLog_" + new Date().getTime(), ".txt");
         FileUtils.writeStringToFile(tempFile,errLogs.toString(), StandardCharsets.UTF_8);
         return tempFile;
     }
