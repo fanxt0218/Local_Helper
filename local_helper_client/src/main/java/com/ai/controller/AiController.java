@@ -155,7 +155,7 @@ public class AiController {
                     //将用户信息保存到数据库
                     saveChatHistory(request.getChatId(),"user", new UserMessage(finalUserMessage));
                     //将响应信息存储到数据库
-//                    saveChatHistory(request.getChatId(),type, new AssistantMessage(assistantResponse.toString()));
+                    saveChatHistory(request.getChatId(),type, new AssistantMessage(assistantResponse.toString()));
 //                    List<ToolResponseMessage> toolMessage = chatMemory.get(request.getChatId()).stream().filter(message -> message.getMessageType().equals(MessageType.TOOL)).filter(message -> message instanceof ToolResponseMessage).map(message -> (ToolResponseMessage)message).toList();
 //                    saveChatHistory(request.getChatId(),"tool", toolMessage);
 //                    Flux<AssistantMessage> assistantMessageFlux = chatClient.prompt().stream().chatClientResponse().map(chatClientResponse -> chatClientResponse.chatResponse().getResult().getOutput());

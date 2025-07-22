@@ -6,7 +6,7 @@ public class LocalHelperException extends RuntimeException{
 
     private String errMessage;
 
-    private Enum<CommonError> errorType;
+    private CommonError errorType;
 
     public LocalHelperException(){}
 
@@ -15,7 +15,7 @@ public class LocalHelperException extends RuntimeException{
         this.errMessage = errMessage;
     }
 
-    public LocalHelperException(String errMessage, Enum<CommonError> errorType){
+    public LocalHelperException(String errMessage, CommonError errorType){
         super(errMessage);
         this.errMessage = errMessage;
         this.errorType = errorType;
@@ -33,7 +33,7 @@ public class LocalHelperException extends RuntimeException{
         this.errMessage = errMessage;
     }
 
-    public Enum<CommonError> getErrorType() {
+    public CommonError getErrorType() {
         return errorType;
     }
 

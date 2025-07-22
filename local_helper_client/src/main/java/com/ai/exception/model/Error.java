@@ -24,12 +24,12 @@ public class Error {
 
     @EnumValue
     //异常类型
-    private Enum<CommonError> errorType;
+    private CommonError errorType;
 
     //触发异常时间
     private LocalDateTime errorTime;
 
-    public Error(String errorMessage, Enum<CommonError> errorType) {
+    public Error(String errorMessage, CommonError errorType) {
         this.errorMessage = errorMessage;
         this.errorType = errorType;
         this.errorTime = LocalDateTime.now();
