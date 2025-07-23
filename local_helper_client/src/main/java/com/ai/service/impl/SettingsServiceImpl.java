@@ -5,6 +5,7 @@ import com.ai.mapper.SettingsMapper;
 import com.ai.model.po.*;
 import com.ai.service.ModelMessageService;
 import com.ai.service.SettingsService;
+import com.ai.sseConnect.CreateSSE;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.servers.Server;
@@ -39,6 +40,8 @@ public class SettingsServiceImpl implements SettingsService {
     private ModelMessageService  modelMessageService;
     @Autowired
     private ObjectMapper objectMapper;
+    @Autowired
+    private CreateSSE createSSE;
 
     @Override
     public Settings getSettings() {
@@ -146,6 +149,12 @@ public class SettingsServiceImpl implements SettingsService {
         mcpDoMapper.updateById(mcpDo);
         //根据状态修改MCP服务配置文件
         updateMCPServer( mcpDo);
+        String endpoint = mcpDo.getEndPoint().isEmpty()? "/sse" : mcpDo.getEndPoint();
+        if (mcpDo.getIsEnable() == 1){
+            createSSE.connectToMCPSSE(mcpDo.getUrl() + endpoint);
+        }else {
+            createSSE.disconnect(mcpDo.getUrl() + endpoint);
+        }
     }
 
     @Override
@@ -157,6 +166,9 @@ public class SettingsServiceImpl implements SettingsService {
         mcpDoMapper.deleteById(mcpDo);
         //删除配置文件中的MCP服务
         deleteMcpServer(mcpDo1);
+        //断开连接
+        String endpoint = mcpDo.getEndPoint().isEmpty()? "/sse" : mcpDo.getEndPoint();
+        createSSE.disconnect(mcpDo1.getUrl() + endpoint);
     }
 
 
