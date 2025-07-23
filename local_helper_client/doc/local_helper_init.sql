@@ -70,8 +70,8 @@ insert into settings(setting_group,item,value) values
     ('模型设置','Top-K','40');
 
 -- 插入初始MCP服务设置数据
-insert into mcp_settings(id,name,url,is_enable) values
-    (1,'默认服务','http://127.0.0.1:11434',1);
+insert into mcp_settings(id,name,url,is_enable,end_point) values
+    (1,'默认服务','http://127.0.0.1:11434',1,'');
 
 -- 创建索引（提升查询性能）
 CREATE INDEX idx_settings_group ON settings(setting_group);

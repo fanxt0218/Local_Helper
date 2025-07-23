@@ -41,7 +41,7 @@ public class LocalHelperException extends RuntimeException{
         throw new LocalHelperException(message);
     }
 
-    public static void cast(CommonError error){
-        throw new LocalHelperException(error.getErrMessage(), error);
+    public static void cast(String errMessage,CommonError error){
+        throw new LocalHelperException(errMessage, error);
     }
 }
