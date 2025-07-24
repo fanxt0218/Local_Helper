@@ -43,6 +43,10 @@ public class CreateSSE {
 
 
     public void connectToMCPSSE(String uri) {
+        //检查是否连接
+        if (connections.containsKey(uri) && !connections.get(uri).isDisposed()) {
+            return;
+        }
         System.out.println("⌛ Connecting to SSE endpoint: " + uri);
         Flux<String> eventStream = webClient.get()
                 .uri(uri)
