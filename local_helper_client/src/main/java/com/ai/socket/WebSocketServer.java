@@ -64,6 +64,7 @@ public class WebSocketServer {
         sessionMap.put(sid.toString(), session);
         aiController = context.getBean(AiController.class);
         objectMapper = context.getBean(ObjectMapper.class);
+        settingsMapper = context.getBean(SettingsMapper.class);
     }
 
     /**
