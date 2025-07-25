@@ -1,5 +1,7 @@
 package com.ai.service.impl;
 
+import com.ai.exception.CommonError;
+import com.ai.exception.LocalHelperException;
 import com.ai.mapper.McpDoMapper;
 import com.ai.mapper.SettingsMapper;
 import com.ai.model.po.*;
@@ -93,7 +95,7 @@ public class SettingsServiceImpl implements SettingsService {
                 settingDO.setItem(itemName);
                 settingDO.setValue(value);
                 settingsMapper.update(settingDO, new LambdaQueryWrapper<SettingDO>().eq(SettingDO::getSettingGroup, groupName).eq(SettingDO::getItem, itemName));
-                if (settingDO.getItem().equals("系统提示词")){continue;} // 跳过系统提示词
+                if (settingDO.getItem().equals("系统提示词") || settingDO.getItem().equals("超时时间")){continue;} // 跳过系统提示词
                 settingDOS.add(settingDO);
             }
         }
@@ -205,7 +207,7 @@ public class SettingsServiceImpl implements SettingsService {
                 case "top-p" -> "top-p";
                 case "top-k" -> "top-k";
                 case "Ollama服务地址" -> "base-url";
-                default -> throw new RuntimeException("未知的设置项");
+                default -> throw new LocalHelperException("未知的配置项"+itemName, CommonError.Unknown_SETTING_Error);
             };
             lines = lines.stream()
                     .map(line -> line.startsWith(preConfigStr+endConfigStr) ?
