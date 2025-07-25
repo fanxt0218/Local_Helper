@@ -1,8 +1,11 @@
 package com.ai.socket;
 
 import com.ai.controller.AiController;
+import com.ai.mapper.SettingsMapper;
 import com.ai.model.po.GetRequest;
+import com.ai.model.po.SettingDO;
 import com.ai.utils.MessageFilter;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.websocket.OnClose;
 import jakarta.websocket.OnMessage;
@@ -21,6 +24,7 @@ import java.time.Duration;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeoutException;
 
 @Component
 @ServerEndpoint("/ai/response/{sid}")
@@ -40,6 +44,9 @@ public class WebSocketServer {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @Autowired
+    private SettingsMapper settingsMapper;
 
     @Autowired
     public void setApplicationContext(ApplicationContext context) {
@@ -74,13 +81,15 @@ public class WebSocketServer {
         GetRequest request = objectMapper.readValue(message, GetRequest.class);
         System.out.println("收到客户端消息：" + request);
 
+        int time_out = Integer.parseInt(settingsMapper.selectOne(new LambdaQueryWrapper<SettingDO>().eq(SettingDO::getSettingGroup, "模型设置").eq(SettingDO::getItem, "超时时间")).getValue());
+
         // 获取流式响应
-        Flux<String> responseFlux = aiController.chat(request);
-//                .timeout(Duration.ofMinutes(3))// 设置超时时间3分钟;
-//                .onErrorResume(TimeoutException.class, e -> {
-//            return Flux.just("{\"chat\":\"服务响应超时，请稍后再试，或检查ollama是否可达\"}\n" +
-//                    "<end>");
-//        });  //默认超时消息
+        Flux<String> responseFlux = aiController.chat(request)
+                .timeout(Duration.ofMinutes(time_out))// 设置超时时间3分钟;
+                .onErrorResume(TimeoutException.class, e -> {
+            return Flux.just("{\"chat\":\"服务响应超时，请稍后再试，或检查ollama是否可达\"}\n" +
+                    "<end>");
+        });  //默认超时消息
 
         // 订阅响应流
         responseFlux

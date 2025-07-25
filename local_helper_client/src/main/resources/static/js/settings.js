@@ -216,6 +216,17 @@ document.addEventListener('DOMContentLoaded', () => {
         tooltip: '系统提示词是模型的初始提示词，影响模型的行为和输出风格。可以根据需要进行调整。'
     });
     addSettingItem({
+        category: '模型设置',
+        label: '超时时间',
+        type: "range",
+        min: 1,
+        max: 60,
+        step: 1,
+        default: 60,
+        tooltip: '模型响应的最长时间，若超过这个时间仍未回复，则自动停止'
+    });
+
+    addSettingItem({
        category: '模型设置',
        label: 'top-p',
        type: 'range',
@@ -244,7 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="about-container">
                 <header class="about-header">
                     <h1 class="gradient-title">关于我们</h1>
-                    <p class="version-tag">Version 2.4.2</p>
+                    <p class="version-tag">Version 2.4.3</p>
                 </header>
                 
                 <div class="info-grid">
