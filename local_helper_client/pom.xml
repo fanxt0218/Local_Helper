@@ -26,7 +26,7 @@
     </scm>
     <properties>
         <java.version>17</java.version>
-        <spring-ai.version>1.1.0-SNAPSHOT</spring-ai.version>
+        <spring-ai.version>1.1.0-M1</spring-ai.version>
         <org.projectlombok.version>1.18.30</org.projectlombok.version>
         <fastjson>1.2.76</fastjson>
         <jackson.version>2.17.1</jackson.version>
@@ -127,6 +127,11 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
             <version>6.2.6</version> <!-- 使用您的实际版本 -->
+        </dependency>
+        <!--  RAG      -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-advisors-vector-store</artifactId>
         </dependency>
     </dependencies>
     <dependencyManagement>

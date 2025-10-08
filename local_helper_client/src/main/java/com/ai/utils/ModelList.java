@@ -89,6 +89,11 @@ public class ModelList {
     //获取ollama模型列表（最新方法）
     public List<String> listModels() {
         String URL = settingsMapper.selectOne(new LambdaQueryWrapper<SettingDO>().eq(SettingDO::getItem, "Ollama服务地址")).getValue();
+
+        // 验证URL格式，如果URL不包含协议，则添加默认的http://
+        if (URL != null && !URL.isEmpty() && !URL.contains("://")) {
+            URL = "http://" + URL;
+        }
         restClient = RestClient.builder().baseUrl(URL).build();
 
         OllamaApi.ListModelResponse response = restClient.get().uri("/api/tags").retrieve().body(OllamaApi.ListModelResponse.class);

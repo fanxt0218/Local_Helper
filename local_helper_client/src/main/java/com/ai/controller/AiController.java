@@ -19,6 +19,7 @@ import org.reactivestreams.Subscription;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.ChatClientResponse;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
+import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.MessageWindowChatMemory;
 import org.springframework.ai.chat.messages.*;
@@ -27,6 +28,7 @@ import org.springframework.ai.chat.model.Generation;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.content.Media;
 import org.springframework.ai.mcp.AsyncMcpToolCallbackProvider;
+import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -63,9 +65,11 @@ public class AiController {
     private  List<McpAsyncClient> mcpASyncClients;
     private  ChatMemory chatMemory = MessageWindowChatMemory.builder().maxMessages(50).build();
 
-    public AiController(ChatClient.Builder chatClient, List<McpAsyncClient> mcpASyncClients) {
+    public AiController(ChatClient.Builder chatClient, List<McpAsyncClient> mcpASyncClients, VectorStore vectorStore) {
         this.chatClient = chatClient
-                .defaultAdvisors(MessageChatMemoryAdvisor.builder(chatMemory).build())
+                .defaultAdvisors(
+                        MessageChatMemoryAdvisor.builder(chatMemory).build(),
+                        QuestionAnswerAdvisor.builder(vectorStore).build())
                 .build();
         this.mcpASyncClients = mcpASyncClients;
     }
